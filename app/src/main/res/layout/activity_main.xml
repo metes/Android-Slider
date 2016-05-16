@@ -9,66 +9,73 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".ui.MainActivity">
 
-    <ImageView
-        android:layout_width="100dp"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/imageViewRight1"
-        android:src="@drawable/avatar"
-        android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/imageViewCenter"
-        android:layout_toEndOf="@+id/imageViewCenter" />
+        android:background="@color/colorAccent">
 
-    <ImageView
-        android:layout_width="140dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageViewCenter"
-        android:src="@drawable/avatar"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        <ImageView
+            android:id="@+id/imageViewRight1"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/imageViewCenter"
+            android:layout_toRightOf="@+id/imageViewCenter"
+            android:src="@drawable/avatar" />
+
+        <ImageView
+            android:id="@+id/imageViewCenter"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/avatar" />
 
 
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageViewRight2"
-        android:src="@drawable/avatar"
-        android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/imageViewCenter"
-        android:layout_toEndOf="@+id/imageViewCenter" />
+        <ImageView
+            android:id="@+id/imageViewRight2"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/imageViewCenter"
+            android:layout_toRightOf="@+id/imageViewCenter"
+            android:src="@drawable/avatar" />
 
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageViewLeft1"
-        android:src="@drawable/avatar"
-        android:layout_centerVertical="true"
-        android:layout_toLeftOf="@+id/imageViewCenter"
-        android:layout_toStartOf="@+id/imageViewCenter" />
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageViewLeft2"
-        android:src="@drawable/avatar"
-        android:layout_centerVertical="true"
-        android:layout_toLeftOf="@+id/imageViewCenter"
-        android:layout_toStartOf="@+id/imageViewCenter" />
+        <ImageView
+            android:id="@+id/imageViewLeft1"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/imageViewCenter"
+            android:layout_toStartOf="@+id/imageViewCenter"
+            android:src="@drawable/avatar" />
+
+        <ImageView
+            android:id="@+id/imageViewLeft2"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/imageViewCenter"
+            android:layout_toStartOf="@+id/imageViewCenter"
+            android:src="@drawable/avatar" />
+    </RelativeLayout>
 
     <Button
+        android:id="@+id/buttonRight"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="94dp"
         android:layout_height="wrap_content"
-        android:text="Right"
-        android:id="@+id/buttonRight"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:text="Right" />
 
     <Button
+        android:id="@+id/buttonLeft"
         android:layout_width="94dp"
         android:layout_height="wrap_content"
-        android:text="Left"
-        android:id="@+id/buttonLeft"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:text="Left" />
 </RelativeLayout>
