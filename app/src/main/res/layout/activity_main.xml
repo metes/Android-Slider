@@ -14,19 +14,29 @@
         android:layout_height="wrap_content"
         android:background="@color/colorAccent">
 
+
         <ImageView
             android:id="@+id/imageViewRight1"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/imageViewCenter"
-            android:layout_toRightOf="@+id/imageViewCenter"
-            android:src="@drawable/avatar" />
+            android:layout_toEndOf="@+id/frameLayoutCenterVertical"
+            android:src="@drawable/avatar"
+            android:layout_toRightOf="@+id/frameLayoutCenterVertical" />
+
+        <ImageView
+            android:id="@+id/imageViewLeft1"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/avatar"
+            android:layout_alignRight="@+id/imageViewLeft2"
+            android:layout_alignEnd="@+id/imageViewLeft2" />
 
         <ImageView
             android:id="@+id/imageViewCenter"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:src="@drawable/avatar" />
@@ -37,27 +47,28 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/imageViewCenter"
-            android:layout_toRightOf="@+id/imageViewCenter"
-            android:src="@drawable/avatar" />
+            android:layout_toEndOf="@+id/frameLayoutCenterVertical"
+            android:src="@drawable/avatar"
+            android:layout_toRightOf="@+id/frameLayoutCenterVertical" />
 
-        <ImageView
-            android:id="@+id/imageViewLeft1"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/imageViewCenter"
-            android:layout_toStartOf="@+id/imageViewCenter"
-            android:src="@drawable/avatar" />
+
 
         <ImageView
             android:id="@+id/imageViewLeft2"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/imageViewCenter"
-            android:layout_toStartOf="@+id/imageViewCenter"
-            android:src="@drawable/avatar" />
+            android:layout_toStartOf="@+id/frameLayoutCenterVertical"
+            android:src="@drawable/avatar"
+            android:layout_toLeftOf="@+id/frameLayoutCenterVertical" />
+
+
+        <FrameLayout
+            android:id="@+id/frameLayoutCenterVertical"
+            android:layout_width="10dp"
+            android:layout_height="150dp"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"></FrameLayout>
     </RelativeLayout>
 
     <Button
@@ -78,4 +89,5 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:text="Left" />
+
 </RelativeLayout>

@@ -16,9 +16,13 @@ import com.resimlerleingilizce.ui.MainActivity.*;
  */
 public class AnimateUtils {
     private final static int ANIMATION_DURATION = 1000;
-    public static float ANIMATION_TRANSLATE_X_POSITION_CENTER = 500f;
-    public static float ANIMATION_TRANSLATE_X_POSITION_SIDE = 495f;
-    public final static float ANIMATION_SCALE_SIZE_MULTIPLER =  1.80f;
+//    public static float ANIMATION_TRANSLATE_X_POSITION_CENTER = 500f;
+//    public static float ANIMATION_TRANSLATE_X_POSITION_SIDE = 495f;
+//    public final static float ANIMATION_SCALE_SIZE_MULTIPLER =  1.80f;
+
+    private final static float ANIMATION_TRANSLATE_X_POSITION_SIDE = 80.0f;
+    private final static float ANIMATION_TRANSLATE_X_POSITION_CENTER = 80.0f;
+    private final static float ANIMATION_SCALE_SIZE_MULTIPLER =  1.4f;
 
     public static AnimationSet setAnimation(final View view, AnimationTypes animeType) {
         view.requestLayout();
@@ -70,7 +74,7 @@ public class AnimateUtils {
             case LEFT_TO_CENTER:
                 Logy.l("setAnimation LEFT_TO_CENTER");
                 // Scale
-                scaleAnimation =  new ScaleAnimation(1f, 0.92f * ANIMATION_SCALE_SIZE_MULTIPLER, 1f, 0.92f * ANIMATION_SCALE_SIZE_MULTIPLER, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+                scaleAnimation =  new ScaleAnimation(1f, 1f * ANIMATION_SCALE_SIZE_MULTIPLER, 1f, 1f * ANIMATION_SCALE_SIZE_MULTIPLER, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
                 scaleAnimation.setDuration(ANIMATION_DURATION);     // translateAnimation duration in milliseconds
                 scaleAnimation.setFillAfter(true);    // If fillAfter is true, the transformation that this translateAnimation performed will persist when it is finished.
                 // Translate
@@ -91,7 +95,8 @@ public class AnimateUtils {
             case RIGHT_TO_CENTER:
                 Logy.l("setAnimation RIGHT_TO_CENTER");
                 // Scale
-                scaleAnimation =  new ScaleAnimation(1f, 0.92f * ANIMATION_SCALE_SIZE_MULTIPLER, 1f, 0.92f * ANIMATION_SCALE_SIZE_MULTIPLER, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+                scaleAnimation =  new ScaleAnimation(1f, 1f * ANIMATION_SCALE_SIZE_MULTIPLER, 1f, 1f * ANIMATION_SCALE_SIZE_MULTIPLER, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+                //scaleAnimation =  new ScaleAnimation(1f, 0.92f * ANIMATION_SCALE_SIZE_MULTIPLER, 1f, 0.92f * ANIMATION_SCALE_SIZE_MULTIPLER, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
                 scaleAnimation.setDuration(ANIMATION_DURATION);     // translateAnimation duration in milliseconds
                 scaleAnimation.setFillAfter(true);    // If fillAfter is true, the transformation that this translateAnimation performed will persist when it is finished.
                 // Translate
@@ -151,14 +156,6 @@ public class AnimateUtils {
         }
     }
 }
-
-
-
-
-
-
-
-
 
 
 

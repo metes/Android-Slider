@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+        // 2'ler center'ın üzerinde, 1'ler altında kalıyor
         mImgLeft2.setAlpha(1f);
         mImgRight1.setAlpha(1f);
         if (v.getId() == R.id.buttonRight)
