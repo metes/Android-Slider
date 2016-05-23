@@ -15,13 +15,13 @@ import com.resimlerleingilizce.ui.MainActivity.*;
  * Created by Mete on 23.03.2016.
  */
 public class AnimateUtils {
-    private final static int ANIMATION_DURATION = 1000;
+    private final static int ANIMATION_DURATION = 800;
 //    public static float ANIMATION_TRANSLATE_X_POSITION_CENTER = 500f;
 //    public static float ANIMATION_TRANSLATE_X_POSITION_SIDE = 495f;
 //    public final static float ANIMATION_SCALE_SIZE_MULTIPLER =  1.80f;
 
-    private final static float ANIMATION_TRANSLATE_X_POSITION_SIDE = 80.0f;
-    private final static float ANIMATION_TRANSLATE_X_POSITION_CENTER = 80.0f;
+    private final static float ANIMATION_TRANSLATE_X_POSITION_SIDE = 300.0f;
+    private final static float ANIMATION_TRANSLATE_X_POSITION_CENTER = 300.0f;
     private final static float ANIMATION_SCALE_SIZE_MULTIPLER =  1.4f;
 
     public static AnimationSet setAnimation(final View view, AnimationTypes animeType) {

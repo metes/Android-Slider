@@ -21,7 +21,8 @@
             android:layout_height="100dp"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/frameLayoutCenterVertical"
-            android:src="@drawable/avatar"
+            android:src="@android:color/transparent"
+            android:background="@android:color/transparent"
             android:layout_toRightOf="@+id/frameLayoutCenterVertical" />
 
         <ImageView
@@ -29,9 +30,11 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_centerVertical="true"
-            android:src="@drawable/avatar"
+            android:src="@android:color/transparent"
+            android:background="@android:color/transparent"
             android:layout_alignRight="@+id/imageViewLeft2"
             android:layout_alignEnd="@+id/imageViewLeft2" />
+
 
         <ImageView
             android:id="@+id/imageViewCenter"
@@ -39,7 +42,9 @@
             android:layout_height="140dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/avatar" />
+            android:src="@drawable/ic_category_1"
+            android:background="@android:color/transparent"/>
+
 
 
         <ImageView
@@ -48,7 +53,8 @@
             android:layout_height="100dp"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/frameLayoutCenterVertical"
-            android:src="@drawable/avatar"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_category_2"
             android:layout_toRightOf="@+id/frameLayoutCenterVertical" />
 
 
@@ -59,13 +65,25 @@
             android:layout_height="100dp"
             android:layout_centerVertical="true"
             android:layout_toStartOf="@+id/frameLayoutCenterVertical"
-            android:src="@drawable/avatar"
+            android:src="@drawable/ic_category_5"
+            android:background="@android:color/transparent"
             android:layout_toLeftOf="@+id/frameLayoutCenterVertical" />
+
+
+
+        <ImageView
+            android:id="@+id/imageViewCenter2"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_category_1"
+            android:background="@android:color/transparent"/>
 
 
         <FrameLayout
             android:id="@+id/frameLayoutCenterVertical"
-            android:layout_width="10dp"
+            android:layout_width="80dp"
             android:layout_height="150dp"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"></FrameLayout>
