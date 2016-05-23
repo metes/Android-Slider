@@ -1,21 +1,31 @@
 package com.resimlerleingilizce.ui;
 
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
+import android.view.animation.ScaleAnimation;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.resimlerleingilizce.R;
 import com.resimlerleingilizce.utils.AnimateUtils;
 import com.resimlerleingilizce.utils.Logy;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, View.OnTouchListener {
     private boolean isMImgCenter2Visible;
     private int mCategoryPosition;
-    private ImageView mImgCenter1, mImgCenter2, mImgRight1, mImgRight2, mImgLeft1, mImgLeft2;
-    private int[] IMAGE_RESOURCE_IDS = { R.drawable.ic_category_1, R.drawable.ic_category_2, R.drawable.ic_category_3,
+    private ImageView mImgCenter1, mImgCenter2, mImgRight1, mImgRight2, mImgLeft1, mImgLeft2, mImgCategoryLabel;
+    private Button mButtonPlay;
+    private Typeface mTtypeface;
+    private int[] CATEGORY_IMAGE_RESOURCE_IDS = { R.drawable.ic_category_1, R.drawable.ic_category_2, R.drawable.ic_category_3,
             R.drawable.ic_category_4, R.drawable.ic_category_5 };
+    private int[] CATEGORY_STRING_RESOURCE_IDS = { R.drawable.ic_category_hayvanlar, R.drawable.ic_category_meyvevesebze, R.drawable.ic_category_yiyecekler,
+            R.drawable.ic_category_dunya, R.drawable.ic_category_giysiler };
+
+
 
     public enum AnimationTypes {
         CENTER_TO_RIGHT,
@@ -39,12 +49,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onResume(){
         super.onResume();
         if (mCategoryPosition >0) {
-            mImgCenter2.setImageDrawable(getResources().getDrawable(IMAGE_RESOURCE_IDS[mCategoryPosition]));
+            mImgCenter2.setImageDrawable(getResources().getDrawable(CATEGORY_IMAGE_RESOURCE_IDS[mCategoryPosition]));
         }
         mImgCenter2.setVisibility(View.VISIBLE);
         isMImgCenter2Visible = true;
     }
-
 
     private void initViews() {
         mImgCenter1 = (ImageView) findViewById(R.id.imageViewCenter);
@@ -53,64 +62,91 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mImgLeft2 = (ImageView) findViewById(R.id.imageViewLeft1);
         mImgRight2 = (ImageView) findViewById(R.id.imageViewRight2);
         mImgLeft1 = (ImageView) findViewById(R.id.imageViewLeft2);
+        mImgCategoryLabel = (ImageView) findViewById(R.id.imageViewCategoryLabel);
+        mButtonPlay = (Button) findViewById(R.id.buttonPlay);
 
-        findViewById(R.id.buttonRight).setOnClickListener(this);
-        findViewById(R.id.buttonLeft).setOnClickListener(this);
+        findViewById(R.id.imageButtonRight).setOnClickListener(this);
+        findViewById(R.id.imageButtonLeft).setOnClickListener(this);
+
+        mButtonPlay.setOnTouchListener(this);
+
+        mTtypeface = Typeface.createFromAsset(getAssets(), "coopbl.ttf");
+        mButtonPlay.setTypeface(mTtypeface);
 
         initImageViews();
     }
 
     private void initImageViews() {
-        mImgLeft1.setImageDrawable(getResources().getDrawable(IMAGE_RESOURCE_IDS[IMAGE_RESOURCE_IDS.length-1]));
-        mImgCenter1.setImageDrawable(getResources().getDrawable(IMAGE_RESOURCE_IDS[0]));
-        mImgRight2.setImageDrawable(getResources().getDrawable(IMAGE_RESOURCE_IDS[1]));
+        mImgLeft1.setImageDrawable(getResources().getDrawable(CATEGORY_IMAGE_RESOURCE_IDS[CATEGORY_IMAGE_RESOURCE_IDS.length-1]));
+        mImgCenter1.setImageDrawable(getResources().getDrawable(CATEGORY_IMAGE_RESOURCE_IDS[0]));
+        mImgRight2.setImageDrawable(getResources().getDrawable(CATEGORY_IMAGE_RESOURCE_IDS[1]));
+    }
+
+    @Override
+    public boolean onTouch(final View view, MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                AnimateUtils.startButtonAnimation(view, 100);
+                break;
+
+            case MotionEvent.ACTION_MOVE:
+                break;
+
+            case MotionEvent.ACTION_UP:
+                break;
+        }
+        return true;
     }
 
     @Override
     public void onClick(View v) {
 
-        // 2'ler center'ın üzerinde, 1'ler altında kalıyor
+        // Hepsini tekrar görünür yap
         mImgLeft2.setAlpha(1f);
         mImgRight2.setAlpha(1f);
         mImgRight1.setAlpha(1f);
         mImgLeft1.setAlpha(1f);
 
-        if (v.getId() == R.id.buttonRight)
+        if (v.getId() == R.id.imageButtonRight)
         {
             mImgRight2.setAlpha(0f);
-            AnimateUtils.setAnimation(mImgRight1, AnimationTypes.DISAPEAR)
+            AnimateUtils.startSliderAnimation(mImgRight1, AnimationTypes.DISAPEAR)
                     .setAnimationListener(setImageResourceBeforeAnimation(mImgRight1, mCategoryPosition - 1 ))
             ;
-            AnimateUtils.setAnimation(mImgCenter1, AnimationTypes.CENTER_TO_RIGHT)
+            AnimateUtils.startSliderAnimation(mImgCenter1, AnimationTypes.CENTER_TO_RIGHT)
                     .setAnimationListener(setImageResourceBeforeAnimation(mImgCenter1, mCategoryPosition + 0))
             ;
-            AnimateUtils.setAnimation(mImgLeft1, AnimationTypes.LEFT_TO_CENTER)
+            AnimateUtils.startSliderAnimation(mImgLeft1, AnimationTypes.LEFT_TO_CENTER)
                     .setAnimationListener(setImageResourceBeforeAnimation(mImgLeft1, mCategoryPosition + 1 ))
             ;
-            AnimateUtils.setAnimation(mImgLeft2, AnimationTypes.ARISE)
+            AnimateUtils.startSliderAnimation(mImgLeft2, AnimationTypes.ARISE)
                    .setAnimationListener(setImageResourceBeforeAnimation(mImgLeft2, mCategoryPosition + 2 ))
             ;
             mCategoryPosition++;
             mCategoryPosition = limitPositionInImageResourceLength(mCategoryPosition);
         }
-        else if (v.getId() == R.id.buttonLeft)
+        else if (v.getId() == R.id.imageButtonLeft)
         {
             mImgLeft1.setAlpha(0f);
-            AnimateUtils.setAnimation(mImgLeft2, AnimationTypes.DISAPEAR)
+            AnimateUtils.startSliderAnimation(mImgLeft2, AnimationTypes.DISAPEAR)
                     .setAnimationListener(setImageResourceBeforeAnimation(mImgLeft2, mCategoryPosition + 1 ))
             ;
-            AnimateUtils.setAnimation(mImgCenter1, AnimationTypes.CENTER_TO_LEFT)
+            AnimateUtils.startSliderAnimation(mImgCenter1, AnimationTypes.CENTER_TO_LEFT)
                     .setAnimationListener(setImageResourceBeforeAnimation(mImgCenter1, mCategoryPosition + 0 ))
             ;
-            AnimateUtils.setAnimation(mImgRight2, AnimationTypes.RIGHT_TO_CENTER)
+            AnimateUtils.startSliderAnimation(mImgRight2, AnimationTypes.RIGHT_TO_CENTER)
                     .setAnimationListener(setImageResourceBeforeAnimation(mImgRight2, mCategoryPosition - 1))
             ;
-            AnimateUtils.setAnimation(mImgRight1, AnimationTypes.ARISE)
+            AnimateUtils.startSliderAnimation(mImgRight1, AnimationTypes.ARISE)
                     .setAnimationListener(setImageResourceBeforeAnimation(mImgRight1, mCategoryPosition - 2))
             ;
             mCategoryPosition--;
             mCategoryPosition = limitPositionInImageResourceLength(mCategoryPosition);
         }
+
+        // Label'ı güncelle
+        mImgCategoryLabel.setImageResource(CATEGORY_STRING_RESOURCE_IDS[mCategoryPosition]);
+        AnimateUtils.startLabelAnimation(mImgCategoryLabel, 800);
     }
 
     private Animation.AnimationListener setImageResourceBeforeAnimation(final View view, int position) {
@@ -124,7 +160,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (isMImgCenter2Visible) {
                     mImgCenter2.setVisibility(View.GONE);
                 }
-                ((ImageView) view).setImageDrawable(getResources().getDrawable(IMAGE_RESOURCE_IDS[finalPosition]));
+                ((ImageView) view).setImageDrawable(getResources().getDrawable(CATEGORY_IMAGE_RESOURCE_IDS[finalPosition]));
             }
 
             @Override
@@ -142,11 +178,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private int limitPositionInImageResourceLength(int position) {
-        if (position >= IMAGE_RESOURCE_IDS.length) {
-            return (IMAGE_RESOURCE_IDS.length - position) *  -1; // 0'dı
+        if (position >= CATEGORY_IMAGE_RESOURCE_IDS.length) {
+            return (CATEGORY_IMAGE_RESOURCE_IDS.length - position) *  -1; // 0'dı
         }
         else if (position < 0) {
-            return (IMAGE_RESOURCE_IDS.length + position) ;
+            return (CATEGORY_IMAGE_RESOURCE_IDS.length + position) ;
         }
         return position;
     }

@@ -1,30 +1,32 @@
 package com.resimlerleingilizce.utils;
 
+import android.util.TypedValue;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
+import android.view.animation.DecelerateInterpolator;
 import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.resimlerleingilizce.R;
 import com.resimlerleingilizce.ui.MainActivity.*;
 
 /**
  * Created by Mete on 23.03.2016.
  */
 public class AnimateUtils {
-    private final static int ANIMATION_DURATION = 800;
-//    public static float ANIMATION_TRANSLATE_X_POSITION_CENTER = 500f;
-//    public static float ANIMATION_TRANSLATE_X_POSITION_SIDE = 495f;
-//    public final static float ANIMATION_SCALE_SIZE_MULTIPLER =  1.80f;
+    private final static int ANIMATION_DURATION = 200;
 
-    private final static float ANIMATION_TRANSLATE_X_POSITION_SIDE = 300.0f;
-    private final static float ANIMATION_TRANSLATE_X_POSITION_CENTER = 300.0f;
-    private final static float ANIMATION_SCALE_SIZE_MULTIPLER =  1.4f;
+    private final static float ANIMATION_TRANSLATE_X_POSITION_SIDE = 370.0f;
+    private final static float ANIMATION_TRANSLATE_X_POSITION_CENTER = 370.0f;
+    private final static float ANIMATION_SCALE_SIZE_MULTIPLER =  1.29230769f;
 
-    public static AnimationSet setAnimation(final View view, AnimationTypes animeType) {
+    public static AnimationSet startSliderAnimation(final View view, AnimationTypes animeType) {
         view.requestLayout();
         ScaleAnimation scaleAnimation;
         TranslateAnimation translateAnimation;
@@ -32,7 +34,7 @@ public class AnimateUtils {
 
         switch (animeType) {
             case CENTER_TO_RIGHT:
-                Logy.l("setAnimation CENTER_TO_RIGHT");
+                Logy.l("startSliderAnimation CENTER_TO_RIGHT");
                 // Scale
                 scaleAnimation = new ScaleAnimation(1f, 1f / ANIMATION_SCALE_SIZE_MULTIPLER, 1f, 1f / ANIMATION_SCALE_SIZE_MULTIPLER, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
                 scaleAnimation.setDuration(ANIMATION_DURATION);     // translateAnimation duration in milliseconds
@@ -52,7 +54,7 @@ public class AnimateUtils {
                 return set;
 
             case CENTER_TO_LEFT:
-                Logy.l("setAnimation CENTER_TO_LEFT");
+                Logy.l("startSliderAnimation CENTER_TO_LEFT");
                 // Scale
                 scaleAnimation = new ScaleAnimation(1f, 1f / ANIMATION_SCALE_SIZE_MULTIPLER , 1f, 1f / ANIMATION_SCALE_SIZE_MULTIPLER, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
                 scaleAnimation.setDuration(ANIMATION_DURATION);     // translateAnimation duration in milliseconds
@@ -72,7 +74,7 @@ public class AnimateUtils {
                 return set;
 
             case LEFT_TO_CENTER:
-                Logy.l("setAnimation LEFT_TO_CENTER");
+                Logy.l("startSliderAnimation LEFT_TO_CENTER");
                 // Scale
                 scaleAnimation =  new ScaleAnimation(1f, 1f * ANIMATION_SCALE_SIZE_MULTIPLER, 1f, 1f * ANIMATION_SCALE_SIZE_MULTIPLER, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
                 scaleAnimation.setDuration(ANIMATION_DURATION);     // translateAnimation duration in milliseconds
@@ -91,9 +93,8 @@ public class AnimateUtils {
 
                 return set;
 
-
             case RIGHT_TO_CENTER:
-                Logy.l("setAnimation RIGHT_TO_CENTER");
+                Logy.l("startSliderAnimation RIGHT_TO_CENTER");
                 // Scale
                 scaleAnimation =  new ScaleAnimation(1f, 1f * ANIMATION_SCALE_SIZE_MULTIPLER, 1f, 1f * ANIMATION_SCALE_SIZE_MULTIPLER, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
                 //scaleAnimation =  new ScaleAnimation(1f, 0.92f * ANIMATION_SCALE_SIZE_MULTIPLER, 1f, 0.92f * ANIMATION_SCALE_SIZE_MULTIPLER, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
@@ -114,7 +115,7 @@ public class AnimateUtils {
                 return set;
 
             case DISAPEAR:
-                Logy.l("setAnimation DISAPEAR");
+                Logy.l("startSliderAnimation DISAPEAR");
                 // Scale
                 scaleAnimation = new ScaleAnimation(1f, 0f, 1f, 0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
                 scaleAnimation.setDuration(ANIMATION_DURATION);     // translateAnimation duration in milliseconds
@@ -136,7 +137,7 @@ public class AnimateUtils {
                 return set;
 
             case ARISE:
-                Logy.l("setAnimation ARISE");
+                Logy.l("startSliderAnimation ARISE");
                 // Scale
                 scaleAnimation =  new ScaleAnimation(0f, 1f, 0f, 1f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
                 scaleAnimation.setDuration(Math.round(ANIMATION_DURATION / 1f));     // translateAnimation duration in milliseconds
@@ -155,6 +156,46 @@ public class AnimateUtils {
                 return null;
         }
     }
+
+    public static AnimationSet startLabelAnimation(View view, int ANIMATION_DURATION) {
+        Animation fadeIn = new AlphaAnimation(0, 1);
+        fadeIn.setInterpolator(new DecelerateInterpolator()); //add this
+        fadeIn.setDuration(ANIMATION_DURATION );
+/*
+        Animation fadeOut = new AlphaAnimation(1, 0);
+        fadeOut.setInterpolator(new AccelerateInterpolator()); //and this
+        fadeOut.setStartOffset(ANIMATION_DURATION / 2);
+        fadeOut.setDuration(ANIMATION_DURATION / 2);
+*/
+        AnimationSet set = new AnimationSet(false); //change to false
+        set.addAnimation(fadeIn);
+        //set.addAnimation(fadeOut);
+        view.setAnimation(set);
+        view.startAnimation(set);
+
+        return set;
+    }
+
+    public static Animation startButtonAnimation(final View view, int ANIMATION_DURATION) {
+        // ImageView imageView = (ImageView) findViewById(R.id.ImageView01);
+        // first 0f, 1f mean scaling from X-axis to X-axis, meaning scaling from 0-100%
+        // first 0f, 1f mean scaling from Y-axis to Y-axis, meaning scaling from 0-100%
+        // The two 0.5f mean animation will start from 50% of X-axis & 50% of Y-axis, i.e. from center
+
+        ScaleAnimation scale = new ScaleAnimation(1f, 0.8f, 1f, 0.8f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        scale.setDuration(ANIMATION_DURATION);     // animation duration in milliseconds
+        scale.setFillAfter(true);    // If fillAfter is true, the transformation that this animation performed will persist when it is finished.
+
+        //sequencial animation
+        AnimationSet set = new AnimationSet(false);
+        set.addAnimation(scale);
+        view.setAnimation(set);
+        view.startAnimation(set);
+
+        return set;
+    }
+
+
 }
 
 

@@ -7,18 +7,38 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".ui.MainActivity">
+    tools:context=".ui.MainActivity"
+    android:background="@drawable/ic_background">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="68dp"
+        android:layout_marginTop="32dp"
+        android:id="@+id/imageViewResimlerle"
+        android:src="@drawable/ic_title_resimlerle"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="62dp"
+        android:layout_marginTop="8dp"
+        android:id="@+id/imageViewIngilizce"
+        android:src="@drawable/ic_title_ingilizce"
+        android:layout_below="@+id/imageViewResimlerle"
+        android:layout_centerHorizontal="true" />
 
     <RelativeLayout
+        android:id="@+id/sliderContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorAccent">
+        android:layout_below="@+id/imageViewIngilizce"
+        android:layout_marginTop="32dp">
 
 
         <ImageView
             android:id="@+id/imageViewRight1"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/frameLayoutCenterVertical"
             android:src="@android:color/transparent"
@@ -27,8 +47,8 @@
 
         <ImageView
             android:id="@+id/imageViewLeft1"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
             android:layout_centerVertical="true"
             android:src="@android:color/transparent"
             android:background="@android:color/transparent"
@@ -38,8 +58,8 @@
 
         <ImageView
             android:id="@+id/imageViewCenter"
-            android:layout_width="140dp"
-            android:layout_height="140dp"
+            android:layout_width="168dp"
+            android:layout_height="168dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:src="@drawable/ic_category_1"
@@ -49,8 +69,8 @@
 
         <ImageView
             android:id="@+id/imageViewRight2"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/frameLayoutCenterVertical"
             android:background="@android:color/transparent"
@@ -61,8 +81,8 @@
 
         <ImageView
             android:id="@+id/imageViewLeft2"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
             android:layout_centerVertical="true"
             android:layout_toStartOf="@+id/frameLayoutCenterVertical"
             android:src="@drawable/ic_category_5"
@@ -73,8 +93,8 @@
 
         <ImageView
             android:id="@+id/imageViewCenter2"
-            android:layout_width="140dp"
-            android:layout_height="140dp"
+            android:layout_width="182dp"
+            android:layout_height="182dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:src="@drawable/ic_category_1"
@@ -87,25 +107,55 @@
             android:layout_height="150dp"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"></FrameLayout>
+
+        <ImageButton
+            android:id="@+id/imageButtonLeft"
+            android:src="@drawable/ic_button_left"
+            android:layout_width="138dp"
+            android:layout_height="138dp"
+            android:scaleType="fitXY"
+            android:padding="44dp"
+            android:background="@android:color/transparent"
+            android:layout_centerVertical="true"
+            android:text="Left"
+            android:layout_toLeftOf="@+id/frameLayoutCenterVertical"
+            android:layout_toStartOf="@+id/frameLayoutCenterVertical"  />
+
+        <ImageButton
+            android:id="@+id/imageButtonRight"
+            android:src="@drawable/ic_button_right"
+            android:layout_width="138dp"
+            android:layout_height="138dp"
+            android:scaleType="fitXY"
+            android:padding="44dp"
+            android:background="@android:color/transparent"
+            android:text="Right"
+            android:layout_centerVertical="true"
+            android:layout_alignLeft="@+id/imageViewRight1"
+            android:layout_alignStart="@+id/imageViewRight1" />
     </RelativeLayout>
 
-    <Button
-        android:id="@+id/buttonRight"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="94dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:text="Right" />
+    <ImageView
+        android:src="@drawable/ic_category_hayvanlar"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:id="@+id/imageViewCategoryLabel"
+        android:layout_margin="38dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/sliderContainer" />
 
     <Button
-        android:id="@+id/buttonLeft"
-        android:layout_width="94dp"
-        android:layout_height="wrap_content"
+        android:layout_width="280dp"
+        android:layout_height="62dp"
+        android:scaleType="fitXY"
+        android:background="@drawable/ic_button_play"
+        android:id="@+id/buttonPlay"
+        android:text="@string/title_button_play"
+        android:textColor="@color/material_white"
+        android:textSize="38sp"
+        android:layout_marginBottom="28dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:text="Left" />
+        android:layout_centerHorizontal="true" />
+
 
 </RelativeLayout>
