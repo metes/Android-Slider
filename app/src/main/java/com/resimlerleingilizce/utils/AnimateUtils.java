@@ -1,6 +1,5 @@
 package com.resimlerleingilizce.utils;
 
-import android.util.TypedValue;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AlphaAnimation;
@@ -9,12 +8,8 @@ import android.view.animation.AnimationSet;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
-import com.resimlerleingilizce.R;
-import com.resimlerleingilizce.ui.MainActivity.*;
+import com.resimlerleingilizce.ui.ActivityMain.*;
 
 /**
  * Created by Mete on 23.03.2016.

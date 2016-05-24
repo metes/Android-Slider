@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ImageView
+        android:id="@+id/imageViewPhotoContent"
+        android:layout_width="240dp"
+        android:layout_height="180dp"
+        android:layout_margin="88dp"
+        android:paddingLeft="22dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_cilek"
+        android:layout_centerHorizontal="true" />
+
+
+    <ImageView
+        android:id="@+id/imageViewPhotoFrame"
+        android:layout_width="260dp"
+        android:layout_height="300dp"
+        android:background="@drawable/ic_background_picture"
+        android:layout_margin="72dp"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/textViewPhotoLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="196dp"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="31sp"
+        android:layout_alignTop="@+id/imageViewPhotoContent"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>

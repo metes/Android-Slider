@@ -1,31 +1,32 @@
 package com.resimlerleingilizce.ui;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
-import android.view.animation.ScaleAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 
 import com.resimlerleingilizce.R;
+import com.resimlerleingilizce.constants.AppConstants;
 import com.resimlerleingilizce.utils.AnimateUtils;
 import com.resimlerleingilizce.utils.Logy;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, View.OnTouchListener {
+public class ActivityMain extends AppCompatActivity implements View.OnClickListener, View.OnTouchListener {
+
     private boolean isMImgCenter2Visible;
     private int mCategoryPosition;
+    private Typeface mTtypeface;
     private ImageView mImgCenter1, mImgCenter2, mImgRight1, mImgRight2, mImgLeft1, mImgLeft2, mImgCategoryLabel;
     private Button mButtonPlay;
-    private Typeface mTtypeface;
+
     private int[] CATEGORY_IMAGE_RESOURCE_IDS = { R.drawable.ic_category_1, R.drawable.ic_category_2, R.drawable.ic_category_3,
             R.drawable.ic_category_4, R.drawable.ic_category_5 };
     private int[] CATEGORY_STRING_RESOURCE_IDS = { R.drawable.ic_category_hayvanlar, R.drawable.ic_category_meyvevesebze, R.drawable.ic_category_yiyecekler,
             R.drawable.ic_category_dunya, R.drawable.ic_category_giysiler };
-
-
 
     public enum AnimationTypes {
         CENTER_TO_RIGHT,
@@ -48,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onResume(){
         super.onResume();
-        if (mCategoryPosition >0) {
+        if (mCategoryPosition > 0) {
             mImgCenter2.setImageDrawable(getResources().getDrawable(CATEGORY_IMAGE_RESOURCE_IDS[mCategoryPosition]));
         }
         mImgCenter2.setVisibility(View.VISIBLE);
@@ -65,9 +66,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mImgCategoryLabel = (ImageView) findViewById(R.id.imageViewCategoryLabel);
         mButtonPlay = (Button) findViewById(R.id.buttonPlay);
 
+
         findViewById(R.id.imageButtonRight).setOnClickListener(this);
         findViewById(R.id.imageButtonLeft).setOnClickListener(this);
 
+        mButtonPlay.setOnClickListener(this);
         mButtonPlay.setOnTouchListener(this);
 
         mTtypeface = Typeface.createFromAsset(getAssets(), "coopbl.ttf");
@@ -86,16 +89,39 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onTouch(final View view, MotionEvent event) {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                AnimateUtils.startButtonAnimation(view, 100);
+                if (view.getId() == R.id.buttonPlay) {
+                    AnimateUtils.startButtonAnimation(view, 100).setAnimationListener(new Animation.AnimationListener() {
+                        @Override
+                        public void onAnimationStart(Animation animation) {
+
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+                            goToGameActivity();
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animation animation) {
+
+                        }
+                    });
+                }
+                else {
+
+                }
                 break;
 
             case MotionEvent.ACTION_MOVE:
                 break;
 
             case MotionEvent.ACTION_UP:
+                if (view.getId() == R.id.buttonPlay) {
+
+                }
                 break;
         }
-        return true;
+        return false;
     }
 
     @Override
@@ -147,6 +173,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // Label'ı güncelle
         mImgCategoryLabel.setImageResource(CATEGORY_STRING_RESOURCE_IDS[mCategoryPosition]);
         AnimateUtils.startLabelAnimation(mImgCategoryLabel, 800);
+    }
+
+    private void goToGameActivity() {
+        Intent in = new Intent(ActivityMain.this, ActivityGame.class);
+        in.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        in.putExtra(AppConstants.REASON_KEY_CATEGORY, mCategoryPosition);
+        startActivity(in);
     }
 
     private Animation.AnimationListener setImageResourceBeforeAnimation(final View view, int position) {
