@@ -15,7 +15,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.ActivityGame"></activity>
+        <activity android:name=".ui.ActivityGameLearnWords" />
+        <activity android:name=".ui.ActivityGameGuessWords"></activity>
     </application>
 
 </manifest>

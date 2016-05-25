@@ -190,7 +190,23 @@ public class AnimateUtils {
         return set;
     }
 
+    public static Animation countDownNumberAnimation(View view, int ANIMATION_DURATION) {
+        Animation fadeIn = new AlphaAnimation(0, 1);
+        fadeIn.setInterpolator(new DecelerateInterpolator()); //add this
+        fadeIn.setDuration(ANIMATION_DURATION );
 
+        ScaleAnimation scale = new ScaleAnimation(0.2f, 1f, 0.2f, 1f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        scale.setDuration(ANIMATION_DURATION);     // animation duration in milliseconds
+        scale.setFillAfter(true);    // If fillAfter is true, the transformation that this animation performed will persist when it is finished.
+
+        AnimationSet set = new AnimationSet(false); //change to false
+        set.addAnimation(fadeIn);
+        set.addAnimation(scale);
+        view.setAnimation(set);
+        view.startAnimation(set);
+
+        return set;
+    }
 }
 
 

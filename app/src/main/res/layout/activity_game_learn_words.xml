@@ -7,8 +7,17 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.resimlerleingilizce.ui.ActivityGame"
+    tools:context=".ui.ActivityGameLearnWords"
     android:background="@drawable/ic_background">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3"
+        android:textSize="54sp"
+        android:textStyle="bold"
+        android:id="@+id/textViewCountDown"
+        android:layout_centerHorizontal="true" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -32,6 +41,7 @@
     </RelativeLayout>
 
 
+
     <RelativeLayout
         android:id="@+id/relativeLayoutPhotoContainer"
         android:layout_width="wrap_content"
@@ -44,6 +54,8 @@
             layout="@layout/item_photo"/>
             -->
     </RelativeLayout>
+
+
 
 </RelativeLayout>
 

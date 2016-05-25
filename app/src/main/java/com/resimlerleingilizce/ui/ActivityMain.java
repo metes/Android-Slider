@@ -12,6 +12,8 @@ import android.widget.ImageView;
 
 import com.resimlerleingilizce.R;
 import com.resimlerleingilizce.constants.AppConstants;
+import com.resimlerleingilizce.model.ModelCard;
+import com.resimlerleingilizce.singletons.SingletonJSON;
 import com.resimlerleingilizce.utils.AnimateUtils;
 import com.resimlerleingilizce.utils.Logy;
 
@@ -25,7 +27,8 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
 
     private int[] CATEGORY_IMAGE_RESOURCE_IDS = { R.drawable.ic_category_1, R.drawable.ic_category_2, R.drawable.ic_category_3,
             R.drawable.ic_category_4, R.drawable.ic_category_5 };
-    private int[] CATEGORY_STRING_RESOURCE_IDS = { R.drawable.ic_category_hayvanlar, R.drawable.ic_category_meyvevesebze, R.drawable.ic_category_yiyecekler,
+
+    private int[] CATEGORY_TEXT_RESOURCE_IDS = { R.drawable.ic_category_hayvanlar, R.drawable.ic_category_meyvevesebze, R.drawable.ic_category_yiyecekler,
             R.drawable.ic_category_dunya, R.drawable.ic_category_giysiler };
 
     public enum AnimationTypes {
@@ -44,6 +47,15 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
         mCategoryPosition = 0;
 
         initViews();
+        setSingleton();
+    }
+
+    private void setSingleton() {
+        ModelCard[] models = new ModelCard[10];
+        for (int i = 0; i < 10; i++) {
+            models[i] = new ModelCard("elma " + i, "apple ", i, (byte) 3);
+        }
+        SingletonJSON.getInstance().setData(models);
     }
 
     @Override
@@ -65,7 +77,6 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
         mImgLeft1 = (ImageView) findViewById(R.id.imageViewLeft2);
         mImgCategoryLabel = (ImageView) findViewById(R.id.imageViewCategoryLabel);
         mButtonPlay = (Button) findViewById(R.id.buttonPlay);
-
 
         findViewById(R.id.imageButtonRight).setOnClickListener(this);
         findViewById(R.id.imageButtonLeft).setOnClickListener(this);
@@ -171,12 +182,12 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
         }
 
         // Label'ı güncelle
-        mImgCategoryLabel.setImageResource(CATEGORY_STRING_RESOURCE_IDS[mCategoryPosition]);
+        mImgCategoryLabel.setImageResource(CATEGORY_TEXT_RESOURCE_IDS[mCategoryPosition]);
         AnimateUtils.startLabelAnimation(mImgCategoryLabel, 800);
     }
 
     private void goToGameActivity() {
-        Intent in = new Intent(ActivityMain.this, ActivityGame.class);
+        Intent in = new Intent(ActivityMain.this, ActivityGameLearnWords.class);
         in.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         in.putExtra(AppConstants.REASON_KEY_CATEGORY, mCategoryPosition);
         startActivity(in);
