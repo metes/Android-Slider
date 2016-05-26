@@ -7,6 +7,24 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.resimlerleingilizce.ui.ActivityGameGuessWords">
+    tools:context=".ui.ActivityGameGuessWords"
+    android:background="@drawable/ic_background">
+
+    <include layout="@layout/item_photo"
+        android:id="@+id/include" />
+
+    <LinearLayout
+        android:id="@+id/containerSelections"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignBottom="@+id/include"
+        android:layout_centerHorizontal="true">
+
+
+    </LinearLayout>
+
 
 </RelativeLayout>
+
+

@@ -5,15 +5,24 @@ package com.resimlerleingilizce.model;
  */
 public class ModelCard {
 
-    String turkish, english;
+    String turkish, english, imagePath;
     int id;
     byte category;
 
-    public ModelCard(String turkish, String english, int id, byte category) {
+    public ModelCard(int id, String turkish, String english, String imagePath, byte category) {
+        this.id = id;
         this.turkish = turkish;
         this.english = english;
-        this.id = id;
         this.category = category;
+        this.imagePath = imagePath;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
     public String getTurkish() {

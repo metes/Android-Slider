@@ -11,22 +11,25 @@
     android:background="@drawable/ic_background">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="3"
-        android:textSize="54sp"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:text="7"
+        android:gravity="center"
+        android:textSize="43sp"
         android:textStyle="bold"
+        android:background="@drawable/shape_frame"
+        android:textColor="@color/material_white"
         android:id="@+id/textViewCountDown"
         android:layout_centerHorizontal="true" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:background="@drawable/ic_button_board"
+        android:background="@drawable/ic_button_background_board"
         android:padding="16dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="66dp">
+        android:layout_marginBottom="26dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -44,10 +47,10 @@
 
     <RelativeLayout
         android:id="@+id/relativeLayoutPhotoContainer"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_centerHorizontal="true">
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/textViewCountDown">
 <!--
         <include
             android:id="@+id/includedPhotoLayout"

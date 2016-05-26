@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.resimlerleingilizce.R;
 import com.resimlerleingilizce.constants.AppConstants;
@@ -24,11 +25,14 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
     private Typeface mTtypeface;
     private ImageView mImgCenter1, mImgCenter2, mImgRight1, mImgRight2, mImgLeft1, mImgLeft2, mImgCategoryLabel;
     private Button mButtonPlay;
+    RelativeLayout mSliderContainer;
 
-    private int[] CATEGORY_IMAGE_RESOURCE_IDS = { R.drawable.ic_category_1, R.drawable.ic_category_2, R.drawable.ic_category_3,
+    private int[] CATEGORY_IMAGE_RESOURCE_IDS = { R.drawable.ic_category_1,
+            R.drawable.ic_category_2, R.drawable.ic_category_3,
             R.drawable.ic_category_4, R.drawable.ic_category_5 };
 
-    private int[] CATEGORY_TEXT_RESOURCE_IDS = { R.drawable.ic_category_hayvanlar, R.drawable.ic_category_meyvevesebze, R.drawable.ic_category_yiyecekler,
+    private int[] CATEGORY_TEXT_RESOURCE_IDS = { R.drawable.ic_category_hayvanlar,
+            R.drawable.ic_category_meyvevesebze, R.drawable.ic_category_yiyecekler,
             R.drawable.ic_category_dunya, R.drawable.ic_category_giysiler };
 
     public enum AnimationTypes {
@@ -48,12 +52,17 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
 
         initViews();
         setSingleton();
+
     }
 
     private void setSingleton() {
         ModelCard[] models = new ModelCard[10];
         for (int i = 0; i < 10; i++) {
-            models[i] = new ModelCard("elma " + i, "apple ", i, (byte) 3);
+            models[i] = new ModelCard(i,
+                    "elma " + i,
+                    "apple ",
+                    "http://icons.iconarchive.com/icons/fi3ur/fruitsalad/128/watermelon-icon.png",
+                    (byte) 3);
         }
         SingletonJSON.getInstance().setData(models);
     }
@@ -66,9 +75,26 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
         }
         mImgCenter2.setVisibility(View.VISIBLE);
         isMImgCenter2Visible = true;
+
+        calculateAnimationSizes();
+
+    }
+
+    private void calculateAnimationSizes() {
+
+        mSliderContainer.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+        //int width = mSliderContainer.getMeasuredWidth();
+        int width = mSliderContainer.getLayoutParams().width;
+
+        AnimateUtils.mAnimationTranslateXPosition = width / 3.8f;
+        AnimateUtils.mAnimationScaleSizeMultiplerANIMATION_SCALE_SIZE_MULTIPLER = 1.29230769f;
+
+        Logy.l("mAnimationTranslateXPosition: " + AnimateUtils.mAnimationTranslateXPosition);
+        Logy.l("mAnimationScaleSizeMultiplerANIMATION_SCALE_SIZE_MULTIPLER: " + AnimateUtils.mAnimationScaleSizeMultiplerANIMATION_SCALE_SIZE_MULTIPLER);
     }
 
     private void initViews() {
+        mSliderContainer = (RelativeLayout) findViewById(R.id.sliderContainer);
         mImgCenter1 = (ImageView) findViewById(R.id.imageViewCenter);
         mImgCenter2 = (ImageView) findViewById(R.id.imageViewCenter2);
         mImgRight1 = (ImageView) findViewById(R.id.imageViewRight1);

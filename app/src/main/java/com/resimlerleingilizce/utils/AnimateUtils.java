@@ -16,10 +16,8 @@ import com.resimlerleingilizce.ui.ActivityMain.*;
  */
 public class AnimateUtils {
     private final static int ANIMATION_DURATION = 200;
-
-    private final static float ANIMATION_TRANSLATE_X_POSITION_SIDE = 370.0f;
-    private final static float ANIMATION_TRANSLATE_X_POSITION_CENTER = 370.0f;
-    private final static float ANIMATION_SCALE_SIZE_MULTIPLER =  1.29230769f;
+    public static float mAnimationTranslateXPosition;// = 370.0f;
+    public static float mAnimationScaleSizeMultiplerANIMATION_SCALE_SIZE_MULTIPLER;// =  1.29230769f;
 
     public static AnimationSet startSliderAnimation(final View view, AnimationTypes animeType) {
         view.requestLayout();
@@ -31,11 +29,11 @@ public class AnimateUtils {
             case CENTER_TO_RIGHT:
                 Logy.l("startSliderAnimation CENTER_TO_RIGHT");
                 // Scale
-                scaleAnimation = new ScaleAnimation(1f, 1f / ANIMATION_SCALE_SIZE_MULTIPLER, 1f, 1f / ANIMATION_SCALE_SIZE_MULTIPLER, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+                scaleAnimation = new ScaleAnimation(1f, 1f / mAnimationScaleSizeMultiplerANIMATION_SCALE_SIZE_MULTIPLER, 1f, 1f / mAnimationScaleSizeMultiplerANIMATION_SCALE_SIZE_MULTIPLER, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
                 scaleAnimation.setDuration(ANIMATION_DURATION);     // translateAnimation duration in milliseconds
                 scaleAnimation.setFillAfter(true);    // If fillAfter is true, the transformation that this translateAnimation performed will persist when it is finished.
                 // Translate
-                translateAnimation = new TranslateAnimation(0.0f, ANIMATION_TRANSLATE_X_POSITION_CENTER, 0.0f, 0.0f);          //  new TranslateAnimation(xFrom,xTo, yFrom,yTo)
+                translateAnimation = new TranslateAnimation(0.0f, mAnimationTranslateXPosition, 0.0f, 0.0f);          //  new TranslateAnimation(xFrom,xTo, yFrom,yTo)
                 translateAnimation.setDuration(ANIMATION_DURATION);  // translateAnimation duration
                 // Animation set
                 set = new AnimationSet(false); //change to false
@@ -51,11 +49,11 @@ public class AnimateUtils {
             case CENTER_TO_LEFT:
                 Logy.l("startSliderAnimation CENTER_TO_LEFT");
                 // Scale
-                scaleAnimation = new ScaleAnimation(1f, 1f / ANIMATION_SCALE_SIZE_MULTIPLER , 1f, 1f / ANIMATION_SCALE_SIZE_MULTIPLER, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+                scaleAnimation = new ScaleAnimation(1f, 1f / mAnimationScaleSizeMultiplerANIMATION_SCALE_SIZE_MULTIPLER, 1f, 1f / mAnimationScaleSizeMultiplerANIMATION_SCALE_SIZE_MULTIPLER, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
                 scaleAnimation.setDuration(ANIMATION_DURATION);     // translateAnimation duration in milliseconds
                 scaleAnimation.setFillAfter(true);    // If fillAfter is true, the transformation that this translateAnimation performed will persist when it is finished.
                 // Translate
-                translateAnimation = new TranslateAnimation(0.0f, -1.0f * ANIMATION_TRANSLATE_X_POSITION_CENTER, 0.0f, 0.0f);          //  new TranslateAnimation(xFrom,xTo, yFrom,yTo)
+                translateAnimation = new TranslateAnimation(0.0f, -1.0f * mAnimationTranslateXPosition, 0.0f, 0.0f);          //  new TranslateAnimation(xFrom,xTo, yFrom,yTo)
                 translateAnimation.setDuration(ANIMATION_DURATION);  // translateAnimation duration
                 // Animation set
                 set = new AnimationSet(false); //change to false
@@ -71,11 +69,11 @@ public class AnimateUtils {
             case LEFT_TO_CENTER:
                 Logy.l("startSliderAnimation LEFT_TO_CENTER");
                 // Scale
-                scaleAnimation =  new ScaleAnimation(1f, 1f * ANIMATION_SCALE_SIZE_MULTIPLER, 1f, 1f * ANIMATION_SCALE_SIZE_MULTIPLER, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+                scaleAnimation =  new ScaleAnimation(1f, 1f * mAnimationScaleSizeMultiplerANIMATION_SCALE_SIZE_MULTIPLER, 1f, 1f * mAnimationScaleSizeMultiplerANIMATION_SCALE_SIZE_MULTIPLER, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
                 scaleAnimation.setDuration(ANIMATION_DURATION);     // translateAnimation duration in milliseconds
                 scaleAnimation.setFillAfter(true);    // If fillAfter is true, the transformation that this translateAnimation performed will persist when it is finished.
                 // Translate
-                translateAnimation = new TranslateAnimation(0.0f, ANIMATION_TRANSLATE_X_POSITION_SIDE, 0.0f, 0.0f);          //  new TranslateAnimation(xFrom,xTo, yFrom,yTo)
+                translateAnimation = new TranslateAnimation(0.0f, mAnimationTranslateXPosition, 0.0f, 0.0f);          //  new TranslateAnimation(xFrom,xTo, yFrom,yTo)
                 translateAnimation.setDuration(ANIMATION_DURATION);  // translateAnimation duration
                 // Animation set
                 set = new AnimationSet(false); //change to false
@@ -91,12 +89,12 @@ public class AnimateUtils {
             case RIGHT_TO_CENTER:
                 Logy.l("startSliderAnimation RIGHT_TO_CENTER");
                 // Scale
-                scaleAnimation =  new ScaleAnimation(1f, 1f * ANIMATION_SCALE_SIZE_MULTIPLER, 1f, 1f * ANIMATION_SCALE_SIZE_MULTIPLER, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-                //scaleAnimation =  new ScaleAnimation(1f, 0.92f * ANIMATION_SCALE_SIZE_MULTIPLER, 1f, 0.92f * ANIMATION_SCALE_SIZE_MULTIPLER, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+                scaleAnimation =  new ScaleAnimation(1f, 1f * mAnimationScaleSizeMultiplerANIMATION_SCALE_SIZE_MULTIPLER, 1f, 1f * mAnimationScaleSizeMultiplerANIMATION_SCALE_SIZE_MULTIPLER, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+                //scaleAnimation =  new ScaleAnimation(1f, 0.92f * mAnimationScaleSizeMultiplerANIMATION_SCALE_SIZE_MULTIPLER, 1f, 0.92f * mAnimationScaleSizeMultiplerANIMATION_SCALE_SIZE_MULTIPLER, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
                 scaleAnimation.setDuration(ANIMATION_DURATION);     // translateAnimation duration in milliseconds
                 scaleAnimation.setFillAfter(true);    // If fillAfter is true, the transformation that this translateAnimation performed will persist when it is finished.
                 // Translate
-                translateAnimation = new TranslateAnimation(0.0f, -1.0f * ANIMATION_TRANSLATE_X_POSITION_SIDE, 0.0f, 0.0f);          //  new TranslateAnimation(xFrom,xTo, yFrom,yTo)
+                translateAnimation = new TranslateAnimation(0.0f, -1.0f * mAnimationTranslateXPosition, 0.0f, 0.0f);          //  new TranslateAnimation(xFrom,xTo, yFrom,yTo)
                 translateAnimation.setDuration(ANIMATION_DURATION);  // translateAnimation duration
                 // Animation set
                 set = new AnimationSet(false); //change to false
