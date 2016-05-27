@@ -17,6 +17,11 @@ import com.resimlerleingilizce.model.ModelCard;
 import com.resimlerleingilizce.singletons.SingletonJSON;
 import com.resimlerleingilizce.utils.AnimateUtils;
 import com.resimlerleingilizce.utils.Logy;
+import com.resimlerleingilizce.utils.Utils;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class ActivityMain extends AppCompatActivity implements View.OnClickListener, View.OnTouchListener {
 
@@ -48,27 +53,78 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         mCategoryPosition = 0;
-
-        initViews();
-        setSingleton();
-
     }
 
+    // TODO test datasını sil
     private void setSingleton() {
-        ModelCard[] models = new ModelCard[10];
+        ModelCard[] models = new ModelCard[50];
         for (int i = 0; i < 10; i++) {
             models[i] = new ModelCard(i,
-                    "elma " + i,
-                    "apple ",
+                    "At " + i,
+                    "Horse " + i,
+                    "http://static.ddmcdn.com/gif/1--horse-expressions--150805.jpg",
+                    (byte) 0);
+        }
+        for (int i = 10; i < 20; i++) {
+            models[i] = new ModelCard(i,
+                    "Elma " + i,
+                    "Apple " + i,
                     "http://icons.iconarchive.com/icons/fi3ur/fruitsalad/128/watermelon-icon.png",
+                    (byte) 1);
+        }
+        for (int i = 20; i < 30; i++) {
+            models[i] = new ModelCard(i,
+                    "Makarna " + i,
+                    "Pasta " + i,
+                    "http://www.sobeys.com/wp-content/uploads/2015/04/hero-garofalo-pasta.jpg",
+                    (byte) 2);
+        }
+        for (int i = 30; i < 40; i++) {
+            models[i] = new ModelCard(i,
+                    "Irmak " + i,
+                    "River " + i,
+                    "http://science-all.com/images/wallpapers/river-images/river-images-10.jpg",
                     (byte) 3);
         }
+        for (int i = 40; i < 50; i++) {
+            models[i] = new ModelCard(i,
+                    "Ayakkabı " + i,
+                    "Shoes " + i,
+                    "http://g-ec2.images-amazon.com/images/G/31/img15/Shoes/CatNav/k._V293117556_.jpg",
+                    (byte) 4);
+        }
+        generateJSONString(models);
         SingletonJSON.getInstance().setData(models);
+        Utils.loadJSONData();
+    }
+
+    private void generateJSONString(ModelCard[] models) {
+
+        JSONArray ar = new JSONArray();
+        for (int i = 0; i < models.length; i++) {
+            JSONObject object = new JSONObject();
+            try {
+                object.put("id", ""+models[i].getId());
+                object.put("tr", ""+models[i].getTurkish());
+                object.put("en", ""+models[i].getEnglish());
+                object.put("path", ""+models[i].getImagePath());
+                object.put("cat", ""+models[i].getCategory());
+                ar.put(object);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        Logy.l("json");
+        Logy.l("json liste: " + ar.toString());
     }
 
     @Override
     public void onResume(){
+        initViews();
+        setSingleton();
+
         super.onResume();
         if (mCategoryPosition > 0) {
             mImgCenter2.setImageDrawable(getResources().getDrawable(CATEGORY_IMAGE_RESOURCE_IDS[mCategoryPosition]));
@@ -83,7 +139,6 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
     private void calculateAnimationSizes() {
 
         mSliderContainer.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-        //int width = mSliderContainer.getMeasuredWidth();
         int width = mSliderContainer.getLayoutParams().width;
 
         AnimateUtils.mAnimationTranslateXPosition = width / 3.8f;
@@ -163,6 +218,10 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+
+        if (v.getId() == R.id.buttonPlay) {
+            return;
+        }
 
         // Hepsini tekrar görünür yap
         mImgLeft2.setAlpha(1f);

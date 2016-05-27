@@ -1,23 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:padding="26dp">
 
-        <TextView
-            android:id="@+id/textViewPhotoLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingTop="202dp"
-            android:text="Large Text"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="31sp"
-            android:layout_alignTop="@+id/imageViewPhotoContent"
-            android:layout_centerHorizontal="true" />
+
 
         <ImageView
             android:id="@+id/imageViewPhotoFrameBackGround"
@@ -53,6 +44,18 @@
             android:layout_alignStart="@+id/imageViewPhotoContent"
             android:visibility="gone"
             android:layout_marginTop="57dp" />
+
+        <TextView
+            android:id="@+id/textViewPhotoLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="202dp"
+            android:text=""
+            android:textColor="@color/material_grey_700"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="32sp"
+            android:layout_alignTop="@+id/imageViewPhotoContent"
+            android:layout_centerHorizontal="true" />
     </RelativeLayout>
 
 

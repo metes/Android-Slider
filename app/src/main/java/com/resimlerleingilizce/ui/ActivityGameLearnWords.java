@@ -1,6 +1,7 @@
 package com.resimlerleingilizce.ui;
 
 import android.content.ClipData;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -18,6 +19,9 @@ import com.resimlerleingilizce.singletons.SingletonJSON;
 import com.resimlerleingilizce.utils.Logy;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 public class ActivityGameLearnWords extends AppCompatActivity  {
@@ -30,7 +34,8 @@ public class ActivityGameLearnWords extends AppCompatActivity  {
 
     private int mPhotoViewIndex;
     private View[] mTopImageViews;
-    private ModelCard[] mModelCards;
+
+    private ModelCard[] mModelCardsOfCategory, mModelCardsOfPeriod;
     private long mCountDownTime = -1;
 
 
@@ -39,10 +44,19 @@ public class ActivityGameLearnWords extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_learn_words);
 
-        mModelCards = getJSONData();
+        int catID = getIntent().getIntExtra(AppConstants.REASON_KEY_CATEGORY, 1);
+        mModelCardsOfCategory = getJSONData(catID);
+        generatePeriodsCards();
         initViews();
         fillPhotoContainer();
         startCountDownTimer();
+    }
+
+    private void generatePeriodsCards() {
+        mModelCardsOfPeriod = new ModelCard[AppConstants.GUESS_CARD_COUNT_OF_PERIOD];
+        for (int i = 0; i < AppConstants.GUESS_CARD_COUNT_OF_PERIOD; i++) {
+            mModelCardsOfPeriod[i] = mModelCardsOfCategory[new Random().nextInt(mModelCardsOfCategory.length) + 0];
+        }
     }
 
     @Override
@@ -61,12 +75,13 @@ public class ActivityGameLearnWords extends AppCompatActivity  {
     private void fillPhotoContainer() {
         mRelativeLayoutPhotoContainer.removeAllViews();
         float angle = 0, additionalAngle = 3;
-        mTopImageViews = new View[AppConstants.PHOTO_AR_LENGTH];
-        mPhotoViewIndex = AppConstants.PHOTO_AR_LENGTH - 1;
-        for (int i = 0; i < AppConstants.PHOTO_AR_LENGTH; i++)
+        mTopImageViews = new View[AppConstants.GUESS_CARD_COUNT_OF_PERIOD];
+        mPhotoViewIndex = AppConstants.GUESS_CARD_COUNT_OF_PERIOD - 1;
+
+        for (int i = 0; i < AppConstants.GUESS_CARD_COUNT_OF_PERIOD; i++)
         {
             RelativeLayout layoutPhoto = (RelativeLayout) getLayoutInflater().inflate(R.layout.item_photo, null);
-            setModelDataToCard(layoutPhoto, mModelCards[i]);
+            setModelDataToCard(layoutPhoto, mModelCardsOfPeriod[i]);
 
             angle = (i % 2 == 0) ? angle + additionalAngle : angle - (additionalAngle * 2);
             layoutPhoto.setRotation(angle);
@@ -74,9 +89,9 @@ public class ActivityGameLearnWords extends AppCompatActivity  {
             mRelativeLayoutPhotoContainer.addView(layoutPhoto);
             mTopImageViews[i] = layoutPhoto;
         }
-        mPhotoViewIndex = AppConstants.PHOTO_AR_LENGTH;
+        mPhotoViewIndex = AppConstants.GUESS_CARD_COUNT_OF_PERIOD - 1;
         // en üst kart için
-        ((TextView) findViewById(R.id.textViewMeaning)).setText(mModelCards[mPhotoViewIndex].getEnglish());
+        ((TextView) findViewById(R.id.textViewMeaning)).setText(mModelCardsOfPeriod[mPhotoViewIndex].getEnglish());
     }
 
     private void setModelDataToCard(RelativeLayout layoutPhoto, ModelCard modelCard) {
@@ -104,12 +119,15 @@ public class ActivityGameLearnWords extends AppCompatActivity  {
         mTextViewMeaning.setTypeface(mTtypeface1);
     }
 
-    public ModelCard[] getJSONData() {
-        mModelCards = SingletonJSON.getInstance().getData();
-        for (int i = 0; i < mModelCards.length; i++) {
-            Logy.l(i + ". modelCards: " + mModelCards[i].getTurkish() + " " + mModelCards[i].getEnglish()  + " " + mModelCards[i].getImagePath());
-        }
-        return mModelCards;
+    public ModelCard[] getJSONData(int catID) {
+        ModelCard[] mModelCardsALL = SingletonJSON.getInstance().getData();
+        List<ModelCard> modelCardsOfPeriod = new ArrayList<>();
+
+        for (ModelCard m : mModelCardsALL)
+            if (m.getCategory() == catID)
+                modelCardsOfPeriod.add(m);
+
+        return modelCardsOfPeriod.toArray(new ModelCard[modelCardsOfPeriod.size()]);
     }
 
     // Örneğin alındığı proje: http://www.vogella.com/tutorials/AndroidDragAndDrop/article.html
@@ -130,8 +148,20 @@ public class ActivityGameLearnWords extends AppCompatActivity  {
     }
 
     private void gotoGameActivity() {
-        // TODO ActivityGameGuessWords
+
         finish();
+        Intent intent = new Intent(ActivityGameLearnWords.this, ActivityGameGuessWords.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra(AppConstants.REASON_KEY_CARD_PERIOD_ID_ARRAY, generatePeriodIDs());
+        startActivity(intent);
+    }
+
+    private int[] generatePeriodIDs() {
+        int[] idAr = new int[mModelCardsOfPeriod.length];
+        for (int i = 0; i < mModelCardsOfPeriod.length; i++) {
+            idAr[i] = mModelCardsOfPeriod[i].getId();
+        }
+        return idAr;
     }
 
     private void continueCountDownTimer() {
@@ -188,7 +218,7 @@ public class ActivityGameLearnWords extends AppCompatActivity  {
             mTopImageViews[mPhotoViewIndex ].setVisibility(View.GONE);
         }
 
-        ((TextView) findViewById(R.id.textViewMeaning)).setText(mModelCards[mPhotoViewIndex].getEnglish());
+        ((TextView) findViewById(R.id.textViewMeaning)).setText(mModelCardsOfPeriod[mPhotoViewIndex].getEnglish());
         Logy.l("textViewCountDown / onFinish mPhotoViewIndex: " + mPhotoViewIndex);
     }
 

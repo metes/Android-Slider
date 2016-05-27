@@ -11,14 +11,14 @@
     android:background="@drawable/ic_background">
 
     <include layout="@layout/item_photo"
-        android:id="@+id/include" />
+        android:id="@+id/includeForGuess" />
 
     <LinearLayout
         android:id="@+id/containerSelections"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignBottom="@+id/include"
+        android:layout_below="@id/includeForGuess"
         android:layout_centerHorizontal="true">
 
 

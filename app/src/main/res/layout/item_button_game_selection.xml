@@ -1,24 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/containerButton"
-    android:layout_width="match_parent"
-    android:layout_height="80dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:layout_alignParentBottom="true"
     android:layout_centerHorizontal="true"
     android:layout_margin="16dp"
     android:layout_marginBottom="66dp"
-    android:background="@drawable/ic_button_background_selection"
-    android:clickable="true">
+    android:clickable="true" >
 
-    <TextView
-        android:id="@+id/textViewSelection"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <RelativeLayout
+        android:layout_width="326dp"
+        android:layout_height="62dp"
+        android:layout_margin="12dp"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="Large Text"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@color/material_white"
-        android:textSize="29sp" />
+        android:background="@drawable/ic_button_background_selection">
+
+        <TextView
+            android:id="@+id/textViewSelection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="Large Text"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/material_grey_700"
+            android:textSize="29sp" />
+    </RelativeLayout>
+
 </RelativeLayout>
 
