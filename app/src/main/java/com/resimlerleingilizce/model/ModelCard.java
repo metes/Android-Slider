@@ -6,10 +6,9 @@ package com.resimlerleingilizce.model;
 public class ModelCard {
 
     String turkish, english, imagePath;
-    int id;
-    byte category;
+    int id, category;
 
-    public ModelCard(int id, String turkish, String english, String imagePath, byte category) {
+    public ModelCard(int id, String turkish, String english, String imagePath, int category) {
         this.id = id;
         this.turkish = turkish;
         this.english = english;
@@ -50,7 +49,7 @@ public class ModelCard {
         this.id = id;
     }
 
-    public byte getCategory() {
+    public int getCategory() {
         return category;
     }
 

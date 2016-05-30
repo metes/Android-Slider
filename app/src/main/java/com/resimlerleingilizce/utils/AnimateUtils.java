@@ -8,6 +8,7 @@ import android.view.animation.AnimationSet;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
+import android.widget.ImageView;
 
 import com.resimlerleingilizce.ui.ActivityMain.*;
 
@@ -204,6 +205,54 @@ public class AnimateUtils {
         view.startAnimation(set);
 
         return set;
+    }
+
+    public static Animation startSplashImageAnimation(View view) {
+
+        Animation animationMain = getScaleAnimation(0.4f, 1.3f, 1000);
+        Animation animationAfter = getScaleAnimation(1.3f, 1.0f, 1000);
+
+        animationMain.setAnimationListener(
+                startAfterAnimation(view, getScaleAnimation(1.3f, 0.4f, 1000)));
+
+        animationMain.setAnimationListener(
+                       startAfterAnimation(view, animationAfter)
+                );
+
+
+        view.setAnimation(animationMain);
+        view.startAnimation(animationMain);
+
+        return animationMain;
+    }
+
+    // TODO diğer methodlarda da kullanılmak üzere düzenlenecek
+    private static Animation getScaleAnimation(float from, float to, int animationDuration) {
+        ScaleAnimation scale = new ScaleAnimation(from, to, from, to, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        scale.setDuration(animationDuration);     // animation duration in milliseconds
+        scale.setFillAfter(true);    // If fillAfter is true, the transformation that this animation performed will persist when it is finished.
+
+        return scale;
+    }
+
+    private static Animation.AnimationListener startAfterAnimation(final View view, final Animation animationAfter) {
+        return new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                view.startAnimation(animationAfter);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        };
+        //return animationAfter;
     }
 }
 
