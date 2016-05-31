@@ -56,6 +56,15 @@
             android:textSize="32sp"
             android:layout_alignTop="@+id/imageViewPhotoContent"
             android:layout_centerHorizontal="true" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="190dp"
+            android:foregroundGravity="center"
+            android:id="@+id/imageViewAnswerResult"
+            android:src="@drawable/ic_image_correct"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
     </RelativeLayout>
 
 

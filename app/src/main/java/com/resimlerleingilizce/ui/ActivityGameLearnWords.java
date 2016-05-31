@@ -97,6 +97,7 @@ public class ActivityGameLearnWords extends AppCompatActivity  {
     private void setModelDataToCard(RelativeLayout layoutPhoto, ModelCard modelCard) {
         ImageView imageViewPhoto = (ImageView) layoutPhoto.findViewById(R.id.imageViewPhotoContent);
         TextView textViewLabel = (TextView) layoutPhoto.findViewById(R.id.textViewPhotoLabel);
+        ImageView mImageViewPhoto = (ImageView) layoutPhoto.findViewById(R.id.imageViewAnswerResult);
 
         Picasso.with(getBaseContext())
                 .load(modelCard.getImagePath())
@@ -105,6 +106,7 @@ public class ActivityGameLearnWords extends AppCompatActivity  {
                 .into(imageViewPhoto);
         textViewLabel.setText(modelCard.getTurkish());
         textViewLabel.setTypeface(mTtypeface2);
+        mImageViewPhoto.setVisibility(View.GONE);
     }
 
     private void initViews() {

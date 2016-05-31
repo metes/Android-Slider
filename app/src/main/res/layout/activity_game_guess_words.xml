@@ -21,8 +21,10 @@
         android:layout_below="@id/includeForGuess"
         android:layout_centerHorizontal="true">
 
+        <!-- butonlar buraya iflate edilecek -->
 
     </LinearLayout>
+
 
 
 </RelativeLayout>

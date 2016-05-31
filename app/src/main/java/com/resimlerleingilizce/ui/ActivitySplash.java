@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.resimlerleingilizce.R;
 import com.resimlerleingilizce.constants.AppConstants;
@@ -22,7 +21,7 @@ public class ActivitySplash extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_activity_splash);
+        setContentView(R.layout.activity_splash);
 
         new AsyncTaskLoadJSON().execute("");
     }
@@ -68,7 +67,9 @@ public class ActivitySplash extends Activity {
         }
 
         @Override
-        protected void onProgressUpdate(Void... values) {}
+        protected void onProgressUpdate(Void... values) {
+
+        }
     }
 
 }

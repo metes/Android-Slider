@@ -8,6 +8,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -49,6 +50,11 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
         ARISE
     }
 
+    public enum ButtonTypes {
+        ANIMATON_BUTTON_LEFT,
+        ANIMATON_BUTTON_RIGHT
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,6 +92,8 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initViews() {
+        ImageButton imageButtonSliderRight = (ImageButton)     findViewById(R.id.imageButtonRight);
+        ImageButton imageButtonSliderLeft = (ImageButton) findViewById(R.id.imageButtonLeft);
         mSliderContainer = (RelativeLayout) findViewById(R.id.sliderContainer);
         mImgCenter1 = (ImageView) findViewById(R.id.imageViewCenter);
         mImgCenter2 = (ImageView) findViewById(R.id.imageViewCenter2);
@@ -96,8 +104,9 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
         mImgCategoryLabel = (ImageView) findViewById(R.id.imageViewCategoryLabel);
         mButtonPlay = (Button) findViewById(R.id.buttonPlay);
 
-        findViewById(R.id.imageButtonRight).setOnClickListener(this);
-        findViewById(R.id.imageButtonLeft).setOnClickListener(this);
+
+        imageButtonSliderRight.setOnClickListener(this);
+        imageButtonSliderLeft.setOnClickListener(this);
 
         mButtonPlay.setOnClickListener(this);
         mButtonPlay.setOnTouchListener(this);
@@ -106,6 +115,9 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
         mButtonPlay.setTypeface(mTtypeface);
 
         initImageViews();
+
+        AnimateUtils.startSliderSideButonAnimation(imageButtonSliderLeft, ButtonTypes.ANIMATON_BUTTON_LEFT);
+        AnimateUtils.startSliderSideButonAnimation(imageButtonSliderRight, ButtonTypes.ANIMATON_BUTTON_RIGHT);
     }
 
     private void initImageViews() {
