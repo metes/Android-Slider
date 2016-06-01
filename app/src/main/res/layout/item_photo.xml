@@ -12,25 +12,25 @@
 
         <ImageView
             android:id="@+id/imageViewPhotoFrameBackGround"
-            android:layout_width="260dp"
-            android:layout_height="300dp"
+            android:layout_width="250dp"
+            android:layout_height="315dp"
             android:background="@drawable/ic_photo_frame_background"
             android:layout_centerHorizontal="true" />
 
         <ImageView
             android:id="@+id/imageViewPhotoContent"
-            android:layout_width="230dp"
-            android:layout_height="190dp"
-            android:layout_margin="8dp"
-            android:paddingLeft="32dp"
-            android:scaleType="centerCrop"
+            android:layout_width="226dp"
+            android:layout_height="226dp"
+            android:layout_marginTop="8dp"
+            android:paddingLeft="5dp"
+            android:scaleType="fitCenter"
             android:src="@drawable/ic_cilek"
             android:layout_centerHorizontal="true" />
 
         <ImageView
             android:id="@+id/imageViewPhotoFrame"
-            android:layout_width="260dp"
-            android:layout_height="300dp"
+            android:layout_width="250dp"
+            android:layout_height="315dp"
             android:background="@drawable/ic_photo_frame"
             android:layout_centerHorizontal="true" />
 
@@ -49,11 +49,11 @@
             android:id="@+id/textViewPhotoLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="202dp"
+            android:paddingTop="242dp"
             android:text=""
             android:textColor="@color/material_grey_700"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="32sp"
+            android:textSize="24sp"
             android:layout_alignTop="@+id/imageViewPhotoContent"
             android:layout_centerHorizontal="true" />
 

@@ -3,11 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:padding="16dp"
     tools:context=".ui.ActivityGameLearnWords"
+    android:layout_centerHorizontal="true"
     android:background="@drawable/ic_background">
 
     <TextView
@@ -24,7 +22,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="@dimen/learn_label_background"
         android:background="@drawable/ic_button_background_board"
         android:padding="16dp"
         android:layout_alignParentBottom="true"

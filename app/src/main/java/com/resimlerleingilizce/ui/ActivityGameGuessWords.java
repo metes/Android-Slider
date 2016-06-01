@@ -29,8 +29,8 @@ public class ActivityGameGuessWords extends Activity implements View.OnTouchList
     ModelCard mModelCard;
     LinearLayout mContainerSelection;
     int[] mRandomIDs, mIdForPeriodAr;
+    ImageView mImageViewPhotoContent, mImageViewPhotoResult;
     TextView mTextViewLabel;
-    ImageView mImageViewPhoto;
     private int mPeriodIndex;
     private boolean isPeriodEnding;
 
@@ -42,24 +42,36 @@ public class ActivityGameGuessWords extends Activity implements View.OnTouchList
         mTtypeface1 = Typeface.createFromAsset(getAssets(), "coopbl.ttf");
         mTtypeface2 = Typeface.createFromAsset(getAssets(), "homework_normal.ttf");
 
-        initParams();
+        initModelCard();
         initViews();
+
+        initQuestionsViews();
         initSelections();
+    }
+
+    private void initQuestionsViews() {
+        mTextViewLabel.setText(mModelCard.getTurkish());
+        Picasso.with(getBaseContext())
+                .load(mModelCard.getImagePath())
+                .placeholder(android.R.drawable.ic_menu_report_image)
+                .into(mImageViewPhotoContent);
     }
 
     private void initSelections() {
         mContainerSelection.removeAllViews();
         mRandomIDs = getRandomIDs();
+
+
         for (int i = 0; i < AppConstants.SELECTION_COUNT; i++) {
             RelativeLayout layoutSelection = (RelativeLayout) getLayoutInflater().inflate(R.layout.item_button_game_selection, null);
             layoutSelection.setOnTouchListener(this);
-            initButtonSelection(layoutSelection, i);
+            initButtonSelection(layoutSelection, mRandomIDs[i]);
             mContainerSelection.addView(layoutSelection);
         }
     }
 
     private void initButtonSelection(View parent, int index) {
-        ModelCard model = Utils.getModelCardFromId(mIdForPeriodAr[index]);
+        ModelCard model = Utils.getModelCardFromId(index);
         parent.setTag(model.getTurkish());
         TextView textViewLabel = (TextView) parent.findViewById(R.id.textViewSelection);
         textViewLabel.setText(model.getEnglish());
@@ -69,27 +81,19 @@ public class ActivityGameGuessWords extends Activity implements View.OnTouchList
     private void initViews() {
         mContainerSelection = (LinearLayout) findViewById(R.id.containerSelections);
         RelativeLayout containerPhoto = (RelativeLayout) findViewById(R.id.includeForGuess);
-        ImageView imageViewPhoto = (ImageView) containerPhoto.findViewById(R.id.imageViewPhotoContent);
+        mImageViewPhotoContent = (ImageView) containerPhoto.findViewById(R.id.imageViewPhotoContent);
         mTextViewLabel = (TextView) containerPhoto.findViewById(R.id.textViewPhotoLabel);
-        mImageViewPhoto = (ImageView) containerPhoto.findViewById(R.id.imageViewAnswerResult);
+        mImageViewPhotoResult = (ImageView) containerPhoto.findViewById(R.id.imageViewAnswerResult);
 
-        mTextViewLabel.setText(mModelCard.getTurkish());
         mTextViewLabel.setTypeface(mTtypeface1);
-
-        Picasso.with(getBaseContext())
-                .load(mModelCard.getImagePath())
-                .placeholder(android.R.drawable.ic_menu_report_image)
-                .into(imageViewPhoto);
-
-        mImageViewPhoto.setAlpha(0f);
+        mImageViewPhotoResult.setAlpha(0f);
     }
 
-    public void initParams() {
+    public void initModelCard() {
         mIdForPeriodAr = new int[0];
         mPeriodIndex = 0;
         try {
             mIdForPeriodAr = getIntent().getExtras().getIntArray(AppConstants.REASON_KEY_CARD_PERIOD_ID_ARRAY);
-            //mPeriodIndex = getIntent().getExtras().getInt(AppConstants.REASON_KEY_ID);
         }catch (Exception e) {
             e.printStackTrace();
         }
@@ -108,23 +112,23 @@ public class ActivityGameGuessWords extends Activity implements View.OnTouchList
                 }
 
                 final boolean isAnswetCorrect = v.getTag().toString().equals(mTextViewLabel.getText().toString());
-                mImageViewPhoto.setAlpha(1f);
+                mImageViewPhotoResult.setAlpha(1f);
                 AnimateUtils.startButtonAnimation(v, 80);
 
                 // doğru cevap ise
                 if (isAnswetCorrect) {
-                    mImageViewPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_image_correct));
+                    mImageViewPhotoResult.setImageDrawable(getResources().getDrawable(R.drawable.ic_image_correct));
                 }
                 // yanlış cevap ise
                 else {
-                    mImageViewPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_image_incorrect));
+                    mImageViewPhotoResult.setImageDrawable(getResources().getDrawable(R.drawable.ic_image_incorrect));
                 }
 
                 // butona tıklama efekti
                 AnimateUtils.startButtonAnimation(v, 80);
 
                 // Cevap doğru / yanlış yazısının yükselmesi için slider'da kullanılan aynı efekti kullanıyorum
-                AnimateUtils.startSliderAnimation(mImageViewPhoto, ActivityMain.AnimationTypes.ARISE)
+                AnimateUtils.startSliderAnimation(mImageViewPhotoResult, ActivityMain.AnimationTypes.ARISE)
                         .setAnimationListener(new Animation.AnimationListener() {
                             @Override
                             public void onAnimationStart(Animation animation) {
@@ -156,8 +160,8 @@ public class ActivityGameGuessWords extends Activity implements View.OnTouchList
 
                                     }
                                 });
-                                mImageViewPhoto.setAnimation(fadeAnimation);
-                                mImageViewPhoto.startAnimation(fadeAnimation);
+                                mImageViewPhotoResult.setAnimation(fadeAnimation);
+                                mImageViewPhotoResult.startAnimation(fadeAnimation);
 
                             }
 
@@ -178,23 +182,23 @@ public class ActivityGameGuessWords extends Activity implements View.OnTouchList
 
     private void prepeareNewQuestion() {
 
-        if (mPeriodIndex == mIdForPeriodAr.length - 1) {
+        prepareNewModelCard();
+        refreshViewsWithNewParams();
+    }
+
+    private void prepareNewModelCard() {
+        if (mPeriodIndex >= mIdForPeriodAr.length - 1) {
             Logy.l("mModelCard next: " + -1);
             goToGameLearningActivity();
             return;
         }
-
-
         mPeriodIndex++;
-        Logy.l("mModelCard next: " + mModelCard.getEnglish());
         mModelCard = SingletonJSON.getInstance().getData()[mIdForPeriodAr[mPeriodIndex]];
-
-        refreshViewsWithNewParams();
+        Logy.l("mModelCard next: " + mModelCard.getEnglish());
     }
 
     private void refreshViewsWithNewParams() {
-        mTextViewLabel.setText(mModelCard.getTurkish());
-
+        initQuestionsViews();
         initSelections();
     }
 
@@ -215,9 +219,10 @@ public class ActivityGameGuessWords extends Activity implements View.OnTouchList
     }
 
     private void goToGameLearningActivity() {
-        Intent in = new Intent(ActivityGameGuessWords.this, ActivityGameLearnWords.class);
-        in.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(in);
+        Intent intent = new Intent(ActivityGameGuessWords.this, ActivityGameLearnWords.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra(AppConstants.REASON_KEY_CATEGORY, getIntent().getIntExtra(AppConstants.REASON_KEY_CATEGORY, 1));
+        startActivity(intent);
         finish();
     }
 }
