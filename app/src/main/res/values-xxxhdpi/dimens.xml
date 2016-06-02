@@ -4,16 +4,17 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
 
-    <dimen name="main_title_resimlerle_x">72dp</dimen>
-    <dimen name="main_title_ingilizce_x">64dp</dimen>
-    <dimen name="main_button_play_y">58dp</dimen>
-    <dimen name="main_slider_label_x">36dp</dimen>
+    <dimen name="main_title_resimlerle_x">70dp</dimen>
+    <dimen name="main_title_ingilizce_x">61dp</dimen>
+    <dimen name="main_button_play_y">64dp</dimen>
+    <dimen name="main_slider_label_x">40dp</dimen>
 
     <dimen name="item_photo_photo_content_x">232dp</dimen>
-    <dimen name="learn_label_background">78dp</dimen>
+    <dimen name="learn_label_background_y">78dp</dimen>
     <dimen name="item_photo_padding">19dp</dimen>
+    <dimen name="item_photo_at_learning_text_size">30sp</dimen>
 
 
     <dimen name="item_selection_x">306dp</dimen>
-    <dimen name="item_selection_y">58dp</dimen>
+    <dimen name="item_selection_y">50dp</dimen>
 </resources>

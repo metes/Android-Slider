@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1058023557069",
+    "firebase_url": "https://admob-app-id-8941518856.firebaseio.com",
+    "project_id": "admob-app-id-8941518856",
+    "storage_bucket": "admob-app-id-8941518856.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1058023557069:android:99837f252d95646b",
+        "android_client_info": {
+          "package_name": "com.resimlerleingilizce"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1058023557069-1i12fvuvm3ju6vnjjltgm5o8fgiob0on.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtAB3TmjdFwWlLh-LcBY_uifoC1uVD3o0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

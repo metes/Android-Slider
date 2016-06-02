@@ -4,11 +4,8 @@ import android.app.ProgressDialog;
 import android.content.ClipData;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.media.Image;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -16,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.resimlerleingilizce.R;
 import com.resimlerleingilizce.constants.AppConstants;
 import com.resimlerleingilizce.model.ModelCard;
@@ -32,7 +31,7 @@ import java.util.concurrent.TimeUnit;
 public class ActivityGameLearnWords extends AppCompatActivity  {
 
     private View[] mTopImageViews;
-    private Typeface mTtypeface1, mTtypeface2;
+    private Typeface mTtypeface1;
     private TextView mTextViewMeaning;
     private RelativeLayout mRelativeLayoutPhotoContainer;
     private TextView mTextViewCountDown;
@@ -44,6 +43,7 @@ public class ActivityGameLearnWords extends AppCompatActivity  {
     private ProgressDialog mProgressDilog;
 
     private ModelCard[] mModelCardsOfSelectedCategory, mModelCardsOfPeriod;
+    AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,14 +92,29 @@ public class ActivityGameLearnWords extends AppCompatActivity  {
     @Override
     public void onResume() {
         super.onResume();
+        if (mAdView != null) {
+            mAdView.resume();
+        }
         Logy.l("onResume game Activity");
         continueCountDownTimer();
     }
 
     protected void onPause() {
+        if (mAdView != null) {
+            mAdView.pause();
+        }
         super.onPause();
+
         Logy.l("onPause game Activity");
         stopCountDownTimer();
+    }
+
+    @Override
+    public void onDestroy() {
+        if (mAdView != null) {
+            mAdView.destroy();
+        }
+        super.onDestroy();
     }
 
     private void fillPhotoContainer() {
@@ -155,8 +170,9 @@ public class ActivityGameLearnWords extends AppCompatActivity  {
 
                 });
 
+
         textViewLabel.setText(modelCard.getTurkish());
-        textViewLabel.setTypeface(mTtypeface2);
+        textViewLabel.setTypeface(mTtypeface1);
         mImageViewPhoto.setVisibility(View.GONE);
     }
 
@@ -167,11 +183,20 @@ public class ActivityGameLearnWords extends AppCompatActivity  {
 
         initCountDownTimer(mTextViewCountDown, AppConstants.COUNTDOWN_DURATION);
 
-        mTtypeface1 = Typeface.createFromAsset(getAssets(), "coopbl.ttf");
-        mTtypeface2 = Typeface.createFromAsset(getAssets(), "homework_normal.ttf");
+        mTtypeface1 = Typeface.createFromAsset(getAssets(), "luckiest_guy.ttf");
         mTextViewMeaning.setTypeface(mTtypeface1);
 
         mIsImagesAreLoaded = new boolean[AppConstants.GUESS_CARD_COUNT_OF_PERIOD];
+
+        initAdmob();
+    }
+
+    private void initAdmob() {
+        mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder()
+                //.addTestDevice("1C959E3ADE6D3A915703D337BBC8BBFE")
+                .build();
+        mAdView.loadAd(adRequest);
     }
 
     public void loadCategoryCardsJSONData(int catID) {

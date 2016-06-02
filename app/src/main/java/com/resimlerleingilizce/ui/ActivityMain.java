@@ -2,8 +2,8 @@ package com.resimlerleingilizce.ui;
 
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
@@ -12,17 +12,11 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.resimlerleingilizce.R;
 import com.resimlerleingilizce.constants.AppConstants;
-import com.resimlerleingilizce.model.ModelCard;
-import com.resimlerleingilizce.singletons.SingletonJSON;
 import com.resimlerleingilizce.utils.AnimateUtils;
 import com.resimlerleingilizce.utils.Logy;
-import com.resimlerleingilizce.utils.Utils;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class ActivityMain extends AppCompatActivity implements View.OnClickListener, View.OnTouchListener {
 
@@ -32,6 +26,7 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
     private ImageView mImgCenter1, mImgCenter2, mImgRight1, mImgRight2, mImgLeft1, mImgLeft2, mImgCategoryLabel;
     private Button mButtonPlay;
     RelativeLayout mSliderContainer;
+    FirebaseAnalytics mFirebaseAnalytics;
 
     private int[] CATEGORY_IMAGE_RESOURCE_IDS = { R.drawable.ic_category_1,
             R.drawable.ic_category_2, R.drawable.ic_category_3,
@@ -59,10 +54,18 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        logToFireBase("ActivityMain onCreate başladı");
         mCategoryPosition = 0;
 
         initViews();
+    }
+
+    private void logToFireBase(String log) {
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.VALUE, log);
+        bundle.putString(FirebaseAnalytics.Param.LOCATION, "Mete'nin emulator'ü");
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
     }
 
     @Override
@@ -104,14 +107,22 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
         mImgCategoryLabel = (ImageView) findViewById(R.id.imageViewCategoryLabel);
         mButtonPlay = (Button) findViewById(R.id.buttonPlay);
 
-
         imageButtonSliderRight.setOnClickListener(this);
         imageButtonSliderLeft.setOnClickListener(this);
-
         mButtonPlay.setOnClickListener(this);
-        mButtonPlay.setOnTouchListener(this);
 
-        mTtypeface = Typeface.createFromAsset(getAssets(), "coopbl.ttf");
+        mButtonPlay.setOnTouchListener(this);
+        mSliderContainer.setOnTouchListener(this);
+        mImgCenter1.setOnTouchListener(this);
+        mImgCenter2.setOnTouchListener(this);
+        mImgRight1.setOnTouchListener(this);
+        mImgRight2.setOnTouchListener(this);
+        mImgLeft1.setOnTouchListener(this);
+        mImgLeft2.setOnTouchListener(this);
+        imageButtonSliderRight.setOnTouchListener(this);
+        imageButtonSliderLeft.setOnTouchListener(this);
+
+        mTtypeface = Typeface.createFromAsset(getAssets(), "luckiest_guy.ttf");
         mButtonPlay.setTypeface(mTtypeface);
 
         initImageViews();
@@ -121,35 +132,24 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initImageViews() {
-        mImgLeft1.setImageDrawable(getResources().getDrawable(CATEGORY_IMAGE_RESOURCE_IDS[CATEGORY_IMAGE_RESOURCE_IDS.length-1]));
+        mImgLeft1.setImageDrawable(getResources().getDrawable(CATEGORY_IMAGE_RESOURCE_IDS[1]));
         mImgCenter1.setImageDrawable(getResources().getDrawable(CATEGORY_IMAGE_RESOURCE_IDS[0]));
-        mImgRight2.setImageDrawable(getResources().getDrawable(CATEGORY_IMAGE_RESOURCE_IDS[1]));
+        mImgRight2.setImageDrawable(getResources().getDrawable(CATEGORY_IMAGE_RESOURCE_IDS[CATEGORY_IMAGE_RESOURCE_IDS.length-1]));
     }
 
     @Override
     public boolean onTouch(final View view, MotionEvent event) {
+        int x = (int) event.getX();
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 if (view.getId() == R.id.buttonPlay) {
-                    AnimateUtils.startButtonAnimation(view, 100).setAnimationListener(new Animation.AnimationListener() {
-                        @Override
-                        public void onAnimationStart(Animation animation) {
-
-                        }
-
-                        @Override
-                        public void onAnimationEnd(Animation animation) {
-                            goToGameActivity();
-                        }
-
-                        @Override
-                        public void onAnimationRepeat(Animation animation) {
-
-                        }
-                    });
+                   playButtonAction(view);
                 }
-                else {
-
+                else
+                {
+                    //TODO slide
+                    mTouchPositionX = x;
+                    Logy.l("ontouch x: " + x);
                 }
                 break;
 
@@ -160,10 +160,77 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
                 if (view.getId() == R.id.buttonPlay) {
 
                 }
+                else
+                {
+                    float deltaX = mTouchPositionX - x;
+                    Logy.l("ontouch deltaX: " + deltaX);
+                    setVisibleSliderViews();
+                    if (deltaX > 200) {
+                        // TODO kaydırma işlemi
+                        slideLeft();
+                    }
+                    else if (deltaX < -200) {
+                        // TODO kaydırma işlemi
+                        slideRight();
+                    }
+                    updateLable();
+                }
                 break;
         }
         return false;
     }
+
+    private void playButtonAction(View view) {
+        AnimateUtils.startButtonAnimation(view, 100).setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) { }
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                goToGameActivity();
+            }
+            @Override
+            public void onAnimationRepeat(Animation animation) { }
+        });
+    }
+
+    private void slideLeft() {
+        mImgLeft1.setAlpha(0f);
+        AnimateUtils.startSliderAnimation(mImgLeft2, AnimationTypes.DISAPEAR)
+                .setAnimationListener(setImageResourceBeforeAnimation(mImgLeft2, mCategoryPosition + 1 ))
+        ;
+        AnimateUtils.startSliderAnimation(mImgCenter1, AnimationTypes.CENTER_TO_LEFT)
+                .setAnimationListener(setImageResourceBeforeAnimation(mImgCenter1, mCategoryPosition + 0 ))
+        ;
+        AnimateUtils.startSliderAnimation(mImgRight2, AnimationTypes.RIGHT_TO_CENTER)
+                .setAnimationListener(setImageResourceBeforeAnimation(mImgRight2, mCategoryPosition - 1))
+        ;
+        AnimateUtils.startSliderAnimation(mImgRight1, AnimationTypes.ARISE)
+                .setAnimationListener(setImageResourceBeforeAnimation(mImgRight1, mCategoryPosition - 2))
+        ;
+        mCategoryPosition--;
+        mCategoryPosition = limitPositionInImageResourceLength(mCategoryPosition);
+    }
+
+    private void slideRight() {
+        mImgRight2.setAlpha(0f);
+        AnimateUtils.startSliderAnimation(mImgRight1, AnimationTypes.DISAPEAR)
+                .setAnimationListener(setImageResourceBeforeAnimation(mImgRight1, mCategoryPosition - 1 ))
+        ;
+        AnimateUtils.startSliderAnimation(mImgCenter1, AnimationTypes.CENTER_TO_RIGHT)
+                .setAnimationListener(setImageResourceBeforeAnimation(mImgCenter1, mCategoryPosition + 0))
+        ;
+        AnimateUtils.startSliderAnimation(mImgLeft1, AnimationTypes.LEFT_TO_CENTER)
+                .setAnimationListener(setImageResourceBeforeAnimation(mImgLeft1, mCategoryPosition + 1 ))
+        ;
+        AnimateUtils.startSliderAnimation(mImgLeft2, AnimationTypes.ARISE)
+                .setAnimationListener(setImageResourceBeforeAnimation(mImgLeft2, mCategoryPosition + 2 ))
+        ;
+        mCategoryPosition++;
+        mCategoryPosition = limitPositionInImageResourceLength(mCategoryPosition);
+    }
+
+
+    int mTouchPositionX;
 
     @Override
     public void onClick(View v) {
@@ -172,50 +239,31 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
             return;
         }
 
+        setVisibleSliderViews();
+
+        if (v.getId() == R.id.imageButtonRight)
+        {
+           slideRight();
+        }
+        else if (v.getId() == R.id.imageButtonLeft)
+        {
+            slideLeft();
+        }
+        if (v.getId() == R.id.imageButtonRight || v.getId() == R.id.imageButtonLeft) {
+            updateLable();
+        }
+    }
+
+    private void setVisibleSliderViews() {
         // Hepsini tekrar görünür yap
         mImgLeft2.setAlpha(1f);
         mImgRight2.setAlpha(1f);
         mImgRight1.setAlpha(1f);
         mImgLeft1.setAlpha(1f);
         mImgCenter2.setAlpha(1f);
+    }
 
-        if (v.getId() == R.id.imageButtonRight)
-        {
-            mImgRight2.setAlpha(0f);
-            AnimateUtils.startSliderAnimation(mImgRight1, AnimationTypes.DISAPEAR)
-                    .setAnimationListener(setImageResourceBeforeAnimation(mImgRight1, mCategoryPosition - 1 ))
-            ;
-            AnimateUtils.startSliderAnimation(mImgCenter1, AnimationTypes.CENTER_TO_RIGHT)
-                    .setAnimationListener(setImageResourceBeforeAnimation(mImgCenter1, mCategoryPosition + 0))
-            ;
-            AnimateUtils.startSliderAnimation(mImgLeft1, AnimationTypes.LEFT_TO_CENTER)
-                    .setAnimationListener(setImageResourceBeforeAnimation(mImgLeft1, mCategoryPosition + 1 ))
-            ;
-            AnimateUtils.startSliderAnimation(mImgLeft2, AnimationTypes.ARISE)
-                   .setAnimationListener(setImageResourceBeforeAnimation(mImgLeft2, mCategoryPosition + 2 ))
-            ;
-            mCategoryPosition++;
-            mCategoryPosition = limitPositionInImageResourceLength(mCategoryPosition);
-        }
-        else if (v.getId() == R.id.imageButtonLeft)
-        {
-            mImgLeft1.setAlpha(0f);
-            AnimateUtils.startSliderAnimation(mImgLeft2, AnimationTypes.DISAPEAR)
-                    .setAnimationListener(setImageResourceBeforeAnimation(mImgLeft2, mCategoryPosition + 1 ))
-            ;
-            AnimateUtils.startSliderAnimation(mImgCenter1, AnimationTypes.CENTER_TO_LEFT)
-                    .setAnimationListener(setImageResourceBeforeAnimation(mImgCenter1, mCategoryPosition + 0 ))
-            ;
-            AnimateUtils.startSliderAnimation(mImgRight2, AnimationTypes.RIGHT_TO_CENTER)
-                    .setAnimationListener(setImageResourceBeforeAnimation(mImgRight2, mCategoryPosition - 1))
-            ;
-            AnimateUtils.startSliderAnimation(mImgRight1, AnimationTypes.ARISE)
-                    .setAnimationListener(setImageResourceBeforeAnimation(mImgRight1, mCategoryPosition - 2))
-            ;
-            mCategoryPosition--;
-            mCategoryPosition = limitPositionInImageResourceLength(mCategoryPosition);
-        }
-
+    private void updateLable() {
         // Label'ı güncelle
         mImgCategoryLabel.setImageResource(CATEGORY_TEXT_RESOURCE_IDS[mCategoryPosition]);
         AnimateUtils.startLabelAnimation(mImgCategoryLabel, 800);

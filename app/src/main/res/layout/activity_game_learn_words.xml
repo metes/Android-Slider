@@ -1,63 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    tools:context=".ui.ActivityGameLearnWords"
     android:layout_centerHorizontal="true"
-    android:background="@drawable/ic_background">
-
-    <TextView
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:text="7"
-        android:gravity="center"
-        android:textSize="43sp"
-        android:textStyle="bold"
-        android:background="@drawable/shape_frame"
-        android:textColor="@color/material_white"
-        android:id="@+id/textViewCountDown"
-        android:layout_centerHorizontal="true" />
+    android:background="@drawable/ic_background"
+    android:paddingTop="16dp"
+    tools:context=".ui.ActivityGameLearnWords">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/learn_label_background"
-        android:background="@drawable/ic_button_background_board"
-        android:padding="16dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="26dp">
+        android:layout_height="match_parent"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Large Text"
-            android:id="@+id/textViewMeaning"
-            android:textSize="29sp"
+            android:id="@+id/textViewCountDown"
+            android:layout_width="@dimen/learn_textview_countdown_xy"
+            android:layout_height="@dimen/learn_textview_countdown_xy"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/shape_frame"
+            android:gravity="center"
+            android:text="7"
             android:textColor="@color/material_white"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true" />
+            android:textSize="@dimen/learn_textview_countdown_font"
+            android:textStyle="bold" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/learn_label_background_y"
+            android:layout_below="@+id/relativeLayoutPhotoContainer"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/ic_button_background_board"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/textViewMeaning"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="Large Text"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/material_white"
+                android:textSize="@dimen/learn_label_textview_size" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/relativeLayoutPhotoContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewCountDown"
+            android:layout_centerHorizontal="true">
+            <!--
+                    <include
+                        android:id="@+id/includedPhotoLayout"
+                        layout="@layout/item_photo"/>
+                        -->
+        </RelativeLayout>
     </RelativeLayout>
 
-
-
-    <RelativeLayout
-        android:id="@+id/relativeLayoutPhotoContainer"
-        android:layout_width="match_parent"
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/textViewCountDown">
-<!--
-        <include
-            android:id="@+id/includedPhotoLayout"
-            layout="@layout/item_photo"/>
-            -->
-    </RelativeLayout>
-
-
-
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/banner_home_footer"></com.google.android.gms.ads.AdView>
 </RelativeLayout>
 
 

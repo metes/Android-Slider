@@ -10,10 +10,13 @@
     <dimen name="main_slider_label_x">36dp</dimen>
 
     <dimen name="item_photo_photo_content_x">232dp</dimen>
-    <dimen name="learn_label_background">78dp</dimen>
+    <dimen name="learn_label_background_y">68dp</dimen>
     <dimen name="item_photo_padding">19dp</dimen>
 
 
-    <dimen name="item_selection_x">306dp</dimen>
-    <dimen name="item_selection_y">46dp</dimen>
+    <dimen name="item_selection_x">296dp</dimen>
+    <dimen name="item_selection_y">42dp</dimen>
+
+    <dimen name="learn_textview_countdown_xy">53dp</dimen>
+    <dimen name="learn_textview_countdown_font">20sp</dimen>
 </resources>

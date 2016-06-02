@@ -12,6 +12,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.resimlerleingilizce.R;
 import com.resimlerleingilizce.constants.AppConstants;
 import com.resimlerleingilizce.model.ModelCard;
@@ -25,28 +27,53 @@ import java.util.Random;
 
 public class ActivityGameGuessWords extends Activity implements View.OnTouchListener {
 
-    private Typeface mTtypeface1, mTtypeface2;
+    private Typeface mTtypeface1;
     ModelCard mModelCard;
     LinearLayout mContainerSelection;
     int[] mRandomIDs, mIdForPeriodAr;
     ImageView mImageViewPhotoContent, mImageViewPhotoResult;
     TextView mTextViewLabel;
     private int mPeriodIndex;
-    private boolean isPeriodEnding;
+    AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_guess_words);
 
-        mTtypeface1 = Typeface.createFromAsset(getAssets(), "coopbl.ttf");
-        mTtypeface2 = Typeface.createFromAsset(getAssets(), "homework_normal.ttf");
+        mTtypeface1 = Typeface.createFromAsset(getAssets(), "luckiest_guy.ttf");
 
         initModelCard();
         initViews();
 
         initQuestionsViews();
         initSelections();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mAdView != null) {
+            mAdView.resume();
+        }
+        Logy.l("onResume ActivityGameGuessWords");
+    }
+
+    protected void onPause() {
+        if (mAdView != null) {
+            mAdView.pause();
+        }
+        super.onPause();
+
+        Logy.l("onPause ActivityGameGuessWords");
+    }
+
+    @Override
+    public void onDestroy() {
+        if (mAdView != null) {
+            mAdView.destroy();
+        }
+        super.onDestroy();
     }
 
     private void initQuestionsViews() {
@@ -60,7 +87,6 @@ public class ActivityGameGuessWords extends Activity implements View.OnTouchList
     private void initSelections() {
         mContainerSelection.removeAllViews();
         mRandomIDs = getRandomIDs();
-
 
         for (int i = 0; i < AppConstants.SELECTION_COUNT; i++) {
             RelativeLayout layoutSelection = (RelativeLayout) getLayoutInflater().inflate(R.layout.item_button_game_selection, null);
@@ -87,6 +113,16 @@ public class ActivityGameGuessWords extends Activity implements View.OnTouchList
 
         mTextViewLabel.setTypeface(mTtypeface1);
         mImageViewPhotoResult.setAlpha(0f);
+
+        initAdmob();
+    }
+
+    private void initAdmob() {
+        mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder()
+                //.addTestDevice("1C959E3ADE6D3A915703D337BBC8BBFE")
+                .build();
+        mAdView.loadAd(adRequest);
     }
 
     public void initModelCard() {

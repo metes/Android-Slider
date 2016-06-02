@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Resimlerle Ingilizce</string>
+    <string name="app_name">Resimlerle\nIngilizce</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -8,5 +8,12 @@
     <string name="title_button_play">Oyna</string>
     <string name="title_correct">Cevap doğru!</string>
     <string name="message_loading">Yükleniyor...</string>
+
+
+    <!-- AdMob ad unit IDs
+
+    appid: ca-app-pub-7536090745540683~8941518856
+    -->
+    <string name="banner_home_footer">ca-app-pub-7536090745540683/1418252054</string>
 
 </resources>

@@ -47,13 +47,15 @@
 
         <TextView
             android:id="@+id/textViewPhotoLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingTop="242dp"
-            android:text=""
+            android:layout_width="220dp"
+            android:layout_height="74dp"
+            android:layout_marginTop="224dp"
+            android:paddingLeft="02dp"
+            android:gravity="center"
+            android:text="-"
             android:textColor="@color/material_grey_700"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="24sp"
+            android:textSize="@dimen/item_photo_at_learning_text_size"
             android:layout_alignTop="@+id/imageViewPhotoContent"
             android:layout_centerHorizontal="true" />
 

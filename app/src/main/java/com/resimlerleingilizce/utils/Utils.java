@@ -1,7 +1,5 @@
 package com.resimlerleingilizce.utils;
 
-import android.util.Log;
-
 import com.resimlerleingilizce.constants.AppConstants;
 import com.resimlerleingilizce.model.ModelCard;
 import com.resimlerleingilizce.singletons.SingletonJSON;
