@@ -28,5 +28,6 @@ dependencies {
 
     compile 'com.google.firebase:firebase-core:9.0.1'
     compile 'com.google.android.gms:play-services-ads:9.0.1'
+    compile 'com.google.code.gson:gson:2.4'
 }
 apply plugin: 'com.google.gms.google-services'

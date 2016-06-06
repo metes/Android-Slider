@@ -1,5 +1,12 @@
 package com.resimlerleingilizce.utils;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.provider.SyncStateContract;
+import android.util.Log;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.resimlerleingilizce.constants.AppConstants;
 import com.resimlerleingilizce.model.ModelCard;
 import com.resimlerleingilizce.singletons.SingletonJSON;
@@ -11,6 +18,7 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -67,4 +75,42 @@ public class Utils {
 
         return modelCards;
     }
+
+
+    // işlem yapılmadı
+    public static void saveModelAr(Context context, ModelCard[] modelCard) {
+        SharedPreferences mPrefs = context.getSharedPreferences(AppConstants.SINGLETON_JSON_RC, context.MODE_PRIVATE);
+        SharedPreferences.Editor prefsEditor = mPrefs.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(modelCard);
+        Logy.l("saveModelAr: " + json);
+        prefsEditor.putString("myJson", json);
+        prefsEditor.commit();
+    }
+
+    // ok
+    public static ModelCard[] loadModelAr(Context context) {
+        try {
+            SharedPreferences mPrefs = context.getSharedPreferences(AppConstants.SINGLETON_JSON_RC, context.MODE_PRIVATE);
+            Gson gson = new Gson();
+            String oldJsonString = mPrefs.getString("myJson", "");
+            Log.d("Utils", "loadModelAr Srtingjson: " + oldJsonString);
+
+            if (!oldJsonString.isEmpty() )
+            {
+                Type type = new TypeToken<ModelCard[]>() { }.getType();
+                return gson.fromJson(oldJsonString, type);
+
+            }
+            else {
+                // TODO bağlantı kurulamadı
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    
 }

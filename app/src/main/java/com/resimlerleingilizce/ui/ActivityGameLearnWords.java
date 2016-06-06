@@ -20,6 +20,7 @@ import com.resimlerleingilizce.constants.AppConstants;
 import com.resimlerleingilizce.model.ModelCard;
 import com.resimlerleingilizce.singletons.SingletonJSON;
 import com.resimlerleingilizce.utils.Logy;
+import com.resimlerleingilizce.utils.Utils;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -140,7 +141,7 @@ public class ActivityGameLearnWords extends AppCompatActivity  {
             mTopImageViews[i] = layoutPhoto;
         }
 
-        mPhotoViewIndex = AppConstants.GUESS_CARD_COUNT_OF_PERIOD - 1;
+//        mPhotoViewIndex = AppConstants.GUESS_CARD_COUNT_OF_PERIOD - 0;
 
         // en üst kart için
         ((TextView) findViewById(R.id.textViewMeaning)).setText(mModelCardsOfPeriod[mPhotoViewIndex].getEnglish());
@@ -200,14 +201,21 @@ public class ActivityGameLearnWords extends AppCompatActivity  {
     }
 
     public void loadCategoryCardsJSONData(int catID) {
-        ModelCard[] mModelCardsALL = SingletonJSON.getInstance().getData();
+        ModelCard[] modelCardsALL = loadSingleton();
         List<ModelCard> modelCardsOfPeriod = new ArrayList<>();
 
-        for (ModelCard m : mModelCardsALL)
+        for (ModelCard m : modelCardsALL)
             if (m.getCategory() == catID)
                 modelCardsOfPeriod.add(m);
 
         mModelCardsOfSelectedCategory = modelCardsOfPeriod.toArray(new ModelCard[modelCardsOfPeriod.size()]);
+    }
+
+    private ModelCard[] loadSingleton() {
+        if (SingletonJSON.getInstance().getData() == null) {
+            SingletonJSON.getInstance().setData(Utils.loadModelAr(getBaseContext()));
+        }
+        return SingletonJSON.getInstance().getData();
     }
 
     // Örneğin alındığı proje: http://www.vogella.com/tutorials/AndroidDragAndDrop/article.html
@@ -301,7 +309,7 @@ public class ActivityGameLearnWords extends AppCompatActivity  {
             mTopImageViews[mPhotoViewIndex ].setVisibility(View.GONE);
         }
 
-        ((TextView) findViewById(R.id.textViewMeaning)).setText(mModelCardsOfPeriod[mPhotoViewIndex].getEnglish());
+        mTextViewMeaning.setText(mModelCardsOfPeriod[mPhotoViewIndex - 1].getEnglish());
         Logy.l("textViewCountDown / onFinish mPhotoViewIndex: " + mPhotoViewIndex);
     }
 

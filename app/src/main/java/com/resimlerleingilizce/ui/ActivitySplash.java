@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.resimlerleingilizce.R;
 import com.resimlerleingilizce.constants.AppConstants;
+import com.resimlerleingilizce.model.ModelCard;
 import com.resimlerleingilizce.singletons.SingletonJSON;
 import com.resimlerleingilizce.utils.AnimateUtils;
 import com.resimlerleingilizce.utils.Utils;
@@ -39,7 +40,9 @@ public class ActivitySplash extends Activity {
         protected String doInBackground(String... params) {
 
             JSONArray jAr = Utils.loadJSONData();
-            SingletonJSON.getInstance().setData(Utils.parseJSONToModel(jAr));
+            ModelCard[] modelCards = Utils.parseJSONToModel(jAr);
+            SingletonJSON.getInstance().setData(modelCards);
+            Utils.saveModelAr(getBaseContext(), modelCards);
 
             return "Executed";
         }

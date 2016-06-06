@@ -134,7 +134,7 @@ public class ActivityGameGuessWords extends Activity implements View.OnTouchList
             e.printStackTrace();
         }
 
-        mModelCard = SingletonJSON.getInstance().getData()[mIdForPeriodAr[mPeriodIndex]];
+        mModelCard = loadSingleton()[mIdForPeriodAr[mPeriodIndex]];
     }
 
     @Override
@@ -229,9 +229,17 @@ public class ActivityGameGuessWords extends Activity implements View.OnTouchList
             return;
         }
         mPeriodIndex++;
-        mModelCard = SingletonJSON.getInstance().getData()[mIdForPeriodAr[mPeriodIndex]];
+        mModelCard = loadSingleton()[mIdForPeriodAr[mPeriodIndex]];
         Logy.l("mModelCard next: " + mModelCard.getEnglish());
     }
+
+    private ModelCard[] loadSingleton() {
+        if (SingletonJSON.getInstance().getData() == null) {
+            SingletonJSON.getInstance().setData(Utils.loadModelAr(getBaseContext()));
+        }
+        return SingletonJSON.getInstance().getData();
+    }
+
 
     private void refreshViewsWithNewParams() {
         initQuestionsViews();
@@ -247,7 +255,7 @@ public class ActivityGameGuessWords extends Activity implements View.OnTouchList
                 randomIDs[i] = rightAnswerID;
             }
             else {
-                randomIDs[i] = new Random().nextInt(SingletonJSON.getInstance().getData().length) + 0;
+                randomIDs[i] = new Random().nextInt(loadSingleton().length) + 0;
             }
         }
 
