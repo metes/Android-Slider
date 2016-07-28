@@ -55,6 +55,7 @@ public class Utils {
             response.body().close();
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
 
         return jsonArray;

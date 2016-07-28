@@ -15,5 +15,7 @@
     appid: ca-app-pub-7536090745540683~8941518856
     -->
     <string name="banner_home_footer">ca-app-pub-7536090745540683/1418252054</string>
+    <string name="check_internet_connection">Internet bağlantınızı kontrol ediniz.</string>
+    <string name="click_for_checking_connection">Bağlantınızı kontrol etmek için Tamam\'a basınız.</string>
 
 </resources>

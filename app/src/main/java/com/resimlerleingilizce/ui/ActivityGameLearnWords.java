@@ -45,13 +45,16 @@ public class ActivityGameLearnWords extends AppCompatActivity  {
 
     private ModelCard[] mModelCardsOfSelectedCategory, mModelCardsOfPeriod;
     AdView mAdView;
+    int mCategoryPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_learn_words);
 
-        loadCategoryCardsJSONData(getIntent().getIntExtra(AppConstants.REASON_KEY_CATEGORY, 1));
+        mCategoryPosition = getIntent().getIntExtra(AppConstants.REASON_KEY_CATEGORY, 1);
+        loadCategoryCardsJSONData(mCategoryPosition);
+        Logy.l("mCategoryPosition: " + mCategoryPosition);
         generatePeriodsCards();
         initViews();
         fillPhotoContainer();
@@ -66,7 +69,8 @@ public class ActivityGameLearnWords extends AppCompatActivity  {
             public void run() {
                 while ( !isAllImagesLoaded()) {
                     try{
-                        Thread.sleep(100);
+                        Thread.sleep(2000);
+
                     }catch (Exception e) { e.printStackTrace(); }
                 }
                 mProgressDilog.cancel();
@@ -76,9 +80,12 @@ public class ActivityGameLearnWords extends AppCompatActivity  {
     }
 
     private boolean isAllImagesLoaded() {
-        for (int i = 0; i < mIsImagesAreLoaded.length; i++)
-            if (!mIsImagesAreLoaded[i])
+        for (int i = 0; i < mIsImagesAreLoaded.length; i++) {
+            if (!mIsImagesAreLoaded[i]) {
+                Logy.l("mModelCardsOfPeriod[i].getImagePath(): " + mModelCardsOfPeriod[i].getImagePath());
                 return false;
+            }
+        }
 
         return true;
     }
@@ -120,9 +127,9 @@ public class ActivityGameLearnWords extends AppCompatActivity  {
 
     private void fillPhotoContainer() {
         // tüm state'ler false ile başla
-        for (int i = 0; i < mIsImagesAreLoaded.length; i++)
+        for (int i = 0; i < mIsImagesAreLoaded.length; i++) {
             mIsImagesAreLoaded[i] = false;
-
+        }
         mRelativeLayoutPhotoContainer.removeAllViews();
         float angle = 0, additionalAngle = 3;
         mTopImageViews = new View[AppConstants.GUESS_CARD_COUNT_OF_PERIOD];
@@ -189,13 +196,13 @@ public class ActivityGameLearnWords extends AppCompatActivity  {
 
         mIsImagesAreLoaded = new boolean[AppConstants.GUESS_CARD_COUNT_OF_PERIOD];
 
-        initAdmob();
+//        initAdmob();
     }
 
     private void initAdmob() {
         mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder()
-                //.addTestDevice("1C959E3ADE6D3A915703D337BBC8BBFE")
+                .addTestDevice("1C959E3ADE6D3A915703D337BBC8BBFE")
                 .build();
         mAdView.loadAd(adRequest);
     }
@@ -204,10 +211,11 @@ public class ActivityGameLearnWords extends AppCompatActivity  {
         ModelCard[] modelCardsALL = loadSingleton();
         List<ModelCard> modelCardsOfPeriod = new ArrayList<>();
 
-        for (ModelCard m : modelCardsALL)
-            if (m.getCategory() == catID)
+        for (ModelCard m : modelCardsALL) {
+            if (m.getCategory() == catID) {
                 modelCardsOfPeriod.add(m);
-
+            }
+        }
         mModelCardsOfSelectedCategory = modelCardsOfPeriod.toArray(new ModelCard[modelCardsOfPeriod.size()]);
     }
 
@@ -242,7 +250,7 @@ public class ActivityGameLearnWords extends AppCompatActivity  {
         Intent intent = new Intent(ActivityGameLearnWords.this, ActivityGameGuessWords.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra(AppConstants.REASON_KEY_CARD_PERIOD_ID_ARRAY, generatePeriodIDs());
-        intent.putExtra(AppConstants.REASON_KEY_CATEGORY, getIntent().getIntExtra(AppConstants.REASON_KEY_CATEGORY, 1));
+        intent.putExtra(AppConstants.REASON_KEY_CATEGORY, mCategoryPosition);
         startActivity(intent);
         finish();
     }

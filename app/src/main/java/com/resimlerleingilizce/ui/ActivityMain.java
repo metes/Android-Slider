@@ -33,11 +33,13 @@ public class ActivityMain extends Activity implements View.OnClickListener, View
 
     private int[] CATEGORY_IMAGE_RESOURCE_IDS = { R.drawable.ic_category_1,
             R.drawable.ic_category_2, R.drawable.ic_category_3,
-            R.drawable.ic_category_4, R.drawable.ic_category_5 };
+            R.drawable.ic_category_4, R.drawable.ic_category_5,
+            R.drawable.ic_category_6, R.drawable.ic_category_7, R.drawable.ic_category_8};
 
     private int[] CATEGORY_TEXT_RESOURCE_IDS = { R.drawable.ic_category_hayvanlar,
             R.drawable.ic_category_meyvevesebze, R.drawable.ic_category_yiyecekler,
-            R.drawable.ic_category_dunya, R.drawable.ic_category_giysiler };
+            R.drawable.ic_category_dunya, R.drawable.ic_category_giysiler,
+            R.drawable.ic_category_ulkeler, R.drawable.ic_category_vucut, R.drawable.ic_category_esya  };
 
     public enum AnimationTypes {
         CENTER_TO_RIGHT,
@@ -263,28 +265,21 @@ public class ActivityMain extends Activity implements View.OnClickListener, View
 
     @Override
     public void onClick(View v) {
-
         if (v.getId() == R.id.buttonPlay) {
             return;
         }
-
-
-        if (v.getId() == R.id.imageButtonRight)
-        {
-           slideRight();
-        }
-        else if (v.getId() == R.id.imageButtonLeft)
-        {
+        if (v.getId() == R.id.imageButtonRight) {
+            slideRight();
+        } else if (v.getId() == R.id.imageButtonLeft) {
             slideLeft();
         }
     }
-
-
 
     private void goToGameActivity() {
         Intent in = new Intent(ActivityMain.this, ActivityGameLearnWords.class);
         in.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         in.putExtra(AppConstants.REASON_KEY_CATEGORY, mCategoryPosition);
+        Logy.l("mCategoryPosition: " + mCategoryPosition);
         startActivity(in);
     }
 

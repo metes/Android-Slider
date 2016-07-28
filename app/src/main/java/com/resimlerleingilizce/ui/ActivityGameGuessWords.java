@@ -45,7 +45,6 @@ public class ActivityGameGuessWords extends Activity implements View.OnTouchList
 
         initModelCard();
         initViews();
-
         initQuestionsViews();
         initSelections();
     }
@@ -64,7 +63,6 @@ public class ActivityGameGuessWords extends Activity implements View.OnTouchList
             mAdView.pause();
         }
         super.onPause();
-
         Logy.l("onPause ActivityGameGuessWords");
     }
 
@@ -114,7 +112,7 @@ public class ActivityGameGuessWords extends Activity implements View.OnTouchList
         mTextViewLabel.setTypeface(mTtypeface1);
         mImageViewPhotoResult.setAlpha(0f);
 
-        initAdmob();
+//        initAdmob();
     }
 
     private void initAdmob() {
@@ -240,7 +238,6 @@ public class ActivityGameGuessWords extends Activity implements View.OnTouchList
         return SingletonJSON.getInstance().getData();
     }
 
-
     private void refreshViewsWithNewParams() {
         initQuestionsViews();
         initSelections();
@@ -266,6 +263,7 @@ public class ActivityGameGuessWords extends Activity implements View.OnTouchList
         Intent intent = new Intent(ActivityGameGuessWords.this, ActivityGameLearnWords.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra(AppConstants.REASON_KEY_CATEGORY, getIntent().getIntExtra(AppConstants.REASON_KEY_CATEGORY, 1));
+        Logy.l("mCategoryPosition: " + getIntent().getIntExtra(AppConstants.REASON_KEY_CATEGORY, 1));
         startActivity(intent);
         finish();
     }

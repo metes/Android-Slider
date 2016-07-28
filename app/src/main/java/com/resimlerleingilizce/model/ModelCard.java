@@ -1,5 +1,9 @@
 package com.resimlerleingilizce.model;
 
+import android.net.Uri;
+
+import com.resimlerleingilizce.constants.AppConstants;
+
 /**
  * Created by Mete on 25.05.2016.
  */
@@ -17,7 +21,11 @@ public class ModelCard {
     }
 
     public String getImagePath() {
-        return imagePath;
+        StringBuilder sb = new StringBuilder();
+        sb.append(AppConstants.URL_IMAGES_PREFIX_JSON_DATA);
+        sb.append(Uri.encode(imagePath));
+
+        return sb.toString();
     }
 
     public void setImagePath(String imagePath) {

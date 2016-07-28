@@ -14,7 +14,12 @@ public class AppConstants {
     public static final String REASON_KEY_ID = "CARD_ID";
     public static final int SELECTION_COUNT = 3;
     public static final int GUESS_CARD_COUNT_OF_PERIOD = 7;
-    public static final String URL_JSON_DATA = "https://dl.dropboxusercontent.com/u/15953342/testData.json";
+    public static final String URL_JSON_DATA =
+                            //"http://192.168.1.49/api/values";
+                            "https://dl.dropboxusercontent.com/u/15953342/jsonGoksel.json";
+                            //"https://dl.dropboxusercontent.com/u/15953342/testData.json";
+
+    public static final String URL_IMAGES_PREFIX_JSON_DATA = "http://192.168.1.49/image/";
     public static final int DURATION_MIN_SPLASH_TIME = 3 * 1000;
     public static final String SINGLETON_JSON_RC = "SINGLETON_JSON_RC";
 }
