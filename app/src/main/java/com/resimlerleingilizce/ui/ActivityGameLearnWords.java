@@ -4,6 +4,8 @@ import android.app.ProgressDialog;
 import android.content.ClipData;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
@@ -27,7 +29,6 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 public class ActivityGameLearnWords extends AppCompatActivity  {
 
@@ -54,7 +55,6 @@ public class ActivityGameLearnWords extends AppCompatActivity  {
 
         mCategoryPosition = getIntent().getIntExtra(AppConstants.REASON_KEY_CATEGORY, 1);
         loadCategoryCardsJSONData(mCategoryPosition);
-        Logy.l("mCategoryPosition: " + mCategoryPosition);
         generatePeriodsCards();
         initViews();
         fillPhotoContainer();
@@ -138,7 +138,6 @@ public class ActivityGameLearnWords extends AppCompatActivity  {
         for (int i = 0; i < AppConstants.GUESS_CARD_COUNT_OF_PERIOD; i++)
         {
             RelativeLayout layoutPhoto = (RelativeLayout) getLayoutInflater().inflate(R.layout.item_photo, null);
-            //ImageView imageViewPhotoContent = (ImageView) layoutPhoto.findViewById(R.id.imageViewPhotoContent);
             setModelDataToCard(layoutPhoto, i);
 
             angle = (i % 2 == 0) ? angle + additionalAngle : angle - (additionalAngle * 2);
@@ -196,6 +195,7 @@ public class ActivityGameLearnWords extends AppCompatActivity  {
 
         mIsImagesAreLoaded = new boolean[AppConstants.GUESS_CARD_COUNT_OF_PERIOD];
 
+        initSound();
 //        initAdmob();
     }
 
@@ -208,6 +208,7 @@ public class ActivityGameLearnWords extends AppCompatActivity  {
     }
 
     public void loadCategoryCardsJSONData(int catID) {
+        Logy.l("mCategoryPosition: " + mCategoryPosition);
         ModelCard[] modelCardsALL = loadSingleton();
         List<ModelCard> modelCardsOfPeriod = new ArrayList<>();
 
@@ -238,9 +239,7 @@ public class ActivityGameLearnWords extends AppCompatActivity  {
                 changeCardAction();
 
                 return true;
-            }
-            else
-            {
+            } else {
                 return false;
             }
         }
@@ -258,7 +257,7 @@ public class ActivityGameLearnWords extends AppCompatActivity  {
     private int[] generatePeriodIDs() {
         int[] idAr = new int[mModelCardsOfPeriod.length];
         for (int i = 0; i < mModelCardsOfPeriod.length; i++) {
-            idAr[i] = mModelCardsOfPeriod[i].getId();
+            idAr[i] = mModelCardsOfPeriod[i].getId() - 1; // database'deki id'ler 1'den başladığı için
         }
         return idAr;
     }
@@ -292,11 +291,9 @@ public class ActivityGameLearnWords extends AppCompatActivity  {
         mCountDownTimer = new CountDownTimer(totalTimeMilis, 1000) {
             public void onTick(long millisUntilFinished) {
                 mCountDownTime = millisUntilFinished;
-                String seconds = "" + (TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) % 60);
+                String seconds = "" + Math.round((float)millisUntilFinished / 1000.0f);
                 textViewCountDown.setText(seconds);
                 textViewCountDown.setTypeface(mTtypeface1);
-                //textViewCountDown.setTextColor(getResources().getColor(R.color.material_white));
-                //AnimateUtils.countDownNumberAnimation(textViewCountDown, 900);
             }
 
             public void onFinish() {
@@ -306,7 +303,7 @@ public class ActivityGameLearnWords extends AppCompatActivity  {
     }
 
     private void changeCardAction() {
-        mPhotoViewIndex--;
+        Utils.playSound(mSoundSlide, mSoundPool);
         if (mPhotoViewIndex <= 0) {
             // TODO sonraki activity
             gotoGameActivity();
@@ -314,11 +311,19 @@ public class ActivityGameLearnWords extends AppCompatActivity  {
         }
         else {
             restartCountDownTimer();
-            mTopImageViews[mPhotoViewIndex ].setVisibility(View.GONE);
+            mTopImageViews[mPhotoViewIndex--].setVisibility(View.GONE);
+            mTextViewMeaning.setText(mModelCardsOfPeriod[mPhotoViewIndex].getEnglish());
         }
-
-        mTextViewMeaning.setText(mModelCardsOfPeriod[mPhotoViewIndex - 1].getEnglish());
         Logy.l("textViewCountDown / onFinish mPhotoViewIndex: " + mPhotoViewIndex);
     }
 
+    SoundPool mSoundPool;
+    int mSoundClick, mSoundCorrect, mSoundWrong, mSoundSlide;
+    private void initSound() {
+        mSoundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
+        mSoundClick = mSoundPool.load(this, R.raw.sound_click, 1);
+        mSoundCorrect = mSoundPool.load(this, R.raw.sound_correct_answer, 1);
+        mSoundWrong = mSoundPool.load(this, R.raw.sound_wrong_answer, 1);
+        mSoundSlide = mSoundPool.load(this, R.raw.sound_photo_slide, 1);
+    }
 }

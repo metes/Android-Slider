@@ -3,6 +3,8 @@ package com.resimlerleingilizce.ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -112,6 +114,7 @@ public class ActivityGameGuessWords extends Activity implements View.OnTouchList
         mTextViewLabel.setTypeface(mTtypeface1);
         mImageViewPhotoResult.setAlpha(0f);
 
+        initSound();
 //        initAdmob();
     }
 
@@ -151,10 +154,12 @@ public class ActivityGameGuessWords extends Activity implements View.OnTouchList
 
                 // doğru cevap ise
                 if (isAnswetCorrect) {
+                    Utils.playSound(mSoundCorrect, mSoundPool);
                     mImageViewPhotoResult.setImageDrawable(getResources().getDrawable(R.drawable.ic_image_correct));
                 }
                 // yanlış cevap ise
                 else {
+                    Utils.playSound(mSoundWrong, mSoundPool);
                     mImageViewPhotoResult.setImageDrawable(getResources().getDrawable(R.drawable.ic_image_incorrect));
                 }
 
@@ -245,8 +250,8 @@ public class ActivityGameGuessWords extends Activity implements View.OnTouchList
 
     public int[] getRandomIDs() {
         int[] randomIDs = new int[AppConstants.SELECTION_COUNT];
-        int rightAnswerIndex = new Random().nextInt(2) + 0;
-        int rightAnswerID = mModelCard.getId();
+        int rightAnswerIndex = new Random().nextInt(3) + 0;
+        int rightAnswerID = mModelCard.getId() - 1;
         for (int i = 0; i < AppConstants.SELECTION_COUNT; i++) {
             if (i == rightAnswerIndex) {
                 randomIDs[i] = rightAnswerID;
@@ -266,5 +271,15 @@ public class ActivityGameGuessWords extends Activity implements View.OnTouchList
         Logy.l("mCategoryPosition: " + getIntent().getIntExtra(AppConstants.REASON_KEY_CATEGORY, 1));
         startActivity(intent);
         finish();
+    }
+
+    SoundPool mSoundPool;
+    int mSoundClick, mSoundCorrect, mSoundWrong, mSoundSlide;
+    private void initSound() {
+        mSoundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
+        mSoundClick = mSoundPool.load(this, R.raw.sound_click, 1);
+        mSoundCorrect = mSoundPool.load(this, R.raw.sound_correct_answer, 1);
+        mSoundWrong = mSoundPool.load(this, R.raw.sound_wrong_answer, 1);
+        mSoundSlide = mSoundPool.load(this, R.raw.sound_photo_slide, 1);
     }
 }

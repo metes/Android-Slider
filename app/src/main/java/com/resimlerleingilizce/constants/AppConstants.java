@@ -15,8 +15,9 @@ public class AppConstants {
     public static final int SELECTION_COUNT = 3;
     public static final int GUESS_CARD_COUNT_OF_PERIOD = 7;
     public static final String URL_JSON_DATA =
-                            //"http://192.168.1.49/api/values";
-                            "https://dl.dropboxusercontent.com/u/15953342/jsonGoksel.json";
+//                            "http://192.168.1.49/api/values";
+                              "http://1ki3provider.com/api/values";
+//                            "https://dl.dropboxusercontent.com/u/15953342/jsonGoksel.json";
                             //"https://dl.dropboxusercontent.com/u/15953342/testData.json";
 
     public static final String URL_IMAGES_PREFIX_JSON_DATA = "http://192.168.1.49/image/";

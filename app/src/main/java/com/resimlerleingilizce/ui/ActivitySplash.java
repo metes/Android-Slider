@@ -7,7 +7,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
-import android.widget.Toast;
 
 import com.resimlerleingilizce.R;
 import com.resimlerleingilizce.constants.AppConstants;
@@ -44,8 +43,7 @@ public class ActivitySplash extends Activity {
 
             JSONArray jAr = Utils.loadJSONData();
             if (jAr == null) {
-                Toast.makeText(getBaseContext(), getResources().getString(R.string.check_internet_connection), Toast.LENGTH_LONG).show();
-                return false;
+                 return false;
             }
             ModelCard[] modelCards = Utils.parseJSONToModel(jAr);
             SingletonJSON.getInstance().setData(modelCards);

@@ -139,14 +139,32 @@
             android:layout_alignStart="@+id/imageViewRight1" />
     </RelativeLayout>
 
+    <!--
     <ImageView
+        android:visibility="invisible"
         android:src="@drawable/ic_category_hayvanlar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/main_slider_label_x"
         android:id="@+id/imageViewCategoryLabel"
         android:layout_margin="38dp"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/sliderContainer" />
+        android:layout_below="@+id/sliderContainer" />-->
+
+    <TextView
+        android:id="@+id/textViewCategoryLabel"
+        android:text="Hayvanlar"
+        android:layout_width="wrap_content"
+        android:textColor="@color/category_1"
+        android:shadowColor="#FFFFFF"
+        android:shadowDx="5.5"
+        android:shadowDy="5.5"
+        android:shadowRadius="1.0"
+        android:textSize="34sp"
+        android:textAllCaps="true"
+        android:layout_height="wrap_content"
+        android:layout_margin="36dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/sliderContainer"/>
 
     <Button
         android:layout_width="280dp"

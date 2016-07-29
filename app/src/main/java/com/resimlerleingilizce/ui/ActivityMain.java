@@ -3,6 +3,8 @@ package com.resimlerleingilizce.ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -11,35 +13,48 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.resimlerleingilizce.R;
 import com.resimlerleingilizce.constants.AppConstants;
-import com.resimlerleingilizce.singletons.SingletonJSON;
 import com.resimlerleingilizce.utils.AnimateUtils;
 import com.resimlerleingilizce.utils.Logy;
 import com.resimlerleingilizce.utils.Utils;
 
 public class ActivityMain extends Activity implements View.OnClickListener, View.OnTouchListener {
 
+    private final String[] CATEGORY_LABEL_TEXTS =  new String[]{ "HAYVANLAR", "GİYSİLER", "DÜNYA", "YİYECEKLER", "MEYVE & SEBZE","ÜLKELER", "VÜCUT", "EŞYA" };
     private boolean isMImgCenter2Visible, mIsSlideAnimationStillWorking = false;
     private int mCategoryPosition, mTouchPositionX;
-    private Typeface mTtypeface;
     private ImageView mImgCenter1, mImgCenter2, mImgRight1, mImgRight2, mImgLeft1, mImgLeft2, mImgCategoryLabel;
+    private TextView mTextViewLabel;
     private Button mButtonPlay;
     private RelativeLayout mSliderContainer;
-
     private FirebaseAnalytics mFirebaseAnalytics;
+    SoundPool mSoundPool;
+    int mSoundClick, mSoundCorrect, mSoundWrong, mSoundSlide;
 
-    private int[] CATEGORY_IMAGE_RESOURCE_IDS = { R.drawable.ic_category_1,
-            R.drawable.ic_category_2, R.drawable.ic_category_3,
-            R.drawable.ic_category_4, R.drawable.ic_category_5,
-            R.drawable.ic_category_6, R.drawable.ic_category_7, R.drawable.ic_category_8};
+    private int[] CATEGORY_IMAGE_RESOURCE_IDS = {
+            R.drawable.ic_category_1,
+            R.drawable.ic_category_5,
+            R.drawable.ic_category_4,
+            R.drawable.ic_category_3,
+            R.drawable.ic_category_2,
+            R.drawable.ic_category_6,
+            R.drawable.ic_category_7,
+            R.drawable.ic_category_8};
+//
+//    private int[] CATEGORY_TEXT_RESOURCE_IDS = {
+//            R.drawable.ic_category_hayvanlar,
+//            R.drawable.ic_category_giysiler,
+//            R.drawable.ic_category_dunya,
+//            R.drawable.ic_category_yiyecekler,
+//            R.drawable.ic_category_meyvevesebze,
+//            R.drawable.ic_category_ulkeler,
+//            R.drawable.ic_category_vucut,
+//            R.drawable.ic_category_esya  };
 
-    private int[] CATEGORY_TEXT_RESOURCE_IDS = { R.drawable.ic_category_hayvanlar,
-            R.drawable.ic_category_meyvevesebze, R.drawable.ic_category_yiyecekler,
-            R.drawable.ic_category_dunya, R.drawable.ic_category_giysiler,
-            R.drawable.ic_category_ulkeler, R.drawable.ic_category_vucut, R.drawable.ic_category_esya  };
 
     public enum AnimationTypes {
         CENTER_TO_RIGHT,
@@ -100,7 +115,7 @@ public class ActivityMain extends Activity implements View.OnClickListener, View
     }
 
     private void initViews() {
-        ImageButton imageButtonSliderRight = (ImageButton)     findViewById(R.id.imageButtonRight);
+        ImageButton imageButtonSliderRight = (ImageButton) findViewById(R.id.imageButtonRight);
         ImageButton imageButtonSliderLeft = (ImageButton) findViewById(R.id.imageButtonLeft);
         mSliderContainer = (RelativeLayout) findViewById(R.id.sliderContainer);
         mImgCenter1 = (ImageView) findViewById(R.id.imageViewCenter);
@@ -109,7 +124,8 @@ public class ActivityMain extends Activity implements View.OnClickListener, View
         mImgLeft2 = (ImageView) findViewById(R.id.imageViewLeft1);
         mImgRight2 = (ImageView) findViewById(R.id.imageViewRight2);
         mImgLeft1 = (ImageView) findViewById(R.id.imageViewLeft2);
-        mImgCategoryLabel = (ImageView) findViewById(R.id.imageViewCategoryLabel);
+        //mImgCategoryLabel = (ImageView) findViewById(R.id.imageViewCategoryLabel);
+        mTextViewLabel = (TextView) findViewById(R.id.textViewCategoryLabel);
         mButtonPlay = (Button) findViewById(R.id.buttonPlay);
 
         imageButtonSliderRight.setOnClickListener(this);
@@ -127,10 +143,11 @@ public class ActivityMain extends Activity implements View.OnClickListener, View
         imageButtonSliderRight.setOnTouchListener(this);
         imageButtonSliderLeft.setOnTouchListener(this);
 
-        mTtypeface = Typeface.createFromAsset(getAssets(), "luckiest_guy.ttf");
-        mButtonPlay.setTypeface(mTtypeface);
+        mButtonPlay.setTypeface(Typeface.createFromAsset(getAssets(), "luckiest_guy.ttf"));
+        mTextViewLabel.setTypeface(Typeface.createFromAsset(getAssets(), "rammetto_one_regular.ttf"));
 
         initImageViews();
+        initSound();
 
         AnimateUtils.startSliderSideButonAnimation(imageButtonSliderLeft, ButtonTypes.ANIMATON_BUTTON_LEFT);
         AnimateUtils.startSliderSideButonAnimation(imageButtonSliderRight, ButtonTypes.ANIMATON_BUTTON_RIGHT);
@@ -150,8 +167,7 @@ public class ActivityMain extends Activity implements View.OnClickListener, View
                 if (view.getId() == R.id.buttonPlay) {
                    playButtonAction(view);
                 }
-                else
-                {
+                else {
                     //TODO slide
                     mTouchPositionX = x;
                     Logy.l("ontouch x: " + x);
@@ -189,6 +205,7 @@ public class ActivityMain extends Activity implements View.OnClickListener, View
             public void onAnimationStart(Animation animation) { }
             @Override
             public void onAnimationEnd(Animation animation) {
+                Utils.playSound(mSoundClick, mSoundPool);
                 goToGameActivity();
             }
             @Override
@@ -216,6 +233,7 @@ public class ActivityMain extends Activity implements View.OnClickListener, View
                     .setAnimationListener(setImageResourceBeforeAnimation(mImgRight1, mCategoryPosition - 2))
             ;
             mCategoryPosition--;
+            Logy.l((mCategoryPosition + 1) + " mCategoryPosition'den,  " + mCategoryPosition + "'e");
             mCategoryPosition = limitPositionInImageResourceLength(mCategoryPosition);
 
             updateLable();
@@ -244,6 +262,7 @@ public class ActivityMain extends Activity implements View.OnClickListener, View
                     .setAnimationListener(setImageResourceBeforeAnimation(mImgLeft2, mCategoryPosition + 2))
             ;
             mCategoryPosition++;
+            Logy.l((mCategoryPosition - 1) + " mCategoryPosition'den,  " + mCategoryPosition + "'e");
             mCategoryPosition = limitPositionInImageResourceLength(mCategoryPosition);
 
             updateLable();
@@ -259,19 +278,24 @@ public class ActivityMain extends Activity implements View.OnClickListener, View
 
     private void updateLable() {
         // Label'ı güncelle
-        mImgCategoryLabel.setImageResource(CATEGORY_TEXT_RESOURCE_IDS[mCategoryPosition]);
-        AnimateUtils.startLabelAnimation(mImgCategoryLabel, 800);
+        mTextViewLabel.setText(CATEGORY_LABEL_TEXTS[mCategoryPosition]);
+        mTextViewLabel.setTextColor(getResources().getIntArray(R.array.category_label_color)[mCategoryPosition]);
+
+//        mImgCategoryLabel.setImageResource(CATEGORY_TEXT_RESOURCE_IDS[mCategoryPosition]);
+        AnimateUtils.startLabelAnimation(mTextViewLabel, 800);
     }
 
     @Override
     public void onClick(View v) {
+        Utils.playSound(mSoundClick, mSoundPool);
+
         if (v.getId() == R.id.buttonPlay) {
             return;
         }
         if (v.getId() == R.id.imageButtonRight) {
-            slideRight();
-        } else if (v.getId() == R.id.imageButtonLeft) {
             slideLeft();
+        } else if (v.getId() == R.id.imageButtonLeft) {
+            slideRight();
         }
     }
 
@@ -314,13 +338,23 @@ public class ActivityMain extends Activity implements View.OnClickListener, View
 
     private int limitPositionInImageResourceLength(int position) {
         if (position >= CATEGORY_IMAGE_RESOURCE_IDS.length) {
-            return (CATEGORY_IMAGE_RESOURCE_IDS.length - position) *  -1; // 0'dı
+            return (CATEGORY_IMAGE_RESOURCE_IDS.length - position) *  - 1; // 0'dı
         }
         else if (position < 0) {
             return (CATEGORY_IMAGE_RESOURCE_IDS.length + position) ;
         }
         return position;
     }
+
+    private void initSound() {
+        mSoundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
+        mSoundClick = mSoundPool.load(this, R.raw.sound_click, 1);
+        mSoundCorrect = mSoundPool.load(this, R.raw.sound_correct_answer, 1);
+        mSoundWrong = mSoundPool.load(this, R.raw.sound_wrong_answer, 1);
+        mSoundSlide = mSoundPool.load(this, R.raw.sound_photo_slide, 1);
+    }
+
+
 
 }
 
