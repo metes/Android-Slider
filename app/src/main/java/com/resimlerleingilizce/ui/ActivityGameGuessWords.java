@@ -115,7 +115,7 @@ public class ActivityGameGuessWords extends Activity implements View.OnTouchList
         mImageViewPhotoResult.setAlpha(0f);
 
         initSound();
-//        initAdmob();
+        initAdmob();
     }
 
     private void initAdmob() {

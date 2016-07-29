@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 
+import com.google.firebase.crash.FirebaseCrash;
 import com.resimlerleingilizce.R;
 import com.resimlerleingilizce.constants.AppConstants;
 import com.resimlerleingilizce.model.ModelCard;
@@ -26,6 +27,7 @@ public class ActivitySplash extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+        FirebaseCrash.log("onCreate ActivitySplash test");
         new AsyncTaskLoadJSON().execute("");
     }
 

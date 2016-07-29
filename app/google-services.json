@@ -1,27 +1,35 @@
 {
   "project_info": {
-    "project_number": "1058023557069",
-    "firebase_url": "https://admob-app-id-8941518856.firebaseio.com",
-    "project_id": "admob-app-id-8941518856",
-    "storage_bucket": "admob-app-id-8941518856.appspot.com"
+    "project_number": "753890343008",
+    "firebase_url": "https://resimlerle-ingilizce.firebaseio.com",
+    "project_id": "resimlerle-ingilizce",
+    "storage_bucket": "resimlerle-ingilizce.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1058023557069:android:99837f252d95646b",
+        "mobilesdk_app_id": "1:753890343008:android:99837f252d95646b",
         "android_client_info": {
           "package_name": "com.resimlerleingilizce"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1058023557069-1i12fvuvm3ju6vnjjltgm5o8fgiob0on.apps.googleusercontent.com",
+          "client_id": "753890343008-218ilt1q0ni5he52euqudgit083b7rus.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.resimlerleingilizce",
+            "certificate_hash": "89BB3A6A8CDDB765FA91C2DF6F0AA6C19EF8BA2B"
+          }
+        },
+        {
+          "client_id": "753890343008-oagoaeqnoclo5n4dt6ijj0sl6gick7av.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDtAB3TmjdFwWlLh-LcBY_uifoC1uVD3o0"
+          "current_key": "AIzaSyAp4nlXYdOO__6H9swhQBoq-fXmbHy1ZgY"
         }
       ],
       "services": {
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "753890343008-oagoaeqnoclo5n4dt6ijj0sl6gick7av.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

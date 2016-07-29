@@ -196,7 +196,7 @@ public class ActivityGameLearnWords extends AppCompatActivity  {
         mIsImagesAreLoaded = new boolean[AppConstants.GUESS_CARD_COUNT_OF_PERIOD];
 
         initSound();
-//        initAdmob();
+        initAdmob();
     }
 
     private void initAdmob() {
