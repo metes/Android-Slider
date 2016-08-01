@@ -24,7 +24,7 @@ public class Logy {
 
     public static void l(String log){
         if (BuildConfig.DEBUG) {
-            Log.d("Logy", log);
+            Log.i("Logy", log);
         }
     }
 

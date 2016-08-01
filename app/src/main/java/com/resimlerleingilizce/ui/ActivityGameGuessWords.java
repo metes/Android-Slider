@@ -25,6 +25,9 @@ import com.resimlerleingilizce.utils.Logy;
 import com.resimlerleingilizce.utils.Utils;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 public class ActivityGameGuessWords extends Activity implements View.OnTouchListener {
@@ -214,7 +217,7 @@ public class ActivityGameGuessWords extends Activity implements View.OnTouchList
                     v.setAlpha(0.7f);
                 }
                 break;
-        };
+        }
 
         return true;
     }
@@ -249,20 +252,33 @@ public class ActivityGameGuessWords extends Activity implements View.OnTouchList
     }
 
     public int[] getRandomIDs() {
-        int[] randomIDs = new int[AppConstants.SELECTION_COUNT];
-        int rightAnswerIndex = new Random().nextInt(3) + 0;
+        List<Integer> randomIDsList = new ArrayList<>();
         int rightAnswerID = mModelCard.getId() - 1;
-        for (int i = 0; i < AppConstants.SELECTION_COUNT; i++) {
-            if (i == rightAnswerIndex) {
-                randomIDs[i] = rightAnswerID;
-            }
-            else {
-                randomIDs[i] = new Random().nextInt(loadSingleton().length) + 0;
-            }
+
+        Logy.l("rightAnswerID: " + rightAnswerID);
+        randomIDsList.add(rightAnswerID);
+        for (int i = 1; i < AppConstants.SELECTION_COUNT; i++) {
+            randomIDsList.add(getUniqueID(randomIDsList));
         }
 
-        return randomIDs;
+        Collections.shuffle(randomIDsList);
+        int[] randomIDsAr = new int[randomIDsList.size()];
+        for (int i = 0; i < randomIDsList.size(); i++) {
+            randomIDsAr[i] = randomIDsList.get(i);
+        }
+
+        return randomIDsAr;
     }
+
+    private int getUniqueID(List list) {
+        int newID = -1;
+        while( newID == -1 || list.contains(newID)){
+            newID = mIdForPeriodAr[new Random().nextInt(mIdForPeriodAr.length - 1) + 0];
+        }
+
+        return newID;
+    }
+
 
     private void goToGameLearningActivity() {
         Intent intent = new Intent(ActivityGameGuessWords.this, ActivityGameLearnWords.class);

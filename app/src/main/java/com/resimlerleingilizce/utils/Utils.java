@@ -4,9 +4,11 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.media.SoundPool;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.resimlerleingilizce.R;
 import com.resimlerleingilizce.constants.AppConstants;
 import com.resimlerleingilizce.model.ModelCard;
 import com.resimlerleingilizce.singletons.SingletonJSON;
@@ -104,7 +106,7 @@ public class Utils {
             try {
                 JSONObject o = jsonArray.getJSONObject(i);
                 modelCards[i] = new ModelCard(o.getInt("id"), o.getString("tr"), o.getString("en"), o.getString("path"), o.getInt("cat") );
-                Logy.l("json: " + o.getString("tr"));
+//                Logy.l("json: " + o.getString("tr"));
             }catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -130,7 +132,7 @@ public class Utils {
         SharedPreferences.Editor prefsEditor = mPrefs.edit();
         Gson gson = new Gson();
         String json = gson.toJson(modelCard);
-        Logy.l("saveModelAr: " + json);
+//        Logy.l("saveModelAr: " + json);
         prefsEditor.putString("myJson", json);
         prefsEditor.commit();
     }
@@ -141,13 +143,11 @@ public class Utils {
             SharedPreferences mPrefs = context.getSharedPreferences(AppConstants.REASON_KEY_SINGLETON_JSON, context.MODE_PRIVATE);
             Gson gson = new Gson();
             String oldJsonString = mPrefs.getString("myJson", "");
-            Log.d("Utils", "loadModelAr Srtingjson: " + oldJsonString);
+//            Log.d("Utils", "loadModelAr Srtingjson: " + oldJsonString);
 
-            if (!oldJsonString.isEmpty() )
-            {
+            if (!oldJsonString.isEmpty() ) {
                 Type type = new TypeToken<ModelCard[]>() { }.getType();
                 return gson.fromJson(oldJsonString, type);
-
             }
             else {
                 // TODO bağlantı kurulamadı
