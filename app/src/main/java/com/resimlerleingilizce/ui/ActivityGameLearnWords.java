@@ -63,7 +63,7 @@ public class ActivityGameLearnWords extends AppCompatActivity  {
     }
 
     private void startCountDownWhenImagesReady() {
-        mProgressDilog = ProgressDialog.show(this, "", getResources().getString(R.string.message_loading), true);
+        mProgressDilog = ProgressDialog.show(ActivityGameLearnWords.this, "", getResources().getString(R.string.message_loading), true);
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -86,7 +86,6 @@ public class ActivityGameLearnWords extends AppCompatActivity  {
                 return false;
             }
         }
-
         return true;
     }
 
@@ -146,8 +145,6 @@ public class ActivityGameLearnWords extends AppCompatActivity  {
             mRelativeLayoutPhotoContainer.addView(layoutPhoto);
             mTopImageViews[i] = layoutPhoto;
         }
-
-//        mPhotoViewIndex = AppConstants.GUESS_CARD_COUNT_OF_PERIOD - 0;
 
         // en üst kart için
         ((TextView) findViewById(R.id.textViewMeaning)).setText(mModelCardsOfPeriod[mPhotoViewIndex].getEnglish());
@@ -230,14 +227,12 @@ public class ActivityGameLearnWords extends AppCompatActivity  {
     // Örneğin alındığı proje: http://www.vogella.com/tutorials/AndroidDragAndDrop/article.html
     private final class MyTouchListener implements View.OnTouchListener {
         public boolean onTouch(View view, MotionEvent motionEvent) {
-            if (motionEvent.getAction() == MotionEvent.ACTION_DOWN)
-            {
+            if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
                 ClipData data = ClipData.newPlainText("" + view.getId(), "" + view.getId());
                 View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(view);
                 view.startDrag(data, shadowBuilder, view, 0);
                 view.setVisibility(View.INVISIBLE);
                 changeCardAction();
-
                 return true;
             } else {
                 return false;
@@ -308,8 +303,7 @@ public class ActivityGameLearnWords extends AppCompatActivity  {
             // TODO sonraki activity
             gotoGameActivity();
             return;
-        }
-        else {
+        } else {
             restartCountDownTimer();
             mTopImageViews[mPhotoViewIndex--].setVisibility(View.GONE);
             mTextViewMeaning.setText(mModelCardsOfPeriod[mPhotoViewIndex].getEnglish());

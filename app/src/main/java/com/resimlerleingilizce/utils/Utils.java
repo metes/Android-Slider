@@ -7,7 +7,6 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.resimlerleingilizce.R;
 import com.resimlerleingilizce.constants.AppConstants;
 import com.resimlerleingilizce.model.ModelCard;
 import com.resimlerleingilizce.singletons.SingletonJSON;
@@ -39,7 +38,7 @@ public class Utils {
         String result = "";
         JSONArray jsonArray = null;
         OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder().url(AppConstants.URL_JSON_DATA)
+        Request request = new Request.Builder().url(AppConstants.URL_JSON_API)
                 .addHeader("Content-Type", "json")
                 .build();
         try
@@ -127,7 +126,7 @@ public class Utils {
 
     // işlem yapılmadı
     public static void saveModelAr(Context context, ModelCard[] modelCard) {
-        SharedPreferences mPrefs = context.getSharedPreferences(AppConstants.SINGLETON_JSON_RC, context.MODE_PRIVATE);
+        SharedPreferences mPrefs = context.getSharedPreferences(AppConstants.REASON_KEY_SINGLETON_JSON, context.MODE_PRIVATE);
         SharedPreferences.Editor prefsEditor = mPrefs.edit();
         Gson gson = new Gson();
         String json = gson.toJson(modelCard);
@@ -139,7 +138,7 @@ public class Utils {
     // ok
     public static ModelCard[] loadModelAr(Context context) {
         try {
-            SharedPreferences mPrefs = context.getSharedPreferences(AppConstants.SINGLETON_JSON_RC, context.MODE_PRIVATE);
+            SharedPreferences mPrefs = context.getSharedPreferences(AppConstants.REASON_KEY_SINGLETON_JSON, context.MODE_PRIVATE);
             Gson gson = new Gson();
             String oldJsonString = mPrefs.getString("myJson", "");
             Log.d("Utils", "loadModelAr Srtingjson: " + oldJsonString);

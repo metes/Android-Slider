@@ -5,22 +5,21 @@ package com.resimlerleingilizce.constants;
  */
 public class AppConstants {
 
-    public static final long COUNTDOWN_DURATION = (7 * 1000) + 250; // tam 4000 yapınca bazen 3'ten geri sayabiliyor.
-    //public static final int PHOTO_AR_LENGTH = 5;
-
-    // REASON KEYS
-    public static final String REASON_KEY_CARD_PERIOD_ID_ARRAY = "CARD_ID_ARRAY";
-    public static final String REASON_KEY_CATEGORY = "CATEGORY";
-    public static final String REASON_KEY_ID = "CARD_ID";
+    // PARAMS
+    public static final int DURATION_MIN_SPLASH_TIME = 3 * 1000;
     public static final int SELECTION_COUNT = 3;
     public static final int GUESS_CARD_COUNT_OF_PERIOD = 7;
-    public static final String URL_JSON_DATA =
-//                            "http://192.168.1.49/api/values";
-                              "http://1ki3provider.com/api/values";
-//                            "https://dl.dropboxusercontent.com/u/15953342/jsonGoksel.json";
-                            //"https://dl.dropboxusercontent.com/u/15953342/testData.json";
+    public static final long COUNTDOWN_DURATION = (7 * 1000) + 250; // tam 4000 yapınca bazen 3'ten geri sayabiliyor.
 
-    public static final String URL_IMAGES_PREFIX_JSON_DATA = "http://192.168.1.49/image/";
-    public static final int DURATION_MIN_SPLASH_TIME = 3 * 1000;
-    public static final String SINGLETON_JSON_RC = "SINGLETON_JSON_RC";
+    // REASON KEYS
+    public static final String REASON_KEY_SINGLETON_JSON = "REASON_KEY_SINGLETON_JSON";
+    public static final String REASON_KEY_CARD_PERIOD_ID_ARRAY = "CARD_ID_ARRAY";
+    public static final String REASON_KEY_CATEGORY = "CATEGORY";
+
+    // API
+    public static final String URL_DOMAIN = "http://1ki3provider.com";
+    public static final String URL_JSON_API = URL_DOMAIN + "/api/values";
+    public static final String URL_IMAGES_PREFIX_JSON_DATA = URL_DOMAIN + "/image/";
+
+
 }

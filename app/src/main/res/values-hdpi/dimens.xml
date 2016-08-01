@@ -20,4 +20,6 @@
 
     <dimen name="learn_textview_countdown_xy">43dp</dimen>
     <dimen name="learn_textview_countdown_font">16sp</dimen>
+
+    <dimen name="main_category_label_text_size">25sp</dimen>
 </resources>

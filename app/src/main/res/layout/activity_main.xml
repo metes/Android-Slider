@@ -159,7 +159,7 @@
         android:shadowDx="5.5"
         android:shadowDy="5.5"
         android:shadowRadius="1.0"
-        android:textSize="34sp"
+        android:textSize="@dimen/main_category_label_text_size"
         android:textAllCaps="true"
         android:layout_height="wrap_content"
         android:layout_margin="36dp"
