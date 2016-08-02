@@ -1,11 +1,16 @@
 package com.resimlerleingilizce.ui;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.media.AudioManager;
 import android.media.SoundPool;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
@@ -48,10 +53,15 @@ public class ActivityGameGuessWords extends Activity implements View.OnTouchList
 
         mTtypeface1 = Typeface.createFromAsset(getAssets(), "luckiest_guy.ttf");
 
-        initModelCard();
-        initViews();
-        initQuestionsViews();
-        initSelections();
+        if (isNetworkAvailable()){
+            initModelCard();
+            initViews();
+            initQuestionsViews();
+            initSelections();
+        }
+        else {
+            showDialogInternetCheck();
+        }
     }
 
     @Override
@@ -258,7 +268,7 @@ public class ActivityGameGuessWords extends Activity implements View.OnTouchList
         Logy.l("rightAnswerID: " + rightAnswerID);
         randomIDsList.add(rightAnswerID);
         for (int i = 1; i < AppConstants.SELECTION_COUNT; i++) {
-            randomIDsList.add(getUniqueID(randomIDsList));
+            randomIDsList.add(Utils.getUniqueID(randomIDsList, mIdForPeriodAr));
         }
 
         Collections.shuffle(randomIDsList);
@@ -269,16 +279,6 @@ public class ActivityGameGuessWords extends Activity implements View.OnTouchList
 
         return randomIDsAr;
     }
-
-    private int getUniqueID(List list) {
-        int newID = -1;
-        while( newID == -1 || list.contains(newID)){
-            newID = mIdForPeriodAr[new Random().nextInt(mIdForPeriodAr.length - 1) + 0];
-        }
-
-        return newID;
-    }
-
 
     private void goToGameLearningActivity() {
         Intent intent = new Intent(ActivityGameGuessWords.this, ActivityGameLearnWords.class);
@@ -298,4 +298,28 @@ public class ActivityGameGuessWords extends Activity implements View.OnTouchList
         mSoundWrong = mSoundPool.load(this, R.raw.sound_wrong_answer, 1);
         mSoundSlide = mSoundPool.load(this, R.raw.sound_photo_slide, 1);
     }
+
+    private void showDialogInternetCheck() {
+        AlertDialog dialog;
+        AlertDialog.Builder builder = new AlertDialog.Builder(ActivityGameGuessWords.this);
+        builder.setTitle(getResources().getString(R.string.warning));
+        builder.setMessage(getResources().getString(R.string.check_internet_connection));
+        builder.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                finish();
+            }
+        });
+        dialog = builder.create();
+        dialog.show();
+    }
+
+    public boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager
+                .getActiveNetworkInfo();
+        return activeNetworkInfo != null;
+    }
+
 }

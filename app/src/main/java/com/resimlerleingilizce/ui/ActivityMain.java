@@ -24,7 +24,8 @@ import com.resimlerleingilizce.utils.Utils;
 
 public class ActivityMain extends Activity implements View.OnClickListener, View.OnTouchListener {
 
-    private final String[] CATEGORY_LABEL_TEXTS =  new String[]{ "HAYVANLAR", "GİYSİLER", "DÜNYA", "YİYECEKLER", "MEYVE & SEBZE","ÜLKELER", "VÜCUT", "EŞYA" };
+    private final String[] CATEGORY_LABEL_TEXTS =  new String[]{
+            "HAYVANLAR", "GİYSİLER", "DÜNYA", "YİYECEKLER", "MEYVE & SEBZE","ÜLKELER", "VÜCUT", "EŞYA" };
     private boolean isMImgCenter2Visible, mIsSlideAnimationStillWorking = false;
     private int mCategoryPosition, mTouchPositionX;
     private ImageView mImgCenter1, mImgCenter2, mImgRight1, mImgRight2, mImgLeft1, mImgLeft2, mImgCategoryLabel;

@@ -17,5 +17,7 @@
     <string name="banner_home_footer">ca-app-pub-7536090745540683/1418252054</string>
     <string name="check_internet_connection">Internet bağlantınızı kontrol ediniz.</string>
     <string name="click_for_checking_connection">Bağlantınızı kontrol etmek için Tamam\'a basınız.</string>
+    <string name="warning">Uyarı</string>
+    <string name="ok">Tamam</string>
 
 </resources>

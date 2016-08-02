@@ -1,8 +1,11 @@
 package com.resimlerleingilizce.ui;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -28,7 +31,35 @@ public class ActivitySplash extends Activity {
         setContentView(R.layout.activity_splash);
 
         FirebaseCrash.log("onCreate ActivitySplash test");
-        new AsyncTaskLoadJSON().execute("");
+        if (isNetworkAvailable()) {
+            new AsyncTaskLoadJSON().execute("");
+        }
+        else {
+            showDialogInternetCheck();
+        }
+    }
+
+    private void showDialogInternetCheck() {
+        AlertDialog dialog;
+        AlertDialog.Builder builder = new AlertDialog.Builder(ActivitySplash.this);
+        builder.setTitle(getResources().getString(R.string.warning));
+        builder.setMessage(getResources().getString(R.string.check_internet_connection));
+        builder.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                finish();
+            }
+        });
+        dialog = builder.create();
+        dialog.show();
+    }
+
+    public boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager
+                .getActiveNetworkInfo();
+        return activeNetworkInfo != null;
     }
 
     private void goToGameActivity() {

@@ -21,6 +21,8 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
+import java.util.List;
+import java.util.Random;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -157,6 +159,22 @@ public class Utils {
         }
 
         return null;
+    }
+
+    public static int getUniqueID(List list, int[] periodAr) {
+        int newID = -1;
+        while( newID == -1 || list.contains(newID)){
+            newID = periodAr[new Random().nextInt(periodAr.length - 1) + 0];
+        }
+        return newID;
+    }
+
+    public static ModelCard getUniqueModelCard(List<ModelCard> list, ModelCard[] periodAr) {
+        ModelCard newID = periodAr[new Random().nextInt(periodAr.length - 1) + 0];
+        while(list.contains(newID)){
+            newID = periodAr[new Random().nextInt(periodAr.length - 1) + 0];
+        }
+        return newID;
     }
     
 }

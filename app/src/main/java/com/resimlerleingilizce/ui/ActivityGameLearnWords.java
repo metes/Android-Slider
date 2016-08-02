@@ -2,18 +2,24 @@ package com.resimlerleingilizce.ui;
 
 import android.app.ProgressDialog;
 import android.content.ClipData;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.media.AudioManager;
 import android.media.SoundPool;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -27,6 +33,7 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -59,7 +66,35 @@ public class ActivityGameLearnWords extends AppCompatActivity  {
         initViews();
         fillPhotoContainer();
 
-        startCountDownWhenImagesReady();
+        if (isNetworkAvailable()) {
+            startCountDownWhenImagesReady();
+        }
+        else {
+            showDialogInternetCheck();
+        }
+    }
+
+    private void showDialogInternetCheck() {
+        AlertDialog dialog;
+        AlertDialog.Builder builder = new AlertDialog.Builder(ActivityGameLearnWords.this);
+        builder.setTitle(getResources().getString(R.string.warning));
+        builder.setMessage(getResources().getString(R.string.check_internet_connection));
+        builder.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                finish();
+            }
+        });
+        dialog = builder.create();
+        dialog.show();
+    }
+
+    public boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager
+                .getActiveNetworkInfo();
+        return activeNetworkInfo != null;
     }
 
     private void startCountDownWhenImagesReady() {
@@ -79,6 +114,8 @@ public class ActivityGameLearnWords extends AppCompatActivity  {
         }).start();
     }
 
+
+
     private boolean isAllImagesLoaded() {
         for (int i = 0; i < mIsImagesAreLoaded.length; i++) {
             if (!mIsImagesAreLoaded[i]) {
@@ -90,11 +127,21 @@ public class ActivityGameLearnWords extends AppCompatActivity  {
     }
 
     private void generatePeriodsCards() {
-        mModelCardsOfPeriod = new ModelCard[AppConstants.GUESS_CARD_COUNT_OF_PERIOD];
-        for (int i = 0; i < AppConstants.GUESS_CARD_COUNT_OF_PERIOD; i++) {
-            mModelCardsOfPeriod[i] = mModelCardsOfSelectedCategory[new Random().nextInt(mModelCardsOfSelectedCategory.length) + 0];
-        }
+        mModelCardsOfPeriod = getRandomIDs(mModelCardsOfSelectedCategory);
+        Logy.l("mModelCardsOfPeriod: " + mModelCardsOfPeriod[0]);
     }
+
+    public ModelCard[] getRandomIDs(ModelCard[] mModelCardsOfSelectedCategory) {
+        List<ModelCard> randomModelList = new ArrayList<>();
+        ModelCard[] returnData = new ModelCard[AppConstants.GUESS_CARD_COUNT_OF_PERIOD];
+        for (int i = 0; i < AppConstants.GUESS_CARD_COUNT_OF_PERIOD ; i++) {
+            returnData[i] = Utils.getUniqueModelCard(randomModelList, mModelCardsOfSelectedCategory);
+            Logy.l("getRandomIDs i: " + i + " / " + "returnData[i].getEnglish(): " + returnData[i].getId());
+        }
+        Logy.l("getRandomIDs i: ok!");
+        return returnData;
+    }
+
 
     @Override
     public void onResume() {

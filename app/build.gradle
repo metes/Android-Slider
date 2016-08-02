@@ -8,8 +8,8 @@ android {
         applicationId "com.resimlerleingilizce"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 2
-        versionName "1.01"
+        versionCode 3
+        versionName "1.02"
     }
     buildTypes {
         release {
@@ -18,8 +18,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
-            minifyEnabled true
-            shrinkResources true
+            minifyEnabled false
+            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
