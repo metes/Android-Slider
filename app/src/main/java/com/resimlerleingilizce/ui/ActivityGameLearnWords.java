@@ -19,7 +19,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -33,9 +32,7 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 public class ActivityGameLearnWords extends AppCompatActivity  {
 
@@ -135,11 +132,11 @@ public class ActivityGameLearnWords extends AppCompatActivity  {
         List<ModelCard> randomModelList = new ArrayList<>();
         ModelCard[] returnData = new ModelCard[AppConstants.GUESS_CARD_COUNT_OF_PERIOD];
         for (int i = 0; i < AppConstants.GUESS_CARD_COUNT_OF_PERIOD ; i++) {
-            returnData[i] = Utils.getUniqueModelCard(randomModelList, mModelCardsOfSelectedCategory);
-            Logy.l("getRandomIDs i: " + i + " / " + "returnData[i].getEnglish(): " + returnData[i].getId());
+            randomModelList.add(Utils.getUniqueModelCard(randomModelList, mModelCardsOfSelectedCategory));
+            Logy.l("getRandomIDs i: " + i + " / " + "returnData[i].getEnglish(): " + randomModelList.get(i).getId());
         }
         Logy.l("getRandomIDs i: ok!");
-        return returnData;
+        return randomModelList.toArray(returnData);
     }
 
 

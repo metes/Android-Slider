@@ -3,12 +3,9 @@ package com.resimlerleingilizce.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.media.SoundPool;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.resimlerleingilizce.R;
 import com.resimlerleingilizce.constants.AppConstants;
 import com.resimlerleingilizce.model.ModelCard;
 import com.resimlerleingilizce.singletons.SingletonJSON;
@@ -66,40 +63,7 @@ public class Utils {
         return jsonArray;
     }
 
-    /*
-    {\"id\":5
-07-29 03:12:52.265 8051-8077/com.resimlerleingilizce D/Logy: ob: \"tr\":\"Buğday\"
-07-29 03:12:52.265 8051-8077/com.resimlerleingilizce D/Logy: ob: \"en\":\"Wheat\"
-07-29 03:12:52.265 8051-8077/com.resimlerleingilizce D/Logy: ob: \"path\":\"buğday.png\"
-07-29 03:12:52.265 8051-8077/com.resimlerleingilizce D/Logy: ob: \"cat\":3}
-     */
-//    private static String fixTheResult(String result) {
-//        Logy.l("result: " + result);
-//        String [] jsonOb = result.split(",");
-//        for (int i = 0; i < jsonOb.length; i++) {
-//
-//            int obIndex = i % 5;
-//            Logy.l(obIndex + ". ob: " + jsonOb[i]);
-//
-//            String[] ob = jsonOb[i].split(":");
-//
-//            if (i == 0 ){
-//                ob[0] = ob[0].substring(3);
-//                ob[0] = ob[0].substring(2, ob[0].length()-2);
-//            }
-//            else {
-//                ob[0] = ob[0].substring(3, ob[0].length()-3);
-//                ob[1] = ob[1].substring(3, ob[1].length()-3);
-//            }
-//
-//            Logy.l(obIndex + ".  ob[0]: " + ob[0]);
-//            Logy.l(obIndex + ".  ob[1]: " + ob[1]);
-//
-//
-//        }
-//
-//        return null;
-//    }
+
 
     public static ModelCard[] parseJSONToModel(JSONArray jsonArray) {
         ModelCard[] modelCards = new ModelCard[jsonArray.length()];
@@ -134,7 +98,6 @@ public class Utils {
         SharedPreferences.Editor prefsEditor = mPrefs.edit();
         Gson gson = new Gson();
         String json = gson.toJson(modelCard);
-//        Logy.l("saveModelAr: " + json);
         prefsEditor.putString("myJson", json);
         prefsEditor.commit();
     }
@@ -145,14 +108,10 @@ public class Utils {
             SharedPreferences mPrefs = context.getSharedPreferences(AppConstants.REASON_KEY_SINGLETON_JSON, context.MODE_PRIVATE);
             Gson gson = new Gson();
             String oldJsonString = mPrefs.getString("myJson", "");
-//            Log.d("Utils", "loadModelAr Srtingjson: " + oldJsonString);
 
             if (!oldJsonString.isEmpty() ) {
                 Type type = new TypeToken<ModelCard[]>() { }.getType();
                 return gson.fromJson(oldJsonString, type);
-            }
-            else {
-                // TODO bağlantı kurulamadı
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -170,11 +129,20 @@ public class Utils {
     }
 
     public static ModelCard getUniqueModelCard(List<ModelCard> list, ModelCard[] periodAr) {
-        ModelCard newID = periodAr[new Random().nextInt(periodAr.length - 1) + 0];
-        while(list.contains(newID)){
-            newID = periodAr[new Random().nextInt(periodAr.length - 1) + 0];
-        }
-        return newID;
+        ModelCard newModel;
+        boolean isUnique;
+
+        do {
+            isUnique = true;
+            newModel = periodAr[new Random().nextInt(periodAr.length - 1) + 0];
+            for (ModelCard model : list) {
+                if (model.getId() == newModel.getId() ){
+                    isUnique = false;
+                }
+            }
+        } while (!isUnique);
+
+        return newModel;
     }
     
 }

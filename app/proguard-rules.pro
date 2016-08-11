@@ -16,5 +16,6 @@
 #   public *;
 #}
 
+-printmapping mapping.txt
 -dontwarn com.squareup.okhttp.**
 -dontwarn okio.**
