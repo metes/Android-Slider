@@ -1,8 +1,8 @@
-package com.resimlerleingilizce.utils;
+package com.example.utils;
 
 import android.util.Log;
 
-import com.resimlerleingilizce.BuildConfig;
+import com.example.BuildConfig;
 
 
 /**

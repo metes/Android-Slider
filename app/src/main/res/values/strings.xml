@@ -1,23 +1,8 @@
 <resources>
-    <string name="app_name">Resimlerle\nIngilizce</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_main2">Main2Activity</string>
+    <string name="app_name">Slider Example</string>
     <string name="action_settings">Settings</string>
-    <string name="title_button_play">Oyna</string>
-    <string name="title_correct">Cevap doğru!</string>
-    <string name="message_loading">Yükleniyor...</string>
+    <string name="title_button_play">Play</string>
 
 
-    <!-- AdMob ad unit IDs
-
-    appid: ca-app-pub-7536090745540683~8941518856
-    -->
-    <string name="banner_home_footer">ca-app-pub-7536090745540683/1418252054</string>
-    <string name="check_internet_connection">Internet bağlantınızı kontrol ediniz.</string>
-    <string name="click_for_checking_connection">Bağlantınızı kontrol etmek için Tamam\'a basınız.</string>
-    <string name="warning">Uyarı</string>
-    <string name="ok">Tamam</string>
 
 </resources>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/sliderContainer"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageViewIngilizce"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp">
+
+
+        <ImageView
+            android:id="@+id/imageViewRight1"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/frameLayoutCenterVertical"
+            android:src="@android:color/transparent"
+            android:background="@android:color/transparent"
+            android:layout_toRightOf="@+id/frameLayoutCenterVertical" />
+
+        <ImageView
+            android:id="@+id/imageViewLeft1"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_centerVertical="true"
+            android:src="@android:color/transparent"
+            android:background="@android:color/transparent"
+            android:layout_alignRight="@+id/imageViewLeft2"
+            android:layout_alignEnd="@+id/imageViewLeft2" />
+
+
+        <ImageView
+            android:id="@+id/imageViewCenter"
+            android:layout_width="168dp"
+            android:layout_height="168dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_category_1"
+            android:background="@android:color/transparent"/>
+
+
+
+        <ImageView
+            android:id="@+id/imageViewRight2"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/frameLayoutCenterVertical"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_category_2"
+            android:layout_toRightOf="@+id/frameLayoutCenterVertical" />
+
+
+
+        <ImageView
+            android:id="@+id/imageViewLeft2"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@+id/frameLayoutCenterVertical"
+            android:src="@drawable/ic_category_5"
+            android:background="@android:color/transparent"
+            android:layout_toLeftOf="@+id/frameLayoutCenterVertical" />
+
+
+
+        <ImageView
+            android:id="@+id/imageViewCenter2"
+            android:layout_width="168dp"
+            android:layout_height="168dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_category_1"
+            android:background="@android:color/transparent"/>
+
+
+        <FrameLayout
+            android:id="@+id/frameLayoutCenterVertical"
+            android:layout_width="80dp"
+            android:layout_height="150dp"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"></FrameLayout>
+
+        <ImageButton
+            android:id="@+id/imageButtonLeft"
+            android:src="@drawable/ic_button_left"
+            android:layout_width="138dp"
+            android:layout_height="138dp"
+            android:scaleType="fitXY"
+            android:padding="44dp"
+            android:background="@android:color/transparent"
+            android:layout_centerVertical="true"
+            android:text="Left"
+            android:layout_toLeftOf="@+id/frameLayoutCenterVertical"
+            android:layout_toStartOf="@+id/frameLayoutCenterVertical"  />
+
+        <ImageButton
+            android:id="@+id/imageButtonRight"
+            android:src="@drawable/ic_button_right"
+            android:layout_width="138dp"
+            android:layout_height="138dp"
+            android:scaleType="fitXY"
+            android:padding="44dp"
+            android:background="@android:color/transparent"
+            android:text="Right"
+            android:layout_centerVertical="true"
+            android:layout_alignLeft="@+id/imageViewRight1"
+            android:layout_alignStart="@+id/imageViewRight1" />
+    </RelativeLayout>
+
+
+</LinearLayout>

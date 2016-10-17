@@ -1,4 +1,4 @@
-package com.resimlerleingilizce.utils;
+package com.example.utils;
 
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
@@ -10,8 +10,8 @@ import android.view.animation.RotateAnimation;
 import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
 
-import com.resimlerleingilizce.ui.ActivityMain.AnimationTypes;
-import com.resimlerleingilizce.ui.ActivityMain.ButtonTypes;
+import com.example.helper.SliderHelper;
+
 
 /**
  * Created by Mete on 23.03.2016.
@@ -22,7 +22,7 @@ public class AnimateUtils {
     public static float mAnimationTranslateXPosition;// = 370.0f;
     public static float mAnimationScaleSizeMultiplerANIMATION_SCALE_SIZE_MULTIPLER;// =  1.29230769f;
 
-    public static AnimationSet startSliderAnimation(final View view, AnimationTypes animeType) {
+    public static AnimationSet startSliderAnimation(final View view, SliderHelper.AnimationTypes animeType) {
         view.requestLayout();
         Animation scaleAnimation;
         Animation translateAnimation;
@@ -203,9 +203,9 @@ public class AnimateUtils {
         return animationSet;
     }
 
-    public static Animation startSliderSideButonAnimation(final View view, ButtonTypes buttonTypes) {
+    public static Animation startSliderSideButonAnimation(final View view, SliderHelper.ButtonTypes buttonTypes) {
         Animation[] animations;
-        if (buttonTypes == ButtonTypes.ANIMATON_BUTTON_LEFT) {
+        if (buttonTypes == SliderHelper.ButtonTypes.ANIMATON_BUTTON_LEFT) {
             animations = new Animation[]{
                     getTranslateXAnimation(-50.5f, 500),
                     getTranslateXAnimation(50.5f, 500)

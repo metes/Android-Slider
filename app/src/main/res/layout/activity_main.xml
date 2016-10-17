@@ -5,140 +5,33 @@
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".ui.ActivityMain"
+    tools:context="com.example.ui.ActivityMain"
     android:background="@drawable/ic_background">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/main_title_resimlerle_x"
-        android:layout_marginTop="32dp"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:id="@+id/imageViewResimlerle"
-        android:src="@drawable/ic_title_resimlerle"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/main_title_ingilizce_x"
-        android:layout_marginTop="8dp"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:id="@+id/imageViewIngilizce"
-        android:src="@drawable/ic_title_ingilizce"
-        android:layout_below="@+id/imageViewResimlerle"
-        android:layout_centerHorizontal="true" />
-
-    <RelativeLayout
-        android:id="@+id/sliderContainer"
-        android:layout_width="400dp"
+    <TextView
+        android:id="@+id/textViewCategoryLabel"
+        android:text="Hayvanlar"
+        android:layout_width="wrap_content"
+        android:textColor="@color/category_1"
+        android:shadowColor="@color/material_black"
+        android:textStyle="bold"
+        android:shadowDx="5.5"
+        android:shadowDy="5.5"
+        android:shadowRadius="1.0"
+        android:textSize="@dimen/main_category_label_text_size"
+        android:textAllCaps="true"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imageViewIngilizce"
+        android:layout_margin="36dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp">
+        android:layout_below="@+id/sliderContainer"/>
 
 
-        <ImageView
-            android:id="@+id/imageViewRight1"
-            android:layout_width="130dp"
-            android:layout_height="130dp"
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/frameLayoutCenterVertical"
-            android:src="@android:color/transparent"
-            android:background="@android:color/transparent"
-            android:layout_toRightOf="@+id/frameLayoutCenterVertical" />
-
-        <ImageView
-            android:id="@+id/imageViewLeft1"
-            android:layout_width="130dp"
-            android:layout_height="130dp"
-            android:layout_centerVertical="true"
-            android:src="@android:color/transparent"
-            android:background="@android:color/transparent"
-            android:layout_alignRight="@+id/imageViewLeft2"
-            android:layout_alignEnd="@+id/imageViewLeft2" />
-
-
-        <ImageView
-            android:id="@+id/imageViewCenter"
-            android:layout_width="168dp"
-            android:layout_height="168dp"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/ic_category_1"
-            android:background="@android:color/transparent"/>
-
-
-
-        <ImageView
-            android:id="@+id/imageViewRight2"
-            android:layout_width="130dp"
-            android:layout_height="130dp"
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/frameLayoutCenterVertical"
-            android:background="@android:color/transparent"
-            android:src="@drawable/ic_category_2"
-            android:layout_toRightOf="@+id/frameLayoutCenterVertical" />
-
-
-
-        <ImageView
-            android:id="@+id/imageViewLeft2"
-            android:layout_width="130dp"
-            android:layout_height="130dp"
-            android:layout_centerVertical="true"
-            android:layout_toStartOf="@+id/frameLayoutCenterVertical"
-            android:src="@drawable/ic_category_5"
-            android:background="@android:color/transparent"
-            android:layout_toLeftOf="@+id/frameLayoutCenterVertical" />
-
-
-
-        <ImageView
-            android:id="@+id/imageViewCenter2"
-            android:layout_width="168dp"
-            android:layout_height="168dp"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/ic_category_1"
-            android:background="@android:color/transparent"/>
-
-
-        <FrameLayout
-            android:id="@+id/frameLayoutCenterVertical"
-            android:layout_width="80dp"
-            android:layout_height="150dp"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"></FrameLayout>
-
-        <ImageButton
-            android:id="@+id/imageButtonLeft"
-            android:src="@drawable/ic_button_left"
-            android:layout_width="138dp"
-            android:layout_height="138dp"
-            android:scaleType="fitXY"
-            android:padding="44dp"
-            android:background="@android:color/transparent"
-            android:layout_centerVertical="true"
-            android:text="Left"
-            android:layout_toLeftOf="@+id/frameLayoutCenterVertical"
-            android:layout_toStartOf="@+id/frameLayoutCenterVertical"  />
-
-        <ImageButton
-            android:id="@+id/imageButtonRight"
-            android:src="@drawable/ic_button_right"
-            android:layout_width="138dp"
-            android:layout_height="138dp"
-            android:scaleType="fitXY"
-            android:padding="44dp"
-            android:background="@android:color/transparent"
-            android:text="Right"
-            android:layout_centerVertical="true"
-            android:layout_alignLeft="@+id/imageViewRight1"
-            android:layout_alignStart="@+id/imageViewRight1" />
-    </RelativeLayout>
-
+    <include
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewCategoryLabel"
+        layout="@layout/item_slider" />
     <!--
     <ImageView
         android:visibility="invisible"
@@ -150,21 +43,6 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/sliderContainer" />-->
 
-    <TextView
-        android:id="@+id/textViewCategoryLabel"
-        android:text="Hayvanlar"
-        android:layout_width="wrap_content"
-        android:textColor="@color/category_1"
-        android:shadowColor="#FFFFFF"
-        android:shadowDx="5.5"
-        android:shadowDy="5.5"
-        android:shadowRadius="1.0"
-        android:textSize="@dimen/main_category_label_text_size"
-        android:textAllCaps="true"
-        android:layout_height="wrap_content"
-        android:layout_margin="36dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/sliderContainer"/>
 
     <Button
         android:layout_width="280dp"

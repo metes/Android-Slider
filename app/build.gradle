@@ -5,11 +5,11 @@ android {
     buildToolsVersion "23.0.3"
 
     defaultConfig {
-        applicationId "com.resimlerleingilizce"
+        applicationId "com.mete.slider"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 4
-        versionName "1.03"
+        versionCode 1
+        versionName "0.01"
     }
     buildTypes {
         release {
@@ -29,13 +29,4 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.4.0'
-    compile 'com.squareup.picasso:picasso:2.5.2'
-    compile 'com.squareup.okhttp3:okhttp:3.3.0'
-
-    compile 'com.google.firebase:firebase-core:9.2.1'
-    compile 'com.google.firebase:firebase-crash:9.2.1'
-
-    compile 'com.google.android.gms:play-services-ads:9.2.1'
-    compile 'com.google.code.gson:gson:2.4'
 }
-apply plugin: 'com.google.gms.google-services'

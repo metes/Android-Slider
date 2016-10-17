@@ -1,4 +1,4 @@
-package com.resimlerleingilizce;
+package com.example;
 
 import org.junit.Test;
 
