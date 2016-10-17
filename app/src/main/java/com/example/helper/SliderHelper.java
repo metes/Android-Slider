@@ -1,17 +1,15 @@
 package com.example.helper;
 
 import android.app.Activity;
-import android.media.AudioManager;
-import android.media.SoundPool;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.interfaces.OnSliderIndexChangeListener;
 import com.example.model.ModelSliderItem;
 import com.example.utils.Logy;
 import com.example.R;
@@ -25,17 +23,14 @@ import java.util.ArrayList;
 public class SliderHelper implements View.OnTouchListener, View.OnClickListener {
 
     private ImageView mImgCenter1, mImgCenter2, mImgRight1, mImgRight2, mImgLeft1, mImgLeft2;
-    private TextView mTextViewLabel;
-    private Button mButtonPlay;
     private RelativeLayout mSliderContainer;
     private Activity mActivity;
     private ArrayList<ModelSliderItem> mSlideItems;
 
     private boolean isMImgCenter2Visible, mIsSlideAnimationStillWorking = false;
-
-    private SoundPool mSoundPool;
-    private int mSoundClick, mSoundCorrect, mSoundWrong, mSoundSlide;
     private int mCategoryPosition = 0, mTouchPositionX;
+
+    private OnSliderIndexChangeListener mListener; //listener field
 
     public enum AnimationTypes {
         CENTER_TO_RIGHT,
@@ -49,6 +44,11 @@ public class SliderHelper implements View.OnTouchListener, View.OnClickListener 
     public enum ButtonTypes {
         ANIMATON_BUTTON_LEFT,
         ANIMATON_BUTTON_RIGHT
+    }
+
+    //setting the listener
+    public void setCustomEventListener(OnSliderIndexChangeListener eventListener) {
+        this.mListener = eventListener;
     }
 
     public SliderHelper(RelativeLayout mSliderContainer, Activity activity, ArrayList<ModelSliderItem> slideItems) {
@@ -66,6 +66,7 @@ public class SliderHelper implements View.OnTouchListener, View.OnClickListener 
         isMImgCenter2Visible = true;
     }
 
+
     private void initViews() {
         ImageButton imageButtonSliderRight = (ImageButton) mActivity.findViewById(R.id.imageButtonRight);
         ImageButton imageButtonSliderLeft = (ImageButton) mActivity.findViewById(R.id.imageButtonLeft);
@@ -75,15 +76,9 @@ public class SliderHelper implements View.OnTouchListener, View.OnClickListener 
         mImgLeft2 = (ImageView) mActivity.findViewById(R.id.imageViewLeft1);
         mImgRight2 = (ImageView) mActivity.findViewById(R.id.imageViewRight2);
         mImgLeft1 = (ImageView) mActivity.findViewById(R.id.imageViewLeft2);
-        //mImgCategoryLabel = (ImageView) mActivity.findViewById(R.id.imageViewCategoryLabel);
-        mTextViewLabel = (TextView) mActivity.findViewById(R.id.textViewCategoryLabel);
-        mButtonPlay = (Button) mActivity.findViewById(R.id.buttonPlay);
 
         imageButtonSliderRight.setOnClickListener(this);
         imageButtonSliderLeft.setOnClickListener(this);
-        mButtonPlay.setOnClickListener(this);
-
-        mButtonPlay.setOnTouchListener(this);
         mSliderContainer.setOnTouchListener(this);
         mImgCenter1.setOnTouchListener(this);
         mImgCenter2.setOnTouchListener(this);
@@ -93,9 +88,6 @@ public class SliderHelper implements View.OnTouchListener, View.OnClickListener 
         mImgLeft2.setOnTouchListener(this);
         imageButtonSliderRight.setOnTouchListener(this);
         imageButtonSliderLeft.setOnTouchListener(this);
-
-//        mButtonPlay.setTypeface(Typeface.createFromAsset(getAssets(), "luckiest_guy.ttf"));
-//        mTextViewLabel.setTypeface(Typeface.createFromAsset(getAssets(), "rammetto_one_regular.ttf"));
 
         initImageViews();
         initSound();
@@ -110,14 +102,10 @@ public class SliderHelper implements View.OnTouchListener, View.OnClickListener 
         mImgRight2.setImageDrawable(mActivity.getResources().getDrawable(mSlideItems.get(mSlideItems.size() - 1).getImageResourceID()));
     }
 
-
     @Override
     public void onClick(View v) {
 //        Utils.playSound(mSoundClick, mSoundPool);
 
-        if (v.getId() == R.id.buttonPlay) {
-            return;
-        }
         if (v.getId() == R.id.imageButtonRight) {
             slideLeft();
         } else if (v.getId() == R.id.imageButtonLeft) {
@@ -130,78 +118,42 @@ public class SliderHelper implements View.OnTouchListener, View.OnClickListener 
         int x = (int) event.getX();
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                if (view.getId() == R.id.buttonPlay) {
-                    playButtonAction(view);
-                } else {
-                    //TODO slide
-                    mTouchPositionX = x;
-                    Logy.l("ontouch x: " + x);
-                }
+                //TODO slide
+                mTouchPositionX = x;
+                Logy.l("ontouch x: " + x);
+
                 break;
 
             case MotionEvent.ACTION_MOVE:
                 break;
 
             case MotionEvent.ACTION_UP:
-                if (view.getId() == R.id.buttonPlay) {
-
-                } else {
-                    float deltaX = mTouchPositionX - x;
-                    Logy.l("ontouch deltaX: " + deltaX);
-                    if (deltaX > 200) {
-                        // TODO kaydırma işlemi
-                        slideLeft();
-                    } else if (deltaX < -200) {
-                        // TODO kaydırma işlemi
-                        slideRight();
-                    }
+                float deltaX = mTouchPositionX - x;
+                Logy.l("ontouch deltaX: " + deltaX);
+                if (deltaX > 200) {
+                    // TODO kaydırma işlemi
+                    slideLeft();
+                } else if (deltaX < -200) {
+                    // TODO kaydırma işlemi
+                    slideRight();
                 }
+
                 break;
         }
         return false;
     }
 
-    private void playButtonAction(View view) {
-        AnimateUtils.startButtonAnimation(view, 100).setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                //TODO
-//              playSound(mSoundClick, mSoundPool);
-                goToGameActivity();
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-            }
-        });
-    }
-
-    private void goToGameActivity() {
-//        Intent in = new Intent(ActivityMain.this, ActivityGameLearnWords.class);
-//        in.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//        in.putExtra(AppConstants.REASON_KEY_CATEGORY, mCategoryPosition);
-//        Logy.l("mCategoryPosition: " + mCategoryPosition);
-//        startActivity(in);
-    }
-
-//    public void playSound(int soundId) {
-//        mSoundPool.play(soundId, 1, 1, 0, 0, 1);
-//    }
-
-
     private void initSound() {
-        mSoundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
-        mSoundClick = mSoundPool.load(mActivity, R.raw.sound_click, 1);
-        mSoundCorrect = mSoundPool.load(mActivity, R.raw.sound_correct_answer, 1);
-        mSoundWrong = mSoundPool.load(mActivity, R.raw.sound_wrong_answer, 1);
-        mSoundSlide = mSoundPool.load(mActivity, R.raw.sound_photo_slide, 1);
+//        mSoundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
+//        mSoundClick = mSoundPool.load(mActivity, R.raw.sound_click, 1);
+//        mSoundCorrect = mSoundPool.load(mActivity, R.raw.sound_correct_answer, 1);
+//        mSoundWrong = mSoundPool.load(mActivity, R.raw.sound_wrong_answer, 1);
+//        mSoundSlide = mSoundPool.load(mActivity, R.raw.sound_photo_slide, 1);
     }
 
-
+    public int getSliderPositionIndex() {
+        return mCategoryPosition;
+    }
 
     private Animation.AnimationListener setImageResourceBeforeAnimation(final View view, int position) {
         final int finalPosition = limitPositionInImageResourceLength(position);
@@ -261,15 +213,7 @@ public class SliderHelper implements View.OnTouchListener, View.OnClickListener 
         mImgRight2.setAlpha(1f);
     }
 
-    private void updateLable() {
-        // Label'ı güncelle
-        mTextViewLabel.setText(mSlideItems.get(mCategoryPosition).getLabel());
-        mTextViewLabel.setTextColor(mSlideItems.get(mCategoryPosition).getColorID());
 
-
-//        mImgCategoryLabel.setImageResource(CATEGORY_TEXT_RESOURCE_IDS[mCategoryPosition]);
-        AnimateUtils.startLabelAnimation(mTextViewLabel, 800);
-    }
 
     private void slideLeft() {
         if (!mIsSlideAnimationStillWorking) {
@@ -293,8 +237,11 @@ public class SliderHelper implements View.OnTouchListener, View.OnClickListener 
             Logy.l((mCategoryPosition + 1) + " mCategoryPosition'den,  " + mCategoryPosition + "'e");
             mCategoryPosition = limitPositionInImageResourceLength(mCategoryPosition);
 
-            updateLable();
             mIsSlideAnimationStillWorking = false;
+
+            if(this.mListener!=null){
+                this.mListener.OnSliderIndexChanged(mCategoryPosition);
+            }
         }
 
     }
@@ -321,9 +268,14 @@ public class SliderHelper implements View.OnTouchListener, View.OnClickListener 
             Logy.l((mCategoryPosition - 1) + " mCategoryPosition'den,  " + mCategoryPosition + "'e");
             mCategoryPosition = limitPositionInImageResourceLength(mCategoryPosition);
 
-            updateLable();
+
             mIsSlideAnimationStillWorking = false;
+
+            if(this.mListener!=null){
+                this.mListener.OnSliderIndexChanged(mCategoryPosition);
+            }
         }
     }
+
 
 }

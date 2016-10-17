@@ -32,23 +32,12 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textViewCategoryLabel"
         layout="@layout/item_slider" />
-    <!--
-    <ImageView
-        android:visibility="invisible"
-        android:src="@drawable/ic_category_hayvanlar"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/main_slider_label_x"
-        android:id="@+id/imageViewCategoryLabel"
-        android:layout_margin="38dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/sliderContainer" />-->
-
 
     <Button
         android:layout_width="280dp"
         android:layout_height="@dimen/main_button_play_y"
         android:scaleType="fitXY"
-        android:background="@drawable/ic_button_play"
+        android:background="@color/category_1"
         android:id="@+id/buttonPlay"
         android:text="@string/title_button_play"
         android:textColor="@color/material_white"
