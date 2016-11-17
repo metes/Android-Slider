@@ -11,15 +11,14 @@
 
     <TextView
         android:id="@+id/textViewCategoryLabel"
-        android:text="Hayvanlar"
+        android:text="Category"
         android:layout_width="wrap_content"
         android:textColor="@color/category_1"
         android:shadowColor="@color/material_black"
         android:textStyle="bold"
-        android:shadowDx="5.5"
-        android:shadowDy="5.5"
-        android:shadowRadius="1.0"
         android:textSize="@dimen/main_category_label_text_size"
+        android:background="@color/material_white"
+        android:padding="8dp"
         android:textAllCaps="true"
         android:layout_height="wrap_content"
         android:layout_margin="36dp"
@@ -32,6 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textViewCategoryLabel"
         layout="@layout/item_slider" />
+
 
     <Button
         android:layout_width="280dp"

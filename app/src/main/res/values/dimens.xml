@@ -23,5 +23,5 @@
     <dimen name="learn_textview_countdown_font">43sp</dimen>
     <dimen name="learn_label_textview_size">29sp</dimen>
 
-    <dimen name="main_category_label_text_size">34sp</dimen>
+    <dimen name="main_category_label_text_size">44sp</dimen>
 </resources>

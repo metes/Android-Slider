@@ -1,21 +1,21 @@
-package com.example.helper;
+package mt.slider.helper;
 
 import android.app.Activity;
+import android.graphics.drawable.Drawable;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
-
-import com.example.interfaces.OnSliderIndexChangeListener;
-import com.example.model.ModelSliderItem;
-import com.example.utils.Logy;
-import com.example.R;
-import com.example.utils.AnimateUtils;
 
 import java.util.ArrayList;
+
+import mt.slider.R;
+import mt.slider.interfaces.OnSliderIndexChangeListener;
+import mt.slider.model.ModelSliderItem;
+import mt.slider.utils.AnimateUtils;
+import mt.slider.utils.Logy;
 
 /**
  * Created by Mete on 14.10.2016.
@@ -23,6 +23,7 @@ import java.util.ArrayList;
 public class SliderHelper implements View.OnTouchListener, View.OnClickListener {
 
     private ImageView mImgCenter1, mImgCenter2, mImgRight1, mImgRight2, mImgLeft1, mImgLeft2;
+    private ImageButton mImageButtonSliderRight, mImageButtonSliderLeft;
     private RelativeLayout mSliderContainer;
     private Activity mActivity;
     private ArrayList<ModelSliderItem> mSlideItems;
@@ -66,10 +67,14 @@ public class SliderHelper implements View.OnTouchListener, View.OnClickListener 
         isMImgCenter2Visible = true;
     }
 
+    public void setSlideButtonResources(Drawable leftButtonDrawable, Drawable rightButtonDrawable) {
+        mImageButtonSliderLeft.setImageDrawable(leftButtonDrawable);
+        mImageButtonSliderRight.setImageDrawable(rightButtonDrawable);
+    }
 
     private void initViews() {
-        ImageButton imageButtonSliderRight = (ImageButton) mActivity.findViewById(R.id.imageButtonRight);
-        ImageButton imageButtonSliderLeft = (ImageButton) mActivity.findViewById(R.id.imageButtonLeft);
+        mImageButtonSliderRight = (ImageButton) mActivity.findViewById(R.id.imageButtonRight);
+        mImageButtonSliderLeft = (ImageButton) mActivity.findViewById(R.id.imageButtonLeft);
         mImgCenter1 = (ImageView) mActivity.findViewById(R.id.imageViewCenter);
         mImgCenter2 = (ImageView) mActivity.findViewById(R.id.imageViewCenter2);
         mImgRight1 = (ImageView) mActivity.findViewById(R.id.imageViewRight1);
@@ -77,8 +82,8 @@ public class SliderHelper implements View.OnTouchListener, View.OnClickListener 
         mImgRight2 = (ImageView) mActivity.findViewById(R.id.imageViewRight2);
         mImgLeft1 = (ImageView) mActivity.findViewById(R.id.imageViewLeft2);
 
-        imageButtonSliderRight.setOnClickListener(this);
-        imageButtonSliderLeft.setOnClickListener(this);
+        mImageButtonSliderRight.setOnClickListener(this);
+        mImageButtonSliderLeft.setOnClickListener(this);
         mSliderContainer.setOnTouchListener(this);
         mImgCenter1.setOnTouchListener(this);
         mImgCenter2.setOnTouchListener(this);
@@ -86,19 +91,19 @@ public class SliderHelper implements View.OnTouchListener, View.OnClickListener 
         mImgRight2.setOnTouchListener(this);
         mImgLeft1.setOnTouchListener(this);
         mImgLeft2.setOnTouchListener(this);
-        imageButtonSliderRight.setOnTouchListener(this);
-        imageButtonSliderLeft.setOnTouchListener(this);
+        mImageButtonSliderRight.setOnTouchListener(this);
+        mImageButtonSliderLeft.setOnTouchListener(this);
 
         initImageViews();
         initSound();
 
-        AnimateUtils.startSliderSideButonAnimation(imageButtonSliderLeft, ButtonTypes.ANIMATON_BUTTON_LEFT);
-        AnimateUtils.startSliderSideButonAnimation(imageButtonSliderRight, ButtonTypes.ANIMATON_BUTTON_RIGHT);
+        AnimateUtils.startSliderSideButonAnimation(mImageButtonSliderLeft, ButtonTypes.ANIMATON_BUTTON_LEFT);
+        AnimateUtils.startSliderSideButonAnimation(mImageButtonSliderRight, ButtonTypes.ANIMATON_BUTTON_RIGHT);
     }
 
     private void initImageViews() {
         mImgLeft1.setImageDrawable(mActivity.getResources().getDrawable(mSlideItems.get(1).getImageResourceID()));
-        mImgCenter1.setImageDrawable(mActivity.getResources().getDrawable(mSlideItems.get(0).getImageResourceID()));
+        mImgCenter2.setImageDrawable(mActivity.getResources().getDrawable(mSlideItems.get(0).getImageResourceID()));
         mImgRight2.setImageDrawable(mActivity.getResources().getDrawable(mSlideItems.get(mSlideItems.size() - 1).getImageResourceID()));
     }
 

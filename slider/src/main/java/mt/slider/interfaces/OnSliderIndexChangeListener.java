@@ -1,4 +1,4 @@
-package com.example.interfaces;
+package mt.slider.interfaces;
 
 /**
  * Created by Mete on 17.10.2016.

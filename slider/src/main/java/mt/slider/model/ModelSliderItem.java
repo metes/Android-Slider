@@ -1,4 +1,4 @@
-package com.example.model;
+package mt.slider.model;
 
 /**
  * Created by Mete on 14.10.2016.

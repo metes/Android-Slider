@@ -1,4 +1,4 @@
-package com.example.utils;
+package mt.slider.utils;
 
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
@@ -10,7 +10,7 @@ import android.view.animation.RotateAnimation;
 import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
 
-import com.example.helper.SliderHelper;
+import mt.slider.helper.SliderHelper;
 
 
 /**

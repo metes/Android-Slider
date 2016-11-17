@@ -1,8 +1,8 @@
-package com.example.utils;
+package mt.slider.utils;
 
 import android.util.Log;
 
-import com.example.BuildConfig;
+import mt.slider.BuildConfig;
 
 
 /**
@@ -28,7 +28,6 @@ public class Logy {
         }
     }
 
-
     /**
      * @param clazz l gönderilen sınıf
      * @param log l String
@@ -52,6 +51,5 @@ public class Logy {
             }
         }
     }
-
 
 }
