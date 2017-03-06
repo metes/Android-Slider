@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements
 
         // Helper (add slider view items)
         mSliderHelper = new SliderHelper(MainActivity.this, generateItems(), false);
-        mSliderHelper.setCustomEventListener(this);
+        mSliderHelper.setOnSliderIndexChangeListener(this);
     }
 
     private ArrayList<ModelSliderItem> generateItems() {

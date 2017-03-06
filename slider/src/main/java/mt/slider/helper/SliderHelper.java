@@ -49,7 +49,7 @@ public class SliderHelper implements View.OnTouchListener, View.OnClickListener 
     }
 
     //setting the listener
-    public void setCustomEventListener(OnSliderIndexChangeListener eventListener) {
+    public void setOnSliderIndexChangeListener(OnSliderIndexChangeListener eventListener) {
         this.mListener = eventListener;
     }
 
