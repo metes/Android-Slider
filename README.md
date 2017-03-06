@@ -22,7 +22,7 @@ Typically usage like this:
         mTextViewLabel.setText("Label: " + 0);
 
         // Helper (add slider view items)
-        mSliderHelper = new SliderHelper(MainActivity.this, generateItems(), false);
+        mSliderHelper = new SliderHelper(MainActivity.this, generateItems(), true);
         mSliderHelper.setOnSliderIndexChangeListener(this);
     }
 
