@@ -13,7 +13,7 @@ public class Logy {
     public Logy(){ }
 
     /**
-    * @param clazz l gönderilen sınıf
+     * @param clazz l class
     * @param log l String
     */
     public static void l(Class clazz, String log){
@@ -29,7 +29,7 @@ public class Logy {
     }
 
     /**
-     * @param clazz l gönderilen sınıf
+     * @param clazz l class
      * @param log l String
      * @param logLevel 0 debug, 1 info, 2 warning, 3 error
      */
