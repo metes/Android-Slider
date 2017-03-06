@@ -10,7 +10,7 @@ Typically usage like this:
 
 
   
-     private SliderHelper mSliderHelper;
+    private SliderHelper mSliderHelper;
     private TextView mTextViewLabel;
 
     @Override
