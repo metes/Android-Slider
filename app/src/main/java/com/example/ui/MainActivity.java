@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements
 
     private ArrayList<ModelSliderItem> generateItems() {
         ArrayList<ModelSliderItem> items = new ArrayList<>();
-        int[] colorIds = {
+        int[] colorResourceIds = {
                 android.R.color.holo_blue_bright,
                 android.R.color.holo_blue_dark,
                 android.R.color.holo_green_light,
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements
             items.add(new ModelSliderItem(
                     "Label " + i,
                     imageResourceIds[i],
-                    colorIds[i]
+                    colorResourceIds[i]
             ));
         }
         return items;
