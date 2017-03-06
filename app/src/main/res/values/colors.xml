@@ -1,28 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">@color/material_green_500</color>
-    <color name="colorPrimaryDark">@color/material_green_700</color>
-    <color name="colorAccent">@color/material_green_A400</color>
-
-
-    <color name="category_1">#80cdcf</color>
-    <color name="category_2">#f2ce61</color>
-    <color name="category_3">#f5a798</color>
-    <color name="category_4">#f5a9ca</color>
-    <color name="category_5">#80cf99</color>
-    <color name="category_6">#f5c99d</color>
-    <color name="category_7">#ff7373</color>
-    <color name="category_8">#f5ac6c</color>
-
-
-    <integer-array name="category_label_color" >
-        <item>@color/category_1</item>
-        <item>@color/category_2</item>
-        <item>@color/category_3</item>
-        <item>@color/category_4</item>
-        <item>@color/category_5</item>
-        <item>@color/category_6</item>
-        <item>@color/category_7</item>
-        <item>@color/category_8</item>
-    </integer-array>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
 </resources>

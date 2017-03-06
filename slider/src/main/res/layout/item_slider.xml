@@ -88,7 +88,7 @@
 
         <ImageButton
             android:id="@+id/imageButtonLeft"
-            android:src="@android:drawable/ic_dialog_alert"
+            android:src="@android:drawable/ic_media_rew"
             android:layout_width="138dp"
             android:layout_height="138dp"
             android:scaleType="fitXY"
@@ -101,7 +101,7 @@
 
         <ImageButton
             android:id="@+id/imageButtonRight"
-            android:src="@android:drawable/ic_dialog_alert"
+            android:src="@android:drawable/ic_media_ff"
             android:layout_width="138dp"
             android:layout_height="138dp"
             android:scaleType="fitXY"

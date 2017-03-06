@@ -27,6 +27,7 @@ public class SliderHelper implements View.OnTouchListener, View.OnClickListener 
     private RelativeLayout mSliderContainer;
     private Activity mActivity;
     private ArrayList<ModelSliderItem> mSlideItems;
+    private boolean isSlideButtonAnimationActive = true;
 
     private boolean isMImgCenter2Visible, mIsSlideAnimationStillWorking = false;
     private int mCategoryPosition = 0, mTouchPositionX;
@@ -52,10 +53,26 @@ public class SliderHelper implements View.OnTouchListener, View.OnClickListener 
         this.mListener = eventListener;
     }
 
-    public SliderHelper(RelativeLayout mSliderContainer, Activity activity, ArrayList<ModelSliderItem> slideItems) {
-        this.mSliderContainer = mSliderContainer;
+    public SliderHelper(Activity activity, ArrayList<ModelSliderItem> slideItems) {
+        this.mSliderContainer = (RelativeLayout) activity.findViewById(R.id.sliderContainer);
         this.mActivity = activity;
         this.mSlideItems = slideItems;
+
+        initViews();
+        calculateAnimationSizes();
+
+        if (mCategoryPosition > 0) {
+            mImgCenter2.setImageDrawable(activity.getResources().getDrawable(mSlideItems.get(mCategoryPosition).getImageResourceID()));
+        }
+        mImgCenter2.setVisibility(View.VISIBLE);
+        isMImgCenter2Visible = true;
+    }
+
+    public SliderHelper(Activity activity, ArrayList<ModelSliderItem> slideItems, boolean isSlideButtonAnimationActive) {
+        this.mSliderContainer = (RelativeLayout) activity.findViewById(R.id.sliderContainer);
+        this.mActivity = activity;
+        this.mSlideItems = slideItems;
+        this.isSlideButtonAnimationActive = isSlideButtonAnimationActive;
 
         initViews();
         calculateAnimationSizes();
@@ -97,8 +114,10 @@ public class SliderHelper implements View.OnTouchListener, View.OnClickListener 
         initImageViews();
         initSound();
 
-        AnimateUtils.startSliderSideButonAnimation(mImageButtonSliderLeft, ButtonTypes.ANIMATON_BUTTON_LEFT);
-        AnimateUtils.startSliderSideButonAnimation(mImageButtonSliderRight, ButtonTypes.ANIMATON_BUTTON_RIGHT);
+        if (isSlideButtonAnimationActive) {
+            AnimateUtils.startSliderSideButonAnimation(mImageButtonSliderLeft, ButtonTypes.ANIMATON_BUTTON_LEFT);
+            AnimateUtils.startSliderSideButonAnimation(mImageButtonSliderRight, ButtonTypes.ANIMATON_BUTTON_RIGHT);
+        }
     }
 
     private void initImageViews() {

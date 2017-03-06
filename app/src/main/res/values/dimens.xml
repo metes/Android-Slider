@@ -2,26 +2,4 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-    <dimen name="fab_margin">16dp</dimen>
-
-
-
-    <dimen name="main_title_resimlerle_x">58dp</dimen>
-    <dimen name="main_title_ingilizce_x">54dp</dimen>
-    <dimen name="main_button_play_y">48dp</dimen>
-    <dimen name="main_slider_label_x">26dp</dimen>
-
-    <dimen name="item_photo_photo_content_x">312dp</dimen>
-    <dimen name="learn_label_background_y">78dp</dimen>
-    <dimen name="item_photo_padding">19dp</dimen>
-
-
-    <dimen name="item_selection_x">296dp</dimen>
-    <dimen name="item_selection_y">24dp</dimen>
-    <dimen name="item_photo_at_learning_text_size">24sp</dimen>
-    <dimen name="learn_textview_countdown_xy">75dp</dimen>
-    <dimen name="learn_textview_countdown_font">43sp</dimen>
-    <dimen name="learn_label_textview_size">29sp</dimen>
-
-    <dimen name="main_category_label_text_size">44sp</dimen>
 </resources>
