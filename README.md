@@ -8,7 +8,6 @@ This example includes the use of the first version of the slider library. Since 
 
 Typically usage like this:
 
-
   
     private SliderHelper mSliderHelper;
     private TextView mTextViewLabel;
@@ -22,7 +21,7 @@ Typically usage like this:
         mSliderItemList = generateItems();
 
         mTextViewLabel = (TextView) findViewById(R.id.textViewCategoryLabel);
-        mTextViewLabel.setText(mSliderItemList.get(0).getLabel());
+        updateLabel(0);
 
         // Helper (add slider view items)
         mSliderHelper = new SliderHelper(MainActivity.this, mSliderItemList, true);
@@ -57,13 +56,15 @@ Typically usage like this:
         return items;
     }
 
+    private void updateLabel(int newIndex) {
+        mTextViewLabel.setText(mSliderItemList.get(newIndex).getLabel());
+        mTextViewLabel.setTextColor(getResources().getColor(mSliderItemList.get(newIndex).getColorID()));
+    }
+    
     @Override
     public void OnSliderIndexChanged(int newIndex) {
-        Toast.makeText(getBaseContext(),
-                "Slider changed, new index is: " + newIndex, Toast.LENGTH_SHORT)
-                .show();
-        mTextViewLabel.setText(mSliderItemList.get(newIndex).getLabel());
-        mTextViewLabel.setTextColor(mSliderItemList.get(newIndex).getColorID());
+        Log.d(MainActivity.class.getSimpleName(), "OnSliderIndexChanged newIndex: " + newIndex);
+        updateLabel(newIndex);
     }
 
     @Override
