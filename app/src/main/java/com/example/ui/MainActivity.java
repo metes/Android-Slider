@@ -1,10 +1,10 @@
 package com.example.ui;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.R;
 
@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements
         mSliderItemList = generateItems();
 
         mTextViewLabel = (TextView) findViewById(R.id.textViewCategoryLabel);
-        mTextViewLabel.setText(mSliderItemList.get(0).getLabel());
+        updateLabel(0);
 
         // Helper (add slider view items)
         mSliderHelper = new SliderHelper(MainActivity.this, mSliderItemList, true);
@@ -66,11 +66,13 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void OnSliderIndexChanged(int newIndex) {
-        Toast.makeText(getBaseContext(),
-                "Slider changed, new index is: " + newIndex, Toast.LENGTH_SHORT)
-                .show();
+        Log.d(MainActivity.class.getSimpleName(), "OnSliderIndexChanged newIndex: " + newIndex);
+        updateLabel(newIndex);
+    }
+
+    private void updateLabel(int newIndex) {
         mTextViewLabel.setText(mSliderItemList.get(newIndex).getLabel());
-        mTextViewLabel.setTextColor(mSliderItemList.get(newIndex).getColorID());
+        mTextViewLabel.setTextColor(getResources().getColor(mSliderItemList.get(newIndex).getColorID()));
     }
 
     @Override
