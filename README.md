@@ -56,15 +56,15 @@ Typically usage like this:
         return items;
     }
 
+    private void updateLabel(int newIndex) {
+        mTextViewLabel.setText(mSliderItemList.get(newIndex).getLabel());
+        mTextViewLabel.setTextColor(getResources().getColor(mSliderItemList.get(newIndex).getColorID()));
+    }
+    
     @Override
     public void OnSliderIndexChanged(int newIndex) {
         Log.d(MainActivity.class.getSimpleName(), "OnSliderIndexChanged newIndex: " + newIndex);
         updateLabel(newIndex);
-    }
-
-    private void updateLabel(int newIndex) {
-        mTextViewLabel.setText(mSliderItemList.get(newIndex).getLabel());
-        mTextViewLabel.setTextColor(getResources().getColor(mSliderItemList.get(newIndex).getColorID()));
     }
 
     @Override
