@@ -1,8 +1,6 @@
 package mt.slider.helper;
 
 import android.app.Activity;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
@@ -14,7 +12,7 @@ import java.util.ArrayList;
 
 import mt.slider.R;
 import mt.slider.interfaces.OnSliderIndexChangeListener;
-import mt.slider.model.ModelSliderItem;
+import mt.slider.model.SliderItem;
 import mt.slider.utils.AnimateUtils;
 import mt.slider.utils.Logy;
 
@@ -27,7 +25,7 @@ public class SliderHelper implements View.OnTouchListener, View.OnClickListener 
     private ImageButton mImageButtonSliderRight, mImageButtonSliderLeft;
     private RelativeLayout mSliderContainer;
     private Activity mActivity;
-    private ArrayList<ModelSliderItem> mSlideItems;
+    private ArrayList<SliderItem> mSlideItems;
     private boolean isSlideButtonAnimationActive = true;
 
     private boolean isMImgCenter2Visible, mIsSlideAnimationStillWorking = false;
@@ -54,7 +52,7 @@ public class SliderHelper implements View.OnTouchListener, View.OnClickListener 
         this.mListener = eventListener;
     }
 
-    public SliderHelper(Activity activity, ArrayList<ModelSliderItem> slideItems) {
+    public SliderHelper(Activity activity, ArrayList<SliderItem> slideItems) {
         this.mSliderContainer = (RelativeLayout) activity.findViewById(R.id.sliderContainer);
         this.mActivity = activity;
         this.mSlideItems = slideItems;
@@ -69,7 +67,7 @@ public class SliderHelper implements View.OnTouchListener, View.OnClickListener 
         isMImgCenter2Visible = true;
     }
 
-    public SliderHelper(Activity activity, ArrayList<ModelSliderItem> slideItems, boolean isSlideButtonAnimationActive) {
+    public SliderHelper(Activity activity, ArrayList<SliderItem> slideItems, boolean isSlideButtonAnimationActive) {
         this.mSliderContainer = (RelativeLayout) activity.findViewById(R.id.sliderContainer);
         this.mActivity = activity;
         this.mSlideItems = slideItems;

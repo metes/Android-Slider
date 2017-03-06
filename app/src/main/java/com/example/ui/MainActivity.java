@@ -12,30 +12,33 @@ import java.util.ArrayList;
 
 import mt.slider.helper.SliderHelper;
 import mt.slider.interfaces.OnSliderIndexChangeListener;
-import mt.slider.model.ModelSliderItem;
+import mt.slider.model.SliderItem;
 
 public class MainActivity extends AppCompatActivity implements
         View.OnClickListener, OnSliderIndexChangeListener {
 
     private SliderHelper mSliderHelper;
     private TextView mTextViewLabel;
+    private ArrayList<SliderItem> mSliderItemList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mSliderItemList = generateItems();
+
         mTextViewLabel = (TextView) findViewById(R.id.textViewCategoryLabel);
-        mTextViewLabel.setText("Label: " + 0);
+        mTextViewLabel.setText(mSliderItemList.get(0).getLabel());
 
         // Helper (add slider view items)
-        mSliderHelper = new SliderHelper(MainActivity.this, generateItems(), true);
+        mSliderHelper = new SliderHelper(MainActivity.this, mSliderItemList, true);
         mSliderHelper.setOnSliderIndexChangeListener(this);
         mSliderHelper.setSlideButtonResources(R.drawable.ic_button_left, R.drawable.ic_button_right);
     }
 
-    private ArrayList<ModelSliderItem> generateItems() {
-        ArrayList<ModelSliderItem> items = new ArrayList<>();
+    private ArrayList<SliderItem> generateItems() {
+        ArrayList<SliderItem> items = new ArrayList<>();
         int[] colorResourceIds = {
                 android.R.color.holo_blue_bright,
                 android.R.color.holo_blue_dark,
@@ -52,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements
         };
 
         for (int i = 0; i < 5; i++) {
-            items.add(new ModelSliderItem(
+            items.add(new SliderItem(
                     "Label " + i,
                     imageResourceIds[i],
                     colorResourceIds[i]
@@ -66,7 +69,8 @@ public class MainActivity extends AppCompatActivity implements
         Toast.makeText(getBaseContext(),
                 "Slider changed, new index is: " + newIndex, Toast.LENGTH_SHORT)
                 .show();
-        mTextViewLabel.setText("Label: " + newIndex);
+        mTextViewLabel.setText(mSliderItemList.get(newIndex).getLabel());
+        mTextViewLabel.setTextColor(mSliderItemList.get(newIndex).getColorID());
     }
 
     @Override
