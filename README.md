@@ -1,7 +1,7 @@
 # Android_Slider
 First version of Slider
 
-An Example: https://www.youtube.com/watch?v=QrX4VHida0Q
+A project Example: https://www.youtube.com/watch?v=Z_Zq73ewxvU
 
 This example includes the use of the first version of the slider library. Since the library is not yet accessible via grade, you need to add it manually.
 
