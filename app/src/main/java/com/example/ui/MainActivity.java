@@ -29,8 +29,9 @@ public class MainActivity extends AppCompatActivity implements
         mTextViewLabel.setText("Label: " + 0);
 
         // Helper (add slider view items)
-        mSliderHelper = new SliderHelper(MainActivity.this, generateItems(), false);
+        mSliderHelper = new SliderHelper(MainActivity.this, generateItems(), true);
         mSliderHelper.setOnSliderIndexChangeListener(this);
+        mSliderHelper.setSlideButtonResources(R.drawable.ic_button_left, R.drawable.ic_button_right);
     }
 
     private ArrayList<ModelSliderItem> generateItems() {
@@ -43,11 +44,11 @@ public class MainActivity extends AppCompatActivity implements
                 android.R.color.holo_orange_light,
         };
         int[] imageResourceIds = {
-                android.R.drawable.ic_dialog_alert,
-                android.R.drawable.ic_menu_agenda,
-                android.R.drawable.ic_menu_gallery,
-                android.R.drawable.ic_menu_my_calendar,
-                android.R.drawable.ic_menu_compass
+                R.drawable.ic_category_1,
+                R.drawable.ic_category_2,
+                R.drawable.ic_category_3,
+                R.drawable.ic_category_4,
+                R.drawable.ic_category_5,
         };
 
         for (int i = 0; i < 5; i++) {

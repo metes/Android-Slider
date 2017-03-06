@@ -2,6 +2,7 @@ package mt.slider.helper;
 
 import android.app.Activity;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
@@ -84,9 +85,9 @@ public class SliderHelper implements View.OnTouchListener, View.OnClickListener 
         isMImgCenter2Visible = true;
     }
 
-    public void setSlideButtonResources(Drawable leftButtonDrawable, Drawable rightButtonDrawable) {
-        mImageButtonSliderLeft.setImageDrawable(leftButtonDrawable);
-        mImageButtonSliderRight.setImageDrawable(rightButtonDrawable);
+    public void setSlideButtonResources(int leftButtonDrawableId, int rightButtonDrawableId) {
+        mImageButtonSliderLeft.setImageResource(leftButtonDrawableId);
+        mImageButtonSliderRight.setImageResource(rightButtonDrawableId);
     }
 
     private void initViews() {
@@ -118,6 +119,9 @@ public class SliderHelper implements View.OnTouchListener, View.OnClickListener 
             AnimateUtils.startSliderSideButonAnimation(mImageButtonSliderLeft, ButtonTypes.ANIMATON_BUTTON_LEFT);
             AnimateUtils.startSliderSideButonAnimation(mImageButtonSliderRight, ButtonTypes.ANIMATON_BUTTON_RIGHT);
         }
+
+        // for first start
+        mImgCenter1.setImageDrawable(mActivity.getResources().getDrawable(mSlideItems.get(0).getImageResourceID()));
     }
 
     private void initImageViews() {

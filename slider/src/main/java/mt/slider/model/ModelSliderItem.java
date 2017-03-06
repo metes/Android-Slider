@@ -6,8 +6,8 @@ package mt.slider.model;
 
 public class ModelSliderItem {
 
-    String label;
-    int imageResourceID, colorID;
+    private String label;
+    private int imageResourceID, colorID;
 
     public ModelSliderItem(String label, int imageResourceID, int colorID) {
         this.label = label;
