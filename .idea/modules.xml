@@ -5,7 +5,6 @@
       <module fileurl="file://$PROJECT_DIR$/Android_Slider.iml" filepath="$PROJECT_DIR$/Android_Slider.iml" />
       <module fileurl="file://$PROJECT_DIR$/Mete Slider.iml" filepath="$PROJECT_DIR$/Mete Slider.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/slider/slider.iml" filepath="$PROJECT_DIR$/slider/slider.iml" />
     </modules>
   </component>
 </project>

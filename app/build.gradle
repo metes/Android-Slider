@@ -1,15 +1,14 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.0"
+    buildToolsVersion "25.0.2"
 
     defaultConfig {
-        applicationId "com.mete.slider"
         minSdkVersion 15
         targetSdkVersion 25
-        versionCode 1
-        versionName "0.03"
+        versionCode 2
+        versionName "1.0.1"
     }
     buildTypes {
         release {
@@ -28,6 +27,5 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:25.2.0'
-    compile project(':slider')
+    compile 'com.android.support:appcompat-v7:25.3.0'
 }
