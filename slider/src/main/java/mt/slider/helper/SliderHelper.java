@@ -81,6 +81,9 @@ public class SliderHelper implements View.OnTouchListener, View.OnClickListener 
         }
         mImgCenter2.setVisibility(View.VISIBLE);
         isMImgCenter2Visible = true;
+
+        mImageButtonSliderLeft.setImageResource(android.R.drawable.ic_media_rew);
+        mImageButtonSliderRight.setImageResource(android.R.drawable.ic_media_ff);
     }
 
     public void setSlideButtonResources(int leftButtonDrawableId, int rightButtonDrawableId) {

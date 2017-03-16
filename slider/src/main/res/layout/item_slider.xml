@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal">
 
+
     <RelativeLayout
         android:id="@+id/sliderContainer"
         android:layout_width="400dp"
