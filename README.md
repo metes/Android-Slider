@@ -1,9 +1,18 @@
 # Android_Slider
-First version of Slider
+A project Example: https://www.youtube.com/watch?v=Upi7xmJ-sWA
 
-A project Example: https://www.youtube.com/watch?v=Z_Zq73ewxvU
+Adding from gradle:
 
-This example includes the use of the first version of the slider library. Since the library is not yet accessible via grade, you need to add it manually.
+    allprojects {
+        repositories { 
+            jcenter()
+            maven { url "https://jitpack.io" }
+        }
+    }
+    dependencies {
+        compile 'com.github.metes:android-slider:1.0.0'
+    }
+    
 
 
 Typically usage like this:
@@ -83,3 +92,7 @@ Typically usage like this:
                 break;
         }
     }
+
+On XML add this line:
+
+    <include layout="@layout/item_slider" />
