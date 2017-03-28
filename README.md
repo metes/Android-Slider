@@ -1,6 +1,9 @@
 # Android_Slider
+
+# Example
 A project Example: https://www.youtube.com/watch?v=Upi7xmJ-sWA
 
+# Gradle 
 Adding from gradle:
 
     allprojects {
@@ -14,7 +17,7 @@ Adding from gradle:
     }
     
 
-
+# Usage
 Typically usage like this:
 
   
