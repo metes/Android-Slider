@@ -20,7 +20,9 @@ Adding from gradle:
 # Usage
 Typically usage like this:
 
-  
+    MainActivity extends AppCompatActivity implements
+        View.OnClickListener, OnSliderIndexChangeListener {
+
     private SliderHelper mSliderHelper;
     private TextView mTextViewLabel;
     private ArrayList<SliderItem> mSliderItemList;
