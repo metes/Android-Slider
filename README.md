@@ -1,4 +1,4 @@
-# Android_Slider
+# Android Slider
 
 # Example
 A project Example: https://www.youtube.com/watch?v=Upi7xmJ-sWA
