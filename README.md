@@ -81,22 +81,7 @@ Typically usage like this:
         updateLabel(newIndex);
     }
 
-    @Override
-    public void onClick(View v) {
-        // get selected slider index
-        int index = mSliderHelper.getSliderPositionIndex();
-        switch (index) {
-            case 0:
-                // TODO somethings
-                break;
-            case 1:
-                // TODO somethings
-                break;
-            default:
-                // TODO other things
-                break;
-        }
-    }
+   
 
 On XML add this line:
 
