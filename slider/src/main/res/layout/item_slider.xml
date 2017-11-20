@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:gravity="center_horizontal">
-
 
     <RelativeLayout
         android:id="@+id/sliderContainer"
         android:layout_width="400dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imageViewIngilizce"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp">
-
+        android:layout_centerHorizontal="true">
 
         <ImageView
             android:id="@+id/imageViewRight1"
@@ -20,19 +16,19 @@
             android:layout_height="130dp"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/frameLayoutCenterVertical"
-            android:src="@android:color/transparent"
+            android:layout_toRightOf="@+id/frameLayoutCenterVertical"
             android:background="@android:color/transparent"
-            android:layout_toRightOf="@+id/frameLayoutCenterVertical" />
+            android:src="@android:color/transparent" />
 
         <ImageView
             android:id="@+id/imageViewLeft1"
             android:layout_width="130dp"
             android:layout_height="130dp"
-            android:layout_centerVertical="true"
-            android:src="@android:color/transparent"
-            android:background="@android:color/transparent"
+            android:layout_alignEnd="@+id/imageViewLeft2"
             android:layout_alignRight="@+id/imageViewLeft2"
-            android:layout_alignEnd="@+id/imageViewLeft2" />
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:src="@android:color/transparent" />
 
 
         <ImageView
@@ -41,9 +37,8 @@
             android:layout_height="168dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:src="@android:drawable/ic_dialog_alert"
-            android:background="@android:color/transparent"/>
-
+            android:background="@android:color/transparent"
+            android:src="@android:drawable/ic_dialog_alert" />
 
 
         <ImageView
@@ -52,10 +47,9 @@
             android:layout_height="130dp"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/frameLayoutCenterVertical"
+            android:layout_toRightOf="@+id/frameLayoutCenterVertical"
             android:background="@android:color/transparent"
-            android:src="@android:drawable/ic_dialog_alert"
-            android:layout_toRightOf="@+id/frameLayoutCenterVertical" />
-
+            android:src="@android:drawable/ic_dialog_alert" />
 
 
         <ImageView
@@ -63,55 +57,52 @@
             android:layout_width="130dp"
             android:layout_height="130dp"
             android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/frameLayoutCenterVertical"
             android:layout_toStartOf="@+id/frameLayoutCenterVertical"
-            android:src="@android:drawable/ic_dialog_alert"
             android:background="@android:color/transparent"
-            android:layout_toLeftOf="@+id/frameLayoutCenterVertical" />
-
+            android:src="@android:drawable/ic_dialog_alert" />
 
 
         <ImageView
             android:id="@+id/imageViewCenter2"
             android:layout_width="168dp"
             android:layout_height="168dp"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:src="@android:drawable/ic_dialog_alert"
-            android:background="@android:color/transparent"/>
+            android:layout_centerInParent="true"
+            android:background="@android:color/transparent"
+            android:src="@android:drawable/ic_dialog_alert" />
 
 
         <FrameLayout
             android:id="@+id/frameLayoutCenterVertical"
             android:layout_width="80dp"
             android:layout_height="150dp"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"></FrameLayout>
+            android:layout_centerInParent="true" />
 
         <ImageButton
             android:id="@+id/imageButtonLeft"
-            android:src="@android:drawable/ic_media_rew"
-            android:layout_width="138dp"
-            android:layout_height="138dp"
-            android:scaleType="fitXY"
-            android:padding="44dp"
-            android:background="@android:color/transparent"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:layout_centerVertical="true"
-            android:text="Left"
-            android:layout_toLeftOf="@+id/frameLayoutCenterVertical"
-            android:layout_toStartOf="@+id/frameLayoutCenterVertical"  />
+            android:layout_alignParentLeft="true"
+            android:background="@android:color/transparent"
+            android:layout_marginLeft="48dp"
+            android:scaleType="fitXY"
+            android:src="@android:drawable/ic_media_rew"
+            android:text="Left" />
 
         <ImageButton
             android:id="@+id/imageButtonRight"
-            android:src="@android:drawable/ic_media_ff"
-            android:layout_width="138dp"
-            android:layout_height="138dp"
-            android:scaleType="fitXY"
-            android:padding="44dp"
-            android:background="@android:color/transparent"
-            android:text="Right"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_alignLeft="@+id/imageViewRight1"
-            android:layout_alignStart="@+id/imageViewRight1" />
+            android:layout_marginRight="48dp"
+            android:background="@android:color/transparent"
+            android:elevation="0dp"
+            android:scaleType="fitXY"
+            android:src="@android:drawable/ic_media_ff"
+            android:text="Right" />
     </RelativeLayout>
 
 

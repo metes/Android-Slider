@@ -1,0 +1,34 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    tools:context="com.example.ui.BlankFragment">
+
+    <TextView
+        android:id="@+id/textViewCategoryLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="32dp"
+        android:text="Category"
+        android:textAllCaps="true"
+        android:textStyle="bold" />
+
+    <include
+        android:id="@+id/slider"
+        layout="@layout/item_slider"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        />
+
+    <Button
+        android:id="@+id/buttonPlay"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="24dp"
+        android:scaleType="fitXY"
+        android:text="play"
+        android:textSize="38sp" />
+
+</LinearLayout>
