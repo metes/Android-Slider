@@ -13,37 +13,24 @@ Adding from gradle:
         }
     }
     dependencies {
-        compile 'com.github.metes:android-slider:1.0.0'
+        compile 'com.github.metes:android-slider:1.0.2'
     }
     
 
 # Usage
 Typically usage like this:
 
-    MainActivity extends AppCompatActivity implements
-        View.OnClickListener, OnSliderIndexChangeListener {
-
-    private SliderHelper mSliderHelper;
-    private TextView mTextViewLabel;
-    private ArrayList<SliderItem> mSliderItemList;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        mSliderItemList = generateItems();
-
-        mTextViewLabel = (TextView) findViewById(R.id.textViewCategoryLabel);
-        updateLabel(0);
-
+      private void initSlider(View rootView) {
+        View slider = rootView.findViewById(R.id.slider);
+        mSliderItemList = generateItems(280,400);
         // Helper (add slider view items)
-        mSliderHelper = new SliderHelper(MainActivity.this, mSliderItemList, true);
+        mSliderHelper = new SliderHelper(getContext(), mSliderItemList, false, slider);
         mSliderHelper.setOnSliderIndexChangeListener(this);
-        mSliderHelper.setSlideButtonResources(R.drawable.ic_button_left, R.drawable.ic_button_right);
+
+        updateLabel(0);
     }
 
-    private ArrayList<SliderItem> generateItems() {
+    private ArrayList<SliderItem> generateItems(int smallIconSize, int bigIconSize) {
         ArrayList<SliderItem> items = new ArrayList<>();
         int[] colorResourceIds = {
                 android.R.color.holo_blue_bright,
@@ -59,22 +46,18 @@ Typically usage like this:
                 R.drawable.ic_category_4,
                 R.drawable.ic_category_5,
         };
-
         for (int i = 0; i < 5; i++) {
             items.add(new SliderItem(
                     "Label " + i,
                     imageResourceIds[i],
-                    colorResourceIds[i]
+                    colorResourceIds[i],
+                    smallIconSize,
+                    bigIconSize
             ));
         }
         return items;
     }
 
-    private void updateLabel(int newIndex) {
-        mTextViewLabel.setText(mSliderItemList.get(newIndex).getLabel());
-        mTextViewLabel.setTextColor(getResources().getColor(mSliderItemList.get(newIndex).getColorID()));
-    }
-    
     @Override
     public void OnSliderIndexChanged(int newIndex) {
         Log.d(MainActivity.class.getSimpleName(), "OnSliderIndexChanged newIndex: " + newIndex);
@@ -85,4 +68,9 @@ Typically usage like this:
 
 On XML add this line:
 
-    <include layout="@layout/item_slider" />
+     <include
+        android:id="@+id/slider"
+        layout="@layout/item_slider"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        />
