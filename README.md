@@ -24,7 +24,7 @@ Usage example:
     private TextView mTextViewLabel;
     private ArrayList<SliderItem> mSliderItemList;
 
-   @Override
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_blank, container, false);
@@ -103,8 +103,8 @@ Usage example:
 
 On XML add this line:
 
-   <include
-      android:id="@+id/slider"
-      layout="@layout/item_slider"
-      android:layout_width="300dp"
-      android:layout_height="wrap_content" />
+    <include
+       android:id="@+id/slider"
+       layout="@layout/item_slider"
+       android:layout_width="300dp"
+       android:layout_height="wrap_content" />
