@@ -20,9 +20,9 @@ Adding from gradle:
 # Usage
 Usage example:
 
-   private SliderHelper mSliderHelper;
-   private TextView mTextViewLabel;
-   private ArrayList<SliderItem> mSliderItemList;
+    private SliderHelper mSliderHelper;
+    private TextView mTextViewLabel;
+    private ArrayList<SliderItem> mSliderItemList;
 
    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
