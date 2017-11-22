@@ -119,6 +119,7 @@ On XML add this line:
        android:layout_width="300dp"
        android:layout_height="wrap_content" />
 
+# License
 --------------------
 
 The MIT License (MIT)
