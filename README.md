@@ -29,6 +29,8 @@ Usage example:
     private TextView mTextViewLabel;
     private ArrayList<SliderItem> mSliderItemList;
     private View mSlider;    
+    
+    ...
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -104,6 +106,8 @@ Usage example:
                     break;
             }
         }
+        
+        ...
    }
    
 
