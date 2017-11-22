@@ -118,8 +118,8 @@ public class BlankFragment extends Fragment implements
                     "Label " + i,
                     imageResourceIds[i],
                     colorResourceIds[i],
-                    220,
-                    300
+                    280,
+                    350
             ));
         }
         return items;

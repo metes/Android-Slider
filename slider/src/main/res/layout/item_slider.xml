@@ -1,17 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:gravity="center_horizontal">
 
     <RelativeLayout
         android:id="@+id/sliderContainer"
         android:layout_width="400dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/imageViewIngilizce"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp">
-
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/imageViewRight1"
@@ -33,7 +29,6 @@
             android:background="@android:color/transparent"
             android:src="@android:color/transparent" />
 
-
         <ImageView
             android:id="@+id/imageViewCenter"
             android:layout_width="168dp"
@@ -42,7 +37,6 @@
             android:layout_centerVertical="true"
             android:background="@android:color/transparent"
             android:src="@android:drawable/ic_dialog_alert" />
-
 
         <ImageView
             android:id="@+id/imageViewRight2"
@@ -54,7 +48,6 @@
             android:background="@android:color/transparent"
             android:src="@android:drawable/ic_dialog_alert" />
 
-
         <ImageView
             android:id="@+id/imageViewLeft2"
             android:layout_width="130dp"
@@ -65,7 +58,6 @@
             android:background="@android:color/transparent"
             android:src="@android:drawable/ic_dialog_alert" />
 
-
         <ImageView
             android:id="@+id/imageViewCenter2"
             android:layout_width="168dp"
@@ -73,7 +65,6 @@
             android:layout_centerInParent="true"
             android:background="@android:color/transparent"
             android:src="@android:drawable/ic_dialog_alert" />
-
 
         <FrameLayout
             android:id="@+id/frameLayoutCenterVertical"
@@ -83,29 +74,26 @@
 
         <ImageButton
             android:id="@+id/imageButtonLeft"
-            android:layout_width="138dp"
-            android:layout_height="138dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_alignLeft="@+id/imageViewLeft1"
+            android:layout_alignStart="@+id/imageViewLeft1"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/frameLayoutCenterVertical"
-            android:layout_toStartOf="@+id/frameLayoutCenterVertical"
             android:background="@android:color/transparent"
-            android:padding="44dp"
             android:scaleType="fitXY"
-            android:src="@android:drawable/ic_media_rew"
-            android:text="Left" />
+            android:layout_marginLeft="8dp"
+            android:src="@android:drawable/ic_media_rew" />
 
         <ImageButton
             android:id="@+id/imageButtonRight"
-            android:layout_width="138dp"
-            android:layout_height="138dp"
-            android:layout_alignLeft="@+id/imageViewRight1"
-            android:layout_alignStart="@+id/imageViewRight1"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_alignRight="@+id/imageViewRight1"
             android:layout_centerVertical="true"
+            android:layout_marginRight="8dp"
             android:background="@android:color/transparent"
-            android:padding="44dp"
             android:scaleType="fitXY"
-            android:src="@android:drawable/ic_media_ff"
-            android:text="Right" />
+            android:src="@android:drawable/ic_media_ff" />
     </RelativeLayout>
 
 

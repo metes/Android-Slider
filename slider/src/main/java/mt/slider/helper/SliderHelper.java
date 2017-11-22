@@ -29,7 +29,7 @@ public class SliderHelper implements View.OnTouchListener, View.OnClickListener 
     private ArrayList<SliderItem> mSlideItems;
     private boolean isSlideButtonAnimationActive = true;
 
-    private boolean isMImgCenter2Visible, mIsSlideAnimationStillWorking = false;
+    private boolean isMImgCenter2Visible, isSlideAnimationStillWorking = false;
     private int mCategoryPosition = 0, mTouchPositionX;
 
     private OnSliderIndexChangeListener mListener; //listener field
@@ -54,7 +54,7 @@ public class SliderHelper implements View.OnTouchListener, View.OnClickListener 
     }
 
     public SliderHelper(Context context, ArrayList<SliderItem> slideItems, View slider) {
-        this.mSliderContainer = (RelativeLayout) slider.findViewById(R.id.sliderContainer);
+        this.mSliderContainer = slider.findViewById(R.id.sliderContainer);
         this.mContext = context;
         this.mSlideItems = slideItems;
 
@@ -66,11 +66,14 @@ public class SliderHelper implements View.OnTouchListener, View.OnClickListener 
         }
         mImgCenter2.setVisibility(View.VISIBLE);
         isMImgCenter2Visible = true;
+
+        mImageButtonSliderLeft.setImageResource(android.R.drawable.ic_media_rew);
+        mImageButtonSliderRight.setImageResource(android.R.drawable.ic_media_ff);
     }
 
-    public SliderHelper(Context activity, ArrayList<SliderItem> slideItems, boolean isSlideButtonAnimationActive, View slider) {
-        this.mSliderContainer = (RelativeLayout) slider.findViewById(R.id.sliderContainer);
-        this.mContext = activity;
+    public SliderHelper(Context context, ArrayList<SliderItem> slideItems, boolean isSlideButtonAnimationActive, View slider) {
+        this.mSliderContainer = slider.findViewById(R.id.sliderContainer);
+        this.mContext = context;
         this.mSlideItems = slideItems;
         this.isSlideButtonAnimationActive = isSlideButtonAnimationActive;
 
@@ -78,7 +81,7 @@ public class SliderHelper implements View.OnTouchListener, View.OnClickListener 
         calculateAnimationSizes();
 
         if (mCategoryPosition > 0) {
-            mImgCenter2.setImageDrawable(activity.getResources().getDrawable(mSlideItems.get(mCategoryPosition).getImageResourceID()));
+            mImgCenter2.setImageDrawable(context.getResources().getDrawable(mSlideItems.get(mCategoryPosition).getImageResourceID()));
         }
         mImgCenter2.setVisibility(View.VISIBLE);
         isMImgCenter2Visible = true;
@@ -92,16 +95,24 @@ public class SliderHelper implements View.OnTouchListener, View.OnClickListener 
         mImageButtonSliderRight.setImageResource(rightButtonDrawableId);
     }
 
+    public ImageButton getImageButtonSliderRight() {
+        return mImageButtonSliderRight;
+    }
+
+    public ImageButton getImageButtonSliderLeft() {
+        return mImageButtonSliderLeft;
+    }
+
     @SuppressLint("ClickableViewAccessibility")
     private void initViews() {
-        mImageButtonSliderRight = (ImageButton) mSliderContainer.findViewById(R.id.imageButtonRight);
-        mImageButtonSliderLeft = (ImageButton) mSliderContainer.findViewById(R.id.imageButtonLeft);
-        mImgCenter1 = (ImageView) mSliderContainer.findViewById(R.id.imageViewCenter);
-        mImgCenter2 = (ImageView) mSliderContainer.findViewById(R.id.imageViewCenter2);
-        mImgRight1 = (ImageView) mSliderContainer.findViewById(R.id.imageViewRight1);
-        mImgLeft2 = (ImageView) mSliderContainer.findViewById(R.id.imageViewLeft1);
-        mImgRight2 = (ImageView) mSliderContainer.findViewById(R.id.imageViewRight2);
-        mImgLeft1 = (ImageView) mSliderContainer.findViewById(R.id.imageViewLeft2);
+        mImageButtonSliderRight = mSliderContainer.findViewById(R.id.imageButtonRight);
+        mImageButtonSliderLeft = mSliderContainer.findViewById(R.id.imageButtonLeft);
+        mImgCenter1 = mSliderContainer.findViewById(R.id.imageViewCenter);
+        mImgCenter2 = mSliderContainer.findViewById(R.id.imageViewCenter2);
+        mImgRight1 = mSliderContainer.findViewById(R.id.imageViewRight1);
+        mImgLeft2 = mSliderContainer.findViewById(R.id.imageViewLeft1);
+        mImgRight2 = mSliderContainer.findViewById(R.id.imageViewRight2);
+        mImgLeft1 = mSliderContainer.findViewById(R.id.imageViewLeft2);
 
         mImageButtonSliderRight.setOnClickListener(this);
         mImageButtonSliderLeft.setOnClickListener(this);
@@ -116,15 +127,12 @@ public class SliderHelper implements View.OnTouchListener, View.OnClickListener 
         mImageButtonSliderLeft.setOnTouchListener(this);
 
         initImageViews();
-        initSound();
         initImageSizes();
-
 
         if (isSlideButtonAnimationActive) {
             AnimateUtils.startSliderSideButonAnimation(mImageButtonSliderLeft, ButtonTypes.ANIMATON_BUTTON_LEFT);
             AnimateUtils.startSliderSideButonAnimation(mImageButtonSliderRight, ButtonTypes.ANIMATON_BUTTON_RIGHT);
         }
-
         // for first start
         mImgCenter1.setImageDrawable(mContext.getResources().getDrawable(mSlideItems.get(0).getImageResourceID()));
     }
@@ -137,10 +145,10 @@ public class SliderHelper implements View.OnTouchListener, View.OnClickListener 
                 mImgCenter1, mImgCenter2
         };
         for (View imgBtn : mSmall) {
-            imgBtn.getLayoutParams().width = (int) mSlideItems.get(0).getSizeSmall();//(totalW / buttonCount);
+            imgBtn.getLayoutParams().width = mSlideItems.get(0).getSizeSmall();//(totalW / buttonCount);
         }
         for (View imgBtn : mBig) {
-            imgBtn.getLayoutParams().width = (int) mSlideItems.get(0).getSizeBig();//(totalW / buttonCount);
+            imgBtn.getLayoutParams().width = mSlideItems.get(0).getSizeBig();//(totalW / buttonCount);
         }
 
     }
@@ -153,8 +161,6 @@ public class SliderHelper implements View.OnTouchListener, View.OnClickListener 
 
     @Override
     public void onClick(View v) {
-//        Utils.playSound(mSoundClick, mSoundPool);
-
         if (v.getId() == R.id.imageButtonRight) {
             slideLeft();
         } else if (v.getId() == R.id.imageButtonLeft) {
@@ -162,6 +168,7 @@ public class SliderHelper implements View.OnTouchListener, View.OnClickListener 
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouch(final View view, MotionEvent event) {
         int x = (int) event.getX();
@@ -170,34 +177,20 @@ public class SliderHelper implements View.OnTouchListener, View.OnClickListener 
                 //TODO slide
                 mTouchPositionX = x;
                 Logy.l("ontouch x: " + x);
-
                 break;
-
             case MotionEvent.ACTION_MOVE:
                 break;
-
             case MotionEvent.ACTION_UP:
                 float deltaX = mTouchPositionX - x;
                 Logy.l("ontouch deltaX: " + deltaX);
                 if (deltaX > 200) {
-                    // TODO kaydırma işlemi
                     slideLeft();
                 } else if (deltaX < -200) {
-                    // TODO kaydırma işlemi
                     slideRight();
                 }
-
                 break;
         }
         return false;
-    }
-
-    private void initSound() {
-//        mSoundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
-//        mSoundClick = mSoundPool.load(mContext, R.raw.sound_click, 1);
-//        mSoundCorrect = mSoundPool.load(mContext, R.raw.sound_correct_answer, 1);
-//        mSoundWrong = mSoundPool.load(mContext, R.raw.sound_wrong_answer, 1);
-//        mSoundSlide = mSoundPool.load(mContext, R.raw.sound_photo_slide, 1);
     }
 
     public int getSliderPositionIndex() {
@@ -236,15 +229,7 @@ public class SliderHelper implements View.OnTouchListener, View.OnClickListener 
     }
 
     private void calculateAnimationSizes() {
-
-        mSliderContainer.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-        int width = mSliderContainer.getLayoutParams().width;
-
-        AnimateUtils.mAnimationTranslateXPosition = width / 3.8f;
-        AnimateUtils.mAnimationScaleSizeMultipler = 1.29230769f;
-
-        Logy.l("mAnimationTranslateXPosition: " + AnimateUtils.mAnimationTranslateXPosition);
-        Logy.l("mAnimationScaleSizeMultipler: " + AnimateUtils.mAnimationScaleSizeMultipler);
+        AnimateUtils.setmAnimationTranslateXPosition(mSlideItems.get(0).getSizeSmall());
     }
 
     private int limitPositionInImageResourceLength(int position) {
@@ -262,11 +247,9 @@ public class SliderHelper implements View.OnTouchListener, View.OnClickListener 
         mImgRight2.setAlpha(1f);
     }
 
-
-
     private void slideLeft() {
-        if (!mIsSlideAnimationStillWorking) {
-            mIsSlideAnimationStillWorking = true;
+        if (!isSlideAnimationStillWorking) {
+            isSlideAnimationStillWorking = true;
             setVisibleSliderViews();
 
             mImgLeft1.setAlpha(0f);
@@ -274,7 +257,7 @@ public class SliderHelper implements View.OnTouchListener, View.OnClickListener 
                     .setAnimationListener(setImageResourceBeforeAnimation(mImgLeft2, mCategoryPosition + 1))
             ;
             AnimateUtils.startSliderAnimation(mImgCenter1, SliderHelper.AnimationTypes.CENTER_TO_LEFT, mSlideItems.get(0).getSizeRaito())
-                    .setAnimationListener(setImageResourceBeforeAnimation(mImgCenter1, mCategoryPosition + 0))
+                    .setAnimationListener(setImageResourceBeforeAnimation(mImgCenter1, mCategoryPosition))
             ;
             AnimateUtils.startSliderAnimation(mImgRight2, SliderHelper.AnimationTypes.RIGHT_TO_CENTER, mSlideItems.get(0).getSizeRaito())
                     .setAnimationListener(setImageResourceBeforeAnimation(mImgRight2, mCategoryPosition - 1))
@@ -283,12 +266,12 @@ public class SliderHelper implements View.OnTouchListener, View.OnClickListener 
                     .setAnimationListener(setImageResourceBeforeAnimation(mImgRight1, mCategoryPosition - 2))
             ;
             mCategoryPosition--;
-            Logy.l((mCategoryPosition + 1) + " mCategoryPosition'den,  " + mCategoryPosition + "'e");
+            Logy.l("from: " + (mCategoryPosition + 1) + ", to: " + mCategoryPosition);
             mCategoryPosition = limitPositionInImageResourceLength(mCategoryPosition);
 
-            mIsSlideAnimationStillWorking = false;
+            isSlideAnimationStillWorking = false;
 
-            if(this.mListener!=null){
+            if (this.mListener != null) {
                 this.mListener.OnSliderIndexChanged(mCategoryPosition);
             }
         }
@@ -296,8 +279,8 @@ public class SliderHelper implements View.OnTouchListener, View.OnClickListener 
     }
 
     private void slideRight() {
-        if (!mIsSlideAnimationStillWorking) {
-            mIsSlideAnimationStillWorking = true;
+        if (!isSlideAnimationStillWorking) {
+            isSlideAnimationStillWorking = true;
             setVisibleSliderViews();
 
             mImgRight2.setAlpha(0f);
@@ -305,7 +288,7 @@ public class SliderHelper implements View.OnTouchListener, View.OnClickListener 
                     .setAnimationListener(setImageResourceBeforeAnimation(mImgRight1, mCategoryPosition - 1))
             ;
             AnimateUtils.startSliderAnimation(mImgCenter1, SliderHelper.AnimationTypes.CENTER_TO_RIGHT, mSlideItems.get(0).getSizeRaito())
-                    .setAnimationListener(setImageResourceBeforeAnimation(mImgCenter1, mCategoryPosition + 0))
+                    .setAnimationListener(setImageResourceBeforeAnimation(mImgCenter1, mCategoryPosition))
             ;
             AnimateUtils.startSliderAnimation(mImgLeft1, SliderHelper.AnimationTypes.LEFT_TO_CENTER, mSlideItems.get(0).getSizeRaito())
                     .setAnimationListener(setImageResourceBeforeAnimation(mImgLeft1, mCategoryPosition + 1))
@@ -314,13 +297,12 @@ public class SliderHelper implements View.OnTouchListener, View.OnClickListener 
                     .setAnimationListener(setImageResourceBeforeAnimation(mImgLeft2, mCategoryPosition + 2))
             ;
             mCategoryPosition++;
-            Logy.l((mCategoryPosition - 1) + " mCategoryPosition'den,  " + mCategoryPosition + "'e");
+            Logy.l("from: " + (mCategoryPosition - 1) + ", to: " + mCategoryPosition);
             mCategoryPosition = limitPositionInImageResourceLength(mCategoryPosition);
 
+            isSlideAnimationStillWorking = false;
 
-            mIsSlideAnimationStillWorking = false;
-
-            if(this.mListener!=null){
+            if (this.mListener != null) {
                 this.mListener.OnSliderIndexChanged(mCategoryPosition);
             }
         }

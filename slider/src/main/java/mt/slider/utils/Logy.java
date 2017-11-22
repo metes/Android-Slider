@@ -9,22 +9,19 @@ import mt.slider.BuildConfig;
  * Created by Mete on 18.04.2016.
  */
 public class Logy {
-
-    public Logy(){ }
-
     /**
      * @param clazz l class
     * @param log l String
     */
     public static void l(Class clazz, String log){
-        if (BuildConfig.DEBUG) {
+        if (mt.slider.BuildConfig.DEBUG) {
             Log.d(clazz.getSimpleName(), log);
         }
     }
 
     public static void l(String log){
-        if (BuildConfig.DEBUG) {
-            Log.i("Logy", log);
+        if (mt.slider.BuildConfig.DEBUG) {
+            Log.d("mt.slider", log);
         }
     }
 
@@ -34,7 +31,7 @@ public class Logy {
      * @param logLevel 0 debug, 1 info, 2 warning, 3 error
      */
     public static void l(Class clazz, String log, int logLevel){
-        if (BuildConfig.DEBUG) {
+        if (mt.slider.BuildConfig.DEBUG) {
             switch (logLevel) {
                 case 0:
                     Log.d(clazz.getSimpleName(), log);
