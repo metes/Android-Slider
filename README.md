@@ -13,32 +13,32 @@ Adding from gradle:
         }
     }
     dependencies {
-        compile 'com.github.metes:android-slider:1.0.0'
+        compile 'com.github.metes:android-slider:1.0.4'
     }
     
 
 # Usage
-Typically usage like this:
+Usage example:
 
-    MainActivity extends AppCompatActivity implements
-        View.OnClickListener, OnSliderIndexChangeListener {
+   private SliderHelper mSliderHelper;
+   private TextView mTextViewLabel;
+   private ArrayList<SliderItem> mSliderItemList;
 
-    private SliderHelper mSliderHelper;
-    private TextView mTextViewLabel;
-    private ArrayList<SliderItem> mSliderItemList;
+   @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_blank, container, false);
+        initSlider(rootView);
+        return rootView;
+    }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
+    private void initSlider(View rootView) {
         mSliderItemList = generateItems();
-
-        mTextViewLabel = (TextView) findViewById(R.id.textViewCategoryLabel);
+        mTextViewLabel = (TextView) rootView.findViewById(R.id.textViewCategoryLabel);
+        View slider = rootView.findViewById(R.id.slider);
         updateLabel(0);
-
         // Helper (add slider view items)
-        mSliderHelper = new SliderHelper(MainActivity.this, mSliderItemList, true);
+        mSliderHelper = new SliderHelper(getContext(), mSliderItemList, false, slider);
         mSliderHelper.setOnSliderIndexChangeListener(this);
         mSliderHelper.setSlideButtonResources(R.drawable.ic_button_left, R.drawable.ic_button_right);
     }
@@ -59,12 +59,13 @@ Typically usage like this:
                 R.drawable.ic_category_4,
                 R.drawable.ic_category_5,
         };
-
         for (int i = 0; i < 5; i++) {
             items.add(new SliderItem(
                     "Label " + i,
                     imageResourceIds[i],
-                    colorResourceIds[i]
+                    colorResourceIds[i],
+                    280,
+                    350
             ));
         }
         return items;
@@ -74,15 +75,36 @@ Typically usage like this:
         mTextViewLabel.setText(mSliderItemList.get(newIndex).getLabel());
         mTextViewLabel.setTextColor(getResources().getColor(mSliderItemList.get(newIndex).getColorID()));
     }
-    
+
     @Override
     public void OnSliderIndexChanged(int newIndex) {
         Log.d(MainActivity.class.getSimpleName(), "OnSliderIndexChanged newIndex: " + newIndex);
         updateLabel(newIndex);
     }
 
+    @Override
+    public void onClick(View v) {
+        // get selected slider index
+        int index = mSliderHelper.getSliderPositionIndex();
+        switch (index) {
+            case 0:
+                // TODO somethings
+                break;
+            case 1:
+                // TODO somethings
+                break;
+            default:
+                // TODO other things
+                break;
+        }
+    }
+
    
 
 On XML add this line:
 
-    <include layout="@layout/item_slider" />
+   <include
+      android:id="@+id/slider"
+      layout="@layout/item_slider"
+      android:layout_width="300dp"
+      android:layout_height="wrap_content" />
