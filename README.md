@@ -111,7 +111,7 @@ Usage example:
    }
    
 
-On XML add this line:
+On XML
 
     <include
        android:id="@+id/slider"
