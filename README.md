@@ -38,17 +38,17 @@ Usage example:
             View rootView = inflater.inflate(R.layout.fragment_blank, container, false);        
             mTextViewLabel = rootView.findViewById(R.id.textViewCategoryLabel);        
             mSlider = rootView.findViewById(R.id.slider);        
-            initSlider();
+            prepareSlider();
+            updateLabel(0);
 
             return rootView;
         }
 
-        private void initSlider() {
+        private void prepareSlider() {
             mSliderItemList = generateItems();;
             mSliderHelper = new SliderHelper(getContext(), mSliderItemList, false, mSlider);
             mSliderHelper.setSlideButtonResources(R.drawable.ic_button_left, R.drawable.ic_button_right);
             mSliderHelper.setOnSliderIndexChangeListener(this);        
-            updateLabel(0);
         }
 
         private ArrayList<SliderItem> generateItems() {
