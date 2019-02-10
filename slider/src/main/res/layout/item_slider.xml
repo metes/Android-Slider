@@ -33,10 +33,12 @@
             android:id="@+id/imageViewCenter"
             android:layout_width="168dp"
             android:layout_height="168dp"
+            android:clickable="true"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:background="@android:color/transparent"
-            android:src="@android:drawable/ic_dialog_alert" />
+            android:src="@android:drawable/ic_dialog_alert"
+            android:focusable="true" />
 
         <ImageView
             android:id="@+id/imageViewRight2"
@@ -82,7 +84,9 @@
             android:background="@android:color/transparent"
             android:scaleType="fitXY"
             android:layout_marginLeft="8dp"
-            android:src="@android:drawable/ic_media_rew" />
+            android:src="@android:drawable/ic_media_rew"
+            android:contentDescription="Slide to Left button"
+            android:layout_marginStart="8dp" />
 
         <ImageButton
             android:id="@+id/imageButtonRight"
@@ -93,7 +97,10 @@
             android:layout_marginRight="8dp"
             android:background="@android:color/transparent"
             android:scaleType="fitXY"
-            android:src="@android:drawable/ic_media_ff" />
+            android:src="@android:drawable/ic_media_ff"
+            android:layout_marginEnd="8dp"
+            android:layout_alignEnd="@+id/imageViewRight1"
+            android:contentDescription="Slide to Right button" />
     </RelativeLayout>
 
 
