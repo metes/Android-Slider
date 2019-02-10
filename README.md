@@ -39,10 +39,8 @@ Usage example:
             mTextViewLabel = rootView.findViewById<View>(R.id.textViewCategoryLabel) as TextView
             val slider = rootView.findViewById<View>(R.id.slider)
             updateLabel(0)
-            // Helper (add slider view items)
+            // add slider view items
             mSlider = Slider(context!!, mSliderItemList!!, false, slider)
-
-
             mSlider!!.imageViewCenter1.setOnClickListener {
                 Toast.makeText(context!!, "center image clicked", Toast.LENGTH_SHORT).show()
             }
